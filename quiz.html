@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="device-width, initial-scale=1.0"/>
+    <title> Spell Checker - Quize</title>
+    <style>
+        * {box-sizing: border-box;margin:0; padding:0;}
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .card{
+           background: #ffffff;
+           border: 2px solid #b0b8c8;
+           border-radius: 14px;
+           padding: 2.8rem 3rem 2.2rem;
+           max-width: 100%;
+           width: 560px; 
+        }
+
+        .top-bar{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.4rem;
+        }
+
+        .q-label { font-size: 13px ; color: #666; }
+        .q-count { font-size: 22px ; font-weight: bold; color: #1a1a2e; }
+
+        .score-pill{
+            background: #f1f5f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .score-pill span {font-weight: bold; color: #1a1a2e;}
+
+        .progress-bar-bg{
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 6px;
+            margin-bottom: 1.8rem;
+            overflow: hidden;
+        }
+
+        /* confirm mahdiya - testers are muhammad and remas */
+
+        .progress-bar-fill {
+            height: 100%;
+            background: #1d4ed8;
+            border-radius: 6px;
+            transition: width 0.4s ease;
+        }
+
+        .hear-btn {
+            width: 100%;
+            border: 2px dashed #b0b8c8;
+            border-radius: 12px;
+            padding: 1.4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            background: #f8fafc;
+            cursor: pointer;
+            margin-bottom: 1.6rem;
+            transition: border-color 0.15s, background 0.15s;
+        }
+
+
+        .hear-btn:hover { border-color: #1d4ed8; background: #eff6ff;}
+
+        .hear-btn.speaking {
+            border-color: #1d4ed8;
+            border-style: solid;
+            background: #eff6ff;
+        }
+
+        .hear-icon {font-size: 32px;}
+
+        .hear-label{
+            font-size: 15px;
+            color: #1d4ed8;
+            font-weight: bold;
+        }
+
+        .hear-hint{ 
+            font-size: 12px; color: #999
+        }
+
+        .input-label{
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 6px;
+        }
+
+        .answer-input{
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 20px;
+            font-weight: bold;
+            border: 1.5px solid #b0b8c8;
+            border-radius: 8px;
+            background: #fff;
+            color: #1a1a2e;
+            outline: none;
+            text-align: center;
+            letter-spacing: 0.08em;
+            transition: border-color 0.15s;
+        }
+
+        .answer-input:focus {
+            border-color: #1d4ed8;
+            box-shadow: 0 0 0 3px #dbeafe;
+        }
+
+        .answer-input.correct{
+            border-color: #15803d;
+            background: #f0fdf4;
+            color: #15803d;
+        }
+
+
+        .answer-input.wrong{
+            border-color: #dc2626;
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .feedback{
+            min-height: 24px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 10px 0 16px;
+        }
+
+        .feedback.correct { color: #15803d;}
+        .feedback.wrong { color: #dc2626; }
+
+        .btn-row { display: flex; gap: 10px;}
+        .btn-replay {
+            flex: 1;
+            padding: 11px;
+            border: 1.5px solid #b0b8c8;
+            border-radius: 8px;
+            background: #fff;
+            font-size: 14px;
+            color: #555;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: background 0.12s;
+        }
+
+        .btn-replay:hover { background: #f1f5f9;}
+
+
+        
+        .worm{
+            width: 95px;
+            top: 140px;
+            left: 100px;
+            transform: rotate(25deg);
+        }
+
+        .hm{
+            width: 90px;
+            top: 100px;
+            right: 100px;
+        }
+
+        .hmm{
+            width: 120px;
+            bottom: 110px;
+            left: 80px;
+        }
+
+        .stars{
+            width: 110px;
+            bottom: 90px;
+            right: 100px;
+        }
+        .btn-next{
+            flex: 2;
+            padding: 11px;
+            border: none;
+            border-radius: 8px;
+            background: #1a1a2e;
+            color: #fff;
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            transition: opacity 0.15s;
+        }
+
+        .btn-next:hover { opacity: 0.85;}
+        .btn-next:active { transform: scale(0.98);}
+
+    .doodle{
+    position: fixed;
+    z-index: -1;
+    image-rendering: pixelated;
+    opacity: 0.9;
+}
+        </style>
+        </head>
+
+        <body>
+            <!--look whos here-->
+            <img src="worm.png" class="doodle worm">
+            <img src="hm.png" class="doodle hm">
+            <img src="hmm.png" class="doodle hmm">
+            <img src="pixiart-drawing.png" class="doodle stars">       
+     <div class="card">
+                  <div class="top-bar">
+                    <div>
+                        <div class="q-label">Question</div>
+                        <div class="q-count"><span id="qNum">1</span> / 10 </div>
+                    </div>
+                    <div class="score-pill">Score: <span id="scoreDisplay">0</span></div>
+                  </div>  
+
+                  <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressBar" style="width:10%"> </div>
+                  </div>
+
+                <button class="hear-btn" id="hearBtn" onclick="speakWord()">
+                    <span class="hear-icon">🔊</span>
+                    <span class="hear-label">Hear the word</span>
+                    <span class="hear-hint" id="hearHint">Click to listen</span>
+                </button>    
+
+                <p class="input-label">Type the spelling below:</p>
+                <input class="answer-input" type="text" id="answerInput"
+                placeholder="Type here..."
+                autocomplete="off" autocorrect="off" spellcheck="false"
+                onkeydown="if(event.key==='Enter') checkAndNext()" />
+
+                <div class="feedback" id="feedback"></div>
+
+                <div class="btn-row">
+                    <button class="btn-replay" onclick="speakWord()"> Replay</button>
+                    <button class="btn-next" id="nextBtn" onclick="checkAndNext()">NEXT </button>
+                </div>
+            </div>
+
+            <script
+src="https://code.responsivevoice.org/responsivevoice.js?key=QzMnSrg3"></script>
+
+
+<script>
+    const WORDS = [
+        "beautiful", "necessary", "receive", "separate", "occurrence",
+        "beginning", "disappear", "environment", "government", "knowledge"
+    ];
+
+    let current = 0, score = 0, answered = false;
+    let results = [], shuffled = [];
+
+    function shuffle(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function loadQuestion() {
+        answered = false;
+        const inp = document.getElementById('answerInput');
+        inp.value = '';
+        inp.className = 'answer-input';
+        inp.disabled = false;
+        document.getElementById('feedback').textContent = '';
+        document.getElementById('feedback').className = 'feedback';
+        document.getElementById('qNum').textContent = current + 1;
+        document.getElementById('progressBar').style.width = ((current + 1) / 10 * 100) + '%';
+        document.getElementById('hearHint').textContent = 'Click to listen';
+        document.getElementById('nextBtn').textContent = (current === 9) ? 'FINISH' : 'NEXT';
+        inp.focus();
+    }
+
+function speakWord() {
+    // js + terminal was an epic failure.
+    if (typeof responsiveVoice === "undefined"){
+        console.error("ResponsiveVoice not loaded");
+        return;
+    }
+    const word = shuffled[current];
+
+    document.getElementById('hearBtn').className = 'hear-btn speaking';
+    document.getElementById('hearHint').textContent = 'Speaking..';
+    responsiveVoice.speak(word, "UK English Female", {
+        rate: 0.9,
+        onend: function (){
+            document.getElementById('hearBtn').className = 'hear-btn';
+            document.getElementById('hearHint').textContent = 'click to listen again';
+        }
+    }
+
+    );
+}
+    function checkAnswer() {
+        if (answered) return true;
+        const inp = document.getElementById('answerInput');
+        const userAns = inp.value.trim().toLowerCase();
+        if (!userAns) { inp.focus(); return false; }
+        const correct = shuffled[current].toLowerCase();
+        answered = true;
+        inp.disabled = true;
+        const fb = document.getElementById('feedback');
+        if (userAns === correct) {
+            score++;
+            inp.classList.add('correct');
+            fb.textContent = 'Correct!';
+            fb.className = 'feedback correct';
+        } else {
+            inp.classList.add('wrong');
+            fb.textContent = 'Wrong! Correct spelling: ' + shuffled[current];
+            fb.className = 'feedback wrong';
+        }
+        results.push({ word: shuffled[current], yours: userAns, ok: userAns === correct });
+        document.getElementById('scoreDisplay').textContent = score;
+        return true;
+    }
+
+    function checkAndNext() {
+        if (!answered) {
+            const valid = checkAnswer();
+            if (!valid) return;
+            return;
+        }
+        if (current < 9) {
+            current++;
+            loadQuestion();
+        } else {
+            sessionStorage.setItem('spellScore', score);
+            sessionStorage.setItem('spellResults', JSON.stringify(results));
+            window.location.href = 'result.html';
+        }
+    }
+
+    shuffled = shuffle(WORDS);
+    loadQuestion();
+</script>
+
+</body>
+
+</html>

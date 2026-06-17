@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="device-width, inital-scale=1.0"/>
+
+    <style>
+        * {box-sizing: border-box;margin:0; padding:0;}
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .card{
+           background: #ffffff;
+           border: 2px solid #b0b8c8;
+           border-radius: 14px;
+           padding: 2.8rem 3rem 2.2 rem;
+           max-width: 100%;
+           width: 560px; 
+        }
+
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 0.5rem;
+        }
+
+        .app-header.icon{
+            font-size: 28px;
+        }
+
+        .app-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #1a1a2e;
+            text-align: center;
+        }
+
+        .app-subtitle {
+            font-size: 14 px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 1.8rem;
+            margin-top:0.4 rem;
+        }
+
+        .divider{
+            border: none;
+            border-top: 1px solid #e0e0e0;
+            margin-bottom: 1.4rem;
+        }
+
+        .instructions-label{
+            font-size: 11px;
+            font-weight: bold;
+            color: #999;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1 rem;
+        }
+
+        .steps {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 2 rem;
+        }
+
+        .step{
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: #dbeafe;
+            color: #1d4ed8;
+            font-size: 13px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .step-text {
+            font-size: 15px;
+            color: #222;
+            line-height: 1.65;
+            padding-top: 3px;
+        }
+
+        .step-text .highlight{
+            color: #1d4ed8;
+            font-weight: bold;
+        }
+
+        .start-row{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding-top: 1rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .start-hint {
+            font-size: 13px;
+            color: #555;
+        }
+
+        .btn-start {
+            background-color: #1a1a2e;
+            color: #ffffff;
+            border: none;
+            border-radius: 8 px;
+            padding: 13px 60px;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            margin-top: 4px;
+            transition: opacity 0.15s, transform 0.1s;
+        }
+
+        .worm{
+            width: 100px;
+            top: 60px;
+            left: 80px;
+            transform: rotate(-15deg);
+        }
+
+        .stars{
+            width: 120px;
+            top: 70px;
+            right: 100px;
+        }
+
+        .cat{
+            width: 140px;
+            bottom: 70px;
+            right: 80px;
+        }
+
+        .guy{
+            width: 110px;
+            bottom: 80px;
+            left: 100px;
+            transform: rotate(10deg);
+        }
+
+        .btn-start:hover { opacity: 0.82;}
+        .btn-start:active { transform: scale(0.97);}
+
+    .doodle{
+    position: fixed;
+    z-index: -1;
+    image-rendering: pixelated;
+    opacity: 0.9;
+}
+
+    
+    </style>
+    </head>
+
+<body>
+
+    <!-- doodles YAYAYAYYA-->
+    <img src="worm.png" class="doodle worm">
+    <img src="pixiart-drawing.png" class="doodle stars">
+    <img src="cat.png" class="doodle cat">
+    <img src="guy.png" class="doodle guy">
+    <div class="card">
+
+        <p classs="app-subtile">Hello participants! test your English language skill here</p>
+        <hr class="divider">
+        <p class="instructions-label">How this app works</p>
+    <o1 class="steps">
+        <li class="step">
+            <span class="step-num">1</span>
+            <span class="step-text">There are <span class="highlight">10 questions</span> in each section</span>   
+        </li>
+        <li class="step">
+            <span class="step-num">2</span>
+            <span class="step-text">Click to <span class="highlight">Hear the Word</span> button to listen to the word</span> 
+        </li>
+        <li class="step">
+            <span class="step-num">3</span>
+            <span class="step-text">Type the spelling of the word you heard in the box provided</span>
+        </li>
+        <li class="step">
+            <span class="step-num">4</span>
+            <span class="step-text">Click <span class="highlight">Next </span>to move to the following word </span>
+        </li>
+        <li class="step">
+            <span class="step-num">5</span>
+            <span class="step-text">After completing all 10 words, your <span class="highlight">final score </span> will be displayed</span>
+        </li>   
+    </o1>
+    <div class="start-row"
+    <p class="start-hint">When you are ready, press <strong>START</strong></p>
+    <button class="btn-start" onclick="startQuiz()">START</button>
+    </div>
+</div>
+
+<script>
+
+    // my sainty must be researched wohooo
+    function startQuiz(){
+        // Quiz screen in the Part 2
+        window.location.href='quiz.html'
+    }
+</script>
+
+</body>
+
+</html>
