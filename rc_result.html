@@ -3,8 +3,8 @@
 <head>
     <title>Language Master - Reading Comprehension Result</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.om" crossorigin>
-    <link href="https://fonts.googleapis.com/cc2?family=kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
     * { box-sizing: border-box; margin:0; padding: 0; }
@@ -28,11 +28,11 @@
         border: 2px solid #bcc8d7;
         border-radius: 18px 14px 20px 12px;
         padding: 2.7rem 3rem 2.3rem;
-        box-shadow: 0 5px 18px rgba(0,0,0,0:05);
+        box-shadow: 0 5px 18px rgba(0,0,0,0.05);
     }
 
-    .result-header { text-align: center; margin-bottom: 2 rem; }
-    .result-title { font-size: 2 rem; color: #243447; margin-bottom: 0.4rem; }
+    .result-header { text-align: center; margin-bottom: 2rem; }
+    .result-title { font-size: 2rem; color: #243447; margin-bottom: 0.4rem; }
     .result-msg { color: #6a7280; font-size: 1rem; }
 
     .score-box {
@@ -50,8 +50,8 @@
 
     .score-number { font-size: 3rem; font-weight: bold; color: #243447; }
     .score-divider { font-size: 2rem; color: #b8c4d2; }
-    .score-total { font-size: 2 rem; color: #b8c4d2; }
-    .score-label { margin-top: 4 px; text-align: center; color: #8b95a3; font-size: 0.9rem; }
+    .score-total { font-size: 2rem; color: #b8c4d2; }
+    .score-label { margin-top: 4px; text-align: center; color: #8b95a3; font-size: 0.9rem; }
 
     .summary-label {
         color: #8b95a3;
@@ -121,7 +121,7 @@
         transition: 0.15s;
     }
 
-    .btn-home:hove { background: #f8fbff; }
+    .btn-home:hover { background: #f8fbff; }
 
     .btn-retry {
         flex: 2;
@@ -136,7 +136,7 @@
         transition: 0.15s;
     }
 
-    .btn-retry:hover { opacity: 0.5; }
+    .btn-retry:hover { opacity: 0.9; }
     .btn-retry:active { transform: scale(0.98); }
 
     .doodle { position: fixed; z-index: -1; image-rendering:pixelated; opacity: 0.9; }
@@ -155,11 +155,22 @@
     <img src="guy.png" class="doodle guy">
 
     <div class="card">
+        <div class="result-header">
         <div class="result-title">Quiz Complete</div>
         <div class="result-msg" id="resultMsg"></div>
+        </div>
+
+    <div class="score-box">
+        <div>
+            <div style="display:flex; align-items:baseline; gap:6px; ">
+                <span class="score-number" id="scoreNumber">0</span>
+                <span class="score-divider">/</span>
+                <span class="score-total">10</span>
+            </div>
+            <div class="score-label">Your Score</div>
+        </div>
     </div>
-
-
+    
     <p class="summary-label">Answer Summary</p>
 
     <table>
@@ -180,6 +191,7 @@
         <button class="btn-retry" onclick="retryQuiz()">TRY AGAIN</button>
     </div>
 </div>
+
 <script>
     const score = parseInt(sessionStorage.getItem('rcScore')) || 0;
     const results = JSON.parse(sessionStorage.getItem('rcResults')) || [];
@@ -203,7 +215,7 @@
             lastSection = r.section;
             const sep = document.createElement('tr');
             sep.className = 'section-header';
-            sep.innerHTML = `<td colspan="5">${r.section}</td>;
+            sep.innerHTML = `<td colspan="5">${r.section}</td>`;
             tbody.appendChild(sep);
         }
 
@@ -214,7 +226,7 @@
         tr.innerHTML = `
         <td class="q-num">${i + 1}</td>
         <td>${r.question}</td>
-        <td class="correct -word">${r.correctAnswer}</td>
+        <td class="correct-word">${r.correctAnswer}</td>
         <td class="${cls}">${r.yourAnswer}</td>
         <td style="text-align:center">${status}</td>
         `;
