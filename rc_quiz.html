@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="device-width, initial-scale=1.0"/>
+        <title>Language Master : Reading Comprehension </title>
+        <style>
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f4f8;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem;
+            }
+
+            .card {
+                background: #ffffff;
+                border: 2px solid #b0b8c8;
+                border-radius: 14px;
+                padding: 2.8rem 3rem 2.2rem;
+                max-width: 100%;
+                width: 620px;
+            }
+
+
+            /* top bar */
+            .top-bar{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 1.4rem;
+            }
+
+            .q-label { font-size: 13px; color: #666; }
+            .q-count { font-size: 22px; font-weight: bold; color: #1a1a2e;}
+
+            .score-pill{
+                background: #f1f5f9;
+                border: 1px solid #e0e0e0;
+                border-radius: 20px;
+                padding: 4px 14px;
+                font-size: 13px;
+                color: #666;    
+            }
+
+            .score-pill span { font-weight: bold; color: #1a1a2e; }
+            
+            /* progress */
+            .progress-bar-bg {
+                height: 6px;
+                background: #e3e8f0;
+                border-radius: 6px;
+                margin-bottom: 1.6rem;
+                overflow: hidden;
+            }
+
+            .progress-bar-fill {
+                height: 100%;
+                background: #1d4ed8;
+                border-radius: 6px;
+                transition: width 0.4s ease;
+            }
+
+            .para-section {
+                background: #f8fafc;
+                border: 1.5px solid #dbeafe;
+                border-radius: 10px;
+                padding: 1.2rem 1.4rem;
+                margin-bottom: 1.4rem;
+            }
+
+
+            .para-label {
+                font-size: 11px;
+                font-weight: bold;
+                color: #1d4ed8;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                margin-bottom: 0.6rem;
+            }
+
+            .para-text {
+                font-size: 14.5px;
+                color: #222;
+                line-height: 1.75;
+            }
+
+            .question-text {
+                font-size: 16px;
+                font-weight: bold;
+                color: #1a1a2e;
+                margin-bottom: 1rem;
+                line-height: 1.5;
+            }
+
+            .options { display: flex; flex-direction: column; gap:10px; margin-bottom: 1.2rem; }
+
+            .option-btn {
+                width: 100%;
+                text-align: left;
+                padding: 11px 16px;
+                border: 1.5px solid #b0b8c8;
+                border-radius: 8px;
+                background: #fff;
+                font-size: 15px;
+                color: #1a1a2e;
+                cursor: pointer;
+                transition: border-color 0.12s, background 0.12s; display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+
+            .option-btn:hover:not(:disabled) { border-color: #1d4ed8; background: #eff6ff; }
+
+            .option-btn.selected { border-color: #1d4ed8; background: #eff6ff; }
+            .option-btn.correct { border-color: #15803d; background: #f0fdf4; color: #15803d; }
+            .option-btn.wrong { border-color: #dc2626; background: #fef2f2; color: #dc2626; }
+            .option-btn-reveal { border-color: #15803d; background: #f0fdf4; color: #15803d; }
+
+            .opt-letter {
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                border: 1.5px solid #b0b8c8;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 12px;
+                font-weight: bold;
+                flex-shrink: 0;
+                color: #555;
+            }
+
+
+            .option-btn.correct .opt-letter,
+            .option-btn.reveal .opt-letter ( border-color: #15803d; color: #15803d; )
+            .option-btn.wrong .opt-letter ( border-color: #dc2626; color: #dc2626; )
+            .optin-btn.selected .opt-letter { border-color: #1d4ed8; color: #1d4ed8; }
+
+            /* feedback */
+            .feedback {
+                min-height: 22px;
+                text-align: center;
+                font-size: 14px;
+                font-weight: bold;
+                margin-bottom: 14px;
+            }
+
+            .feedback.correct { color: #15803d; }
+            .feedback.wrong { color: #dc2626; }
+
+            .btn-row { display:flex; gap: 10px; }
+            .btn-next {
+                flex: 1;
+                padding: 11px;
+                border: none;
+                border-radius: 8px;
+                background: #1a1a2e;
+                color: #fff;
+                font-size: 15px;
+                font-weight: bold;
+                letter-spacing: 0.06rem;
+                cursor: pointer;
+                transition: opacity 0.15s;
+            }
+
+            .btn-next:hover { opacity: 0.85; }
+            .btn-next:active { transform: scale(0.98); }
+
+            .doodle {
+                position: fixed;
+                z-index: -1;
+                image-rendering: pixelated;
+                opacity: 0.9;
+            }
+
+
+            .worm { width: 95px; top: 140px; left: 100px; transform: rotate(25deg); }
+            .hm { width: 90px; top:100px; right:100 px;}
+            .hmm {width: 120px; bottom: 110px; left: 80px;}
+            .starts {width: 110px; bottom: 90px; right: 100px; }
+        </style>
+    </head>
+
+<body>
+    <img src="worm.png" class="doodle worm">
+    <img src="hm.png class="doodle hm">
+    <img src="hmm.png" class="doodle hmm">
+    <img src="pixiart-drawing.png" class="doodle starts">
+
+    <div class="card">
+        <div class="top-bar">
+            <div>
+                <div class="q-label">Question</div>
+                <div class="q-count"><span id="qNum">1</span></ / 10 </div>
+            </div>
+        </div>
+        <div class="score-pill">Score: <spab id="scoreDisplay">0</span></div>
+        <div class="progess-bar-bg">
+            <div class="progress-bar-fill" id="progessBar" style="width:10%"></div>
+        </div>    
+
+        <!-- paragraph display -->
+         <div class="para-section" id="paraSection">
+            <div class="para-label" id="paraLabel">Paragraph 1</div>
+
+        <!-- question -->
+        <p class="question-text" id="questionText"></p>
+        
+        <!-- options ABCD -->
+         <div class="options" id="optionsContainer"></div>
+
+         <div class="feedback" id="feedback"></div>
+
+         <div class="btn-row">
+            <button class="btn-next" id="nextBtn" onclick="handleNext()">NEXT</button>
+         </div>
+         </div>
+    
+<script>
+// Content
+
+const SECTIONS = [
+    {
+        label: "Paragraph 1",
+        paragraph: `Water is one of the most important substance on Earth. It covers about 71 percent 
+        of the planet's surface. and is essential for all known forms of line. Humans can survice only 
+        a few days without water, while they can go weeks without food. Water exists in three states:
+        liquid, solid(ice), and gas (water vapour). The water cycle describes how water moves
+        continuously through the environment - evaporating from ocean and lakes, rising as vapour, 
+        forming clouds, and falling back as rain or snow. Freshwater, which is suitable for drinking,
+        makes up only 3 percent of all water on Earth, and most of it is locked in glaciers and ice caps.
+        Rivers, lakes, and underground aquifirs supply the freshwater that people, animals, and plants
+        depend on. Protecting clean water sources is one of the most important environmental challanges
+        of our time`,
+        
+    questions: [
+        q: "What percentage of Earth's surface is covered by water"
+        options: ["About 50%, "About 61 percent", "About 71 percent", "About 81 percent"],
+        answer: 2
+    },
+    {
+        q: "How long can humans survive without water"
+        options: ["A few hours,"A few days","A few weeks", "A few months"],
+        answer: 1
+    },
+    {
+        q: "Which of the following is NOT a state in which water exists?"
+        options: ["Liquid","Plasma","Solid (ice)","Gas (water vapour"],
+        answer:2
+    },
+    {
+        q: "What does the water cycle describe?"
+        options: [
+            "How humas use water for farming",
+            "How water moves continously through the environment",
+            "How glaciers are formed",
+            "How rivers reach the ocean"
+        ],
+        answer: 1
+    },
+    {
+        q: "what fraction of all water on Earth is freshwater?",
+        options: ["About 71 percent","About 25 percent","About 10 percent","About 3 percent"],
+        answer: 3
+    }
+]
+},
+{
+    label: "Paragraph 2",
+    paragraph: `The sun is the star at the centre of our solar system. It is a nearly perfect
+    sphere of hot plasma and is by far the largest object in the solar system - about 109 times
+    the diameter of Earth. The sun's enormous gravity holds the solar system together, keeping
+    everythings from planets to comets in orbit around it. Energy from the sun is produced by
+    nuclear fusion in its core, where hydrogens atms combine to form helium, releasing vast
+    amounts of enrgy as light and heat. This energy travels approximately 150 million kilometers
+    to reach Earth in about eight minutes. Sunlight drives photosynthesis in plants, which forms
+    the base of almost all food chains on earth. The sun also influences Earth's climate and
+    weather patterns. Scientits estimate that the sun is almost 4.6 billions years old and will 
+    continue to shine for another 5 billion years`,
+    
+    questions: [
+        q: "How does the sun's diameter comparte to Earth's ? ",
+        options: [
+            "About 10 times the diameter of Earth",
+            "About 50 times the diamter of Earth",
+            "About 109 times the diamter of Earth",
+            "About 200 times the diamter of Earth"
+        ],
+        answer: 2
+    ],
+    {
+        q: "What process produces the sun's energy ?",
+        options: ["Chemical combustion","Nuclear fission","Nuclear Fusion","Solar radiation"],
+        answer: 2
+    },
+    {
+        q: "How long does it take sunlight to travel from the sun to Earth ?",
+        options: ["About 2 minutes","About 8 minutes","About 20 minutes","About 1 hour"],
+        answer: 1
+    },
+
+}
+
+
+    
+    
+        
+    }
+]
+
+
+</script>         
+
+</body>    
+</html>
