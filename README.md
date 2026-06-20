@@ -17,3 +17,9 @@ However, the project itself was primarily typed and assembled by me.
 
 signing off,
 erynn<3
+
+Revision History
+17-June-2026  Phase-1 of Language Master Project. 
+              This phase contains a Spell Check activity
+20-June-2026  Phase-2 of Language Master Project
+              This phase contains a Reading Comprehension activity 

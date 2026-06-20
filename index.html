@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang=""en">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="device-width", initial-scale=1.0"/>
+<meta name="viewport" content="device-width, initial-scale=1.0"/>
 <title>Language Master</title>
 <style>
     *{box-sizing: border-box; margin:0; padding:0;}
@@ -26,8 +26,8 @@
         width: 560px;
     }
 
-    #welcomeScreen ( display: block; )
-    #instructionScreen ( display: none; )
+    #welcomeScreen { display: block; }
+    #instructionScreen { display: none; }
 
     .app-title {
         font-size: 26px;
@@ -121,7 +121,7 @@
     .instr-icon { font-size: 26px; }
 
     .instr-title {
-        font-soze: 22px;
+        font-size: 22px;
         font-weight: bold;
         color: #1a1a2e;
     }
@@ -139,7 +139,7 @@
         color: #999;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        margin-bottom: 0.8 rem;
+        margin-bottom: 0.8rem;
     }
 
     .steps {
@@ -147,7 +147,7 @@
         display: flex;
         flex-direction: column;
         gap: 14px;
-        margin-bottom: 1.8 rem;
+        margin-bottom: 1.8rem;
     }
 
     .step {
@@ -205,7 +205,7 @@
         letter-spacing: 0.1rem;
         cursor: pointer;
         margin-top: 4px;
-        transition: opacity 0.15s, transform 01.s;
+        transition: opacity 0.15s, transform 0.1s;
     }
 
     .btn-start:hover { opacity: 0.82; }  
@@ -221,7 +221,7 @@
     .worm { width: 100px; top: 60px; left: 80px; transform: rotate(-15deg); }
     .stars { width: 120px; top: 70px; right: 100px; }
     .cat { width:140px; bottom: 70px; right: 80px; }
-    .guy { width: 110px; bottom: 80px; left: 100px; transform: rotate(10 deg); }
+    .guy { width: 110px; bottom: 80px; left: 100px; transform: rotate(10deg); }
     
 </style>
 </head>
@@ -230,9 +230,9 @@
 <body>
     <!-- doodles -->
     <img src="worm.png" class="doodle worm">
-    <img src="pixiart-drawing.png" class="doodle stars"
-    <img src="cat.png" class="doodle cat"
-    <img src="guy.png" class="doodle guy"
+    <img src="pixiart-drawing.png" class="doodle stars">
+    <img src="cat.png" class="doodle cat">
+    <img src="guy.png" class="doodle guy">
 
     <div class="card">
 
@@ -243,7 +243,7 @@
             <hr class="divider">
             <p class="choose-label">Choose your activity</p>
 
-            <div class="activity-grid>
+            <div class="activity-grid">
                 <div class="activity-card" id="cardSpell" onclick="selectActivity('spell')">
                     <div class="activity-icon"> </div>
                     <div class="activity-name">Spell Check</div>
@@ -258,19 +258,19 @@
     </div>
 
     <!-- SCREEN 2: INSTRUCTIONS -->
-     <div id="instructionsScreen">
+     <div id="instructionScreen">
         <button class="back-btn" onclick="goBack()"> Back </button>
 
         <!-- Spell Check Instructions -->
         <div id="instrSpell">
             <div class="instr-header">
                 <span class="instr-icon"></span>
-                <span class="instr-tile">Spell Check</span>
+                <span class="instr-title">Spell Check</span>
             </div>
             <p class="instr-subtitle">Test your English spelling skills</p>
             <hr class="divider">
-            <p class="instructions-label">How this workds</p>
-            <o1 class="steps">
+            <p class="instructions-label">How this works</p>
+            <ol class="steps">
                 <li class="step">
                     <span class="step-num">1</span>
                     <span class="step-text"> There are <span class="highlight">10 questions</span> in the activity </span>
@@ -283,15 +283,15 @@
                     <span class="step-num">3</span>
                     <span class="step-text">Type the word you heard in the box provided</span>
                 </li>
-                <li class="step"
-                <span clas="step-num">4</span>
+                <li class="step">
+                <span class="step-num">4</span>
                 <span class="step-text">Click <span class="highlight">Next</span> to move to the following word </span>
                 </li>
-                <li class="step"
+                <li class="step">
                 <span class="step-num">5</span>
                 <span class="step-text">After completing all 10 words, your <span class="highlight">final score</span> will be displayed</span>
-            </li>
-            </o1>
+                </li>
+            </ol>
             <div class="start-row">
                 <p class="start-hint">When you are ready, press <strong>START</strong></p>
                 <button class="btn-start" onclick="window.location.href='quiz.html'">START</button>
@@ -301,15 +301,16 @@
 
         <!-- Reading Comprehension instructions -->
         <div id="instrRC" style="display:none">
-            <div class="instr-header"
+            <div class="instr-header">
             <span class="instr-icon"> </span>
-            <span class="instr-tile">Reading Comprehension</span>
-        </div>
+            <span class="instr-title">Reading Comprehension</span>
+            </div>
+        
 
         <p class="instr-subtitle">Read, understand and answer questions</p>
         <hr class="divider">
         <p class="instructions-label">How this works</p>
-        <o1 class="steps">
+        <ol class="steps">
             <li class="step">
                 <span class="step-num">1</span>
                 <span class="step-text">You will read <span class="highlight"> 2 short paragraphs</span></span>
@@ -324,33 +325,34 @@
             </li>
             <li class="step">
                 <span class="step-num">4</span>
-                <span class="step-text">Click <span class="higtlight">Next</span> to move to the next questions </span>
+                <span class="step-text">Click <span class="highlight">Next</span> to move to the next questions </span>
             </li>
             <li class="step">
-                <span class="step-num">4</span>
-                <span class="step-text">After all 10 questions, your <span class="highlight"</span> will be displayed </span>
+                <span class="step-num">5</span>
+                <span class="step-text">After all 10 questions, your <span class="highlight">final score</span> will be displayed </span>
             </li>
-        </o1>
+        </ol>
 
         <div class="start-row">
             <p class="start-hint"> When you are ready, press <strong> START </strong></p>
             <button class="btn-start"
             onclick="window.location.href='rc_quiz.html'"> START </button>
         </div>
+        </div>
+        </div>
     </div>
-</div>
-</div>
+
 
 <script>
-    function selectAcitivty(type)
+    function selectActivity(type) {
     document.getElementById('welcomeScreen').style.display= 'none';
-    document.getElementByID('instructonScreen').style.display='block';
-    document.getElementByID('instrSpell').style.display= (type === 'spell') ? 'block' : 'none';
-    document.getElementByID('instrRC').style.display= (type === 'rc') ? 'block' : 'none';
-
+    document.getElementById('instructionScreen').style.display='block';
+    document.getElementById('instrSpell').style.display= (type === 'spell') ? 'block' : 'none';
+    document.getElementById('instrRC').style.display= (type === 'rc') ? 'block' : 'none';
+}
 function goBack() {
-    document.getElementByID('instructionScreen').style.display= 'none';
-    document.getElementByID('welcomeScreen').style.display= 'block';
+    document.getElementById('instructionScreen').style.display= 'none';
+    document.getElementById('welcomeScreen').style.display= 'block';
 }
 
 </script>
