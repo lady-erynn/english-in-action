@@ -304,15 +304,132 @@ const SECTIONS = [
         options: ["About 2 minutes","About 8 minutes","About 20 minutes","About 1 hour"],
         answer: 1
     },
+    {
+        q: "What important role does sunlight play on Earth ?",
+        options: [
+            "It melts glaciers to provide freshwater",
+            "It drives photosynthesis in plants",
+            "It creates earthquakes",
+            "It produces rainfall directly"
+        ],
+        answer: 1
+    },
+    {
+        q: "Approximately how old is the sun?",
+        options: ["1 billion years","2.5 billion years","4.8 billion years","10 billion years"],
+        answer: 2
+    }
+]
+}
+};
+
+let sectionIndex = 0;
+let qIndexInSection = 0;
+let globalQ = 0;
+let score=0;
+let answered = false;
+let results = [];
+
+const LETTERS = ['A','B','C','D'];
+
+function currentSection() { return SECTIONS[sectionIndex]; }
+function currentQuestion() { return currentSection().questions[qIndexInSection]; }
+
+function loadQuestion() {
+    answered = false;
+
+    const sec = currentSection();
+    const qData = currentQuestion();
+
+    document.getElementById('paraLabel').textContent = sec.label;
+    document.getElementById('paraText').textContent = sec.paragraph;
+
+    document.getElementById('qNum').textContent = globalQ + 1;
+    document.getElementByID('progressBar').style.width = ((globalQ + 1) / 10 * 100) + '%';
+    document.getElementByID('nextBtn').textContent = (globalQ === 9) ? 'FINISH' : 'NEXT' ;
+
+    document.getElementByID('questionText').textContent == qData.q;
+
+    const container = document.getElementByID('optionsContainer');
+    container.innerHTML = '';
+    qData.options.forEach((opt,i)) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<span class="opt-letter">${LETTERS[i]}</span> ${opt}`;
+        container.appendChild(btn);
+    });
+
+    document.getElementById('Feedback').textContent = '';
+    document.getElementByID('Feedback').className = 'feedback';
 
 }
 
+function selectOption(chosenIdx) {
+    if (answered) return;
+    answered = true;
+
+    const qData = currentQuestion();
+    const correct = qData.answer;
+    const isCorrect = (chosenIdx === correct);
+
+    const btns = document.querySelectorAll('.option-btn');
+    btns.forEach((btn, i) => {
+        btn.disabled = true;
+        if ( i === chosenIdx && isCorrect) btn.classList.add('corret');
+        if ( i === chosenIdx && !isCorrect) btn.classList.add('wrong');
+        if ( i === correct && !isCorrect) btn.classList.add('reveal');
+    });
+
+    const fb = document.getElementById('feedback');
+
+    if (isCorrect) {
+        score++;
+        fb.textContent = 'Corrrect!';
+        fb.className = 'feedback correct';
+    }
+    else {
+        fb.textContent = 'Wrong! Correct answer: ' + LETTERS[correct];
+        fb.className = 'feedback wrong';
+    }
+
+    document.getElementById('scoreDisplay').textContent = score;
+
+    results.push({
+        section: currentSection().label,
+        question: qData.q,
+        correctAnswer: qData.options[correct],
+        yourAnswer: qData.options[chosenIdx],
+        ok: isCorrect
+    });
+}
+
+function handleNext() {
+    if (!answered) return;
+
+    globalQ++;
+    qIndexInSection++;
+
+    if (qIndexInSection === 5 && sectionIndex === 0) {
+        sectionIndex = 1;
+        qIndexInSection = 0;
+    }
+
+    if (globalQ < 10) {
+        loadQuestion();
+    } else {
+        sessionStorage.setItem('rcScore', score);
+        sessionStorage.setItem('rcResults', JSON.stringify(results));
+        window.location.href = 'rc_result.html';
+    }
+}
+
+loadQuestions();
+</script>
 
     
     
-        
-    }
-]
+    
+
 
 
 </script>         
