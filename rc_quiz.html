@@ -120,7 +120,7 @@
             .option-btn.selected { border-color: #1d4ed8; background: #eff6ff; }
             .option-btn.correct { border-color: #15803d; background: #f0fdf4; color: #15803d; }
             .option-btn.wrong { border-color: #dc2626; background: #fef2f2; color: #dc2626; }
-            .option-btn-reveal { border-color: #15803d; background: #f0fdf4; color: #15803d; }
+            .option-btn.reveal { border-color: #15803d; background: #f0fdf4; color: #15803d; }
 
             .opt-letter {
                 width: 24px;
@@ -138,9 +138,9 @@
 
 
             .option-btn.correct .opt-letter,
-            .option-btn.reveal .opt-letter ( border-color: #15803d; color: #15803d; )
-            .option-btn.wrong .opt-letter ( border-color: #dc2626; color: #dc2626; )
-            .optin-btn.selected .opt-letter { border-color: #1d4ed8; color: #1d4ed8; }
+            .option-btn.reveal .opt-letter { border-color: #15803d; color: #15803d; }
+            .option-btn.wrong .opt-letter { border-color: #dc2626; color: #dc2626; }
+            .option-btn.selected .opt-letter { border-color: #1d4ed8; color: #1d4ed8; }
 
             /* feedback */
             .feedback {
@@ -181,34 +181,36 @@
 
 
             .worm { width: 95px; top: 140px; left: 100px; transform: rotate(25deg); }
-            .hm { width: 90px; top:100px; right:100 px;}
+            .hm { width: 90px; top:100px; right:100px;}
             .hmm {width: 120px; bottom: 110px; left: 80px;}
-            .starts {width: 110px; bottom: 90px; right: 100px; }
+            .stars {width: 110px; bottom: 90px; right: 100px; }
         </style>
     </head>
 
 <body>
     <img src="worm.png" class="doodle worm">
-    <img src="hm.png class="doodle hm">
+    <img src="hm.png" class="doodle hm">
     <img src="hmm.png" class="doodle hmm">
-    <img src="pixiart-drawing.png" class="doodle starts">
+    <img src="pixiart-drawing.png" class="doodle stars">
 
     <div class="card">
         <div class="top-bar">
             <div>
                 <div class="q-label">Question</div>
-                <div class="q-count"><span id="qNum">1</span></ / 10 </div>
+                <div class="q-count"><span id="qNum">1</span> / 10 </div>
             </div>
+            <div class="score-pill">Score: <span id="scoreDisplay">0</span></div>
         </div>
-        <div class="score-pill">Score: <spab id="scoreDisplay">0</span></div>
-        <div class="progess-bar-bg">
-            <div class="progress-bar-fill" id="progessBar" style="width:10%"></div>
+        
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar" style="width:10%"></div>
         </div>    
 
         <!-- paragraph display -->
          <div class="para-section" id="paraSection">
             <div class="para-label" id="paraLabel">Paragraph 1</div>
-
+            <p class="para-text" id="paraText"></p>
+         </div>
         <!-- question -->
         <p class="question-text" id="questionText"></p>
         
@@ -240,22 +242,23 @@ const SECTIONS = [
         of our time`,
         
     questions: [
-        q: "What percentage of Earth's surface is covered by water"
-        options: ["About 50%, "About 61 percent", "About 71 percent", "About 81 percent"],
+    {
+        q: "What percentage of Earth's surface is covered by water",
+        options: ["About 50%", "About 61 percent", "About 71 percent", "About 81 percent"],
         answer: 2
     },
     {
-        q: "How long can humans survive without water"
-        options: ["A few hours,"A few days","A few weeks", "A few months"],
+        q: "How long can humans survive without water",
+        options: ["A few hours","A few days","A few weeks", "A few months"],
         answer: 1
     },
     {
-        q: "Which of the following is NOT a state in which water exists?"
-        options: ["Liquid","Plasma","Solid (ice)","Gas (water vapour"],
+        q: "Which of the following is NOT a state in which water exists?",
+        options: ["Liquid","Plasma","Solid (ice)","Gas (water vapour)"],
         answer:2
     },
     {
-        q: "What does the water cycle describe?"
+        q: "What does the water cycle describe?",
         options: [
             "How humas use water for farming",
             "How water moves continously through the environment",
@@ -269,8 +272,7 @@ const SECTIONS = [
         options: ["About 71 percent","About 25 percent","About 10 percent","About 3 percent"],
         answer: 3
     }
-]
-},
+],
 {
     label: "Paragraph 2",
     paragraph: `The sun is the star at the centre of our solar system. It is a nearly perfect
@@ -285,6 +287,7 @@ const SECTIONS = [
     continue to shine for another 5 billion years`,
     
     questions: [
+        {
         q: "How does the sun's diameter comparte to Earth's ? ",
         options: [
             "About 10 times the diameter of Earth",
@@ -293,7 +296,7 @@ const SECTIONS = [
             "About 200 times the diamter of Earth"
         ],
         answer: 2
-    ],
+        },
     {
         q: "What process produces the sun's energy ?",
         options: ["Chemical combustion","Nuclear fission","Nuclear Fusion","Solar radiation"],
@@ -318,10 +321,10 @@ const SECTIONS = [
         q: "Approximately how old is the sun?",
         options: ["1 billion years","2.5 billion years","4.8 billion years","10 billion years"],
         answer: 2
-    }
-]
 }
-};
+    ]
+}
+];
 
 let sectionIndex = 0;
 let qIndexInSection = 0;
@@ -345,22 +348,23 @@ function loadQuestion() {
     document.getElementById('paraText').textContent = sec.paragraph;
 
     document.getElementById('qNum').textContent = globalQ + 1;
-    document.getElementByID('progressBar').style.width = ((globalQ + 1) / 10 * 100) + '%';
-    document.getElementByID('nextBtn').textContent = (globalQ === 9) ? 'FINISH' : 'NEXT' ;
+    document.getElementById('progressBar').style.width = ((globalQ + 1) / 10 * 100) + '%';
+    document.getElementById('nextBtn').textContent = (globalQ === 9) ? 'FINISH' : 'NEXT' ;
 
-    document.getElementByID('questionText').textContent == qData.q;
+    document.getElementById('questionText').textContent = qData.q;
 
-    const container = document.getElementByID('optionsContainer');
+    const container = document.getElementById('optionsContainer');
     container.innerHTML = '';
-    qData.options.forEach((opt,i)) => {
+    qData.options.forEach((opt,i) => {
         const btn = document.createElement('button');
         btn.className = 'option-btn';
         btn.innerHTML = `<span class="opt-letter">${LETTERS[i]}</span> ${opt}`;
+        btn.onclick = () => selectOption(i);
         container.appendChild(btn);
     });
 
-    document.getElementById('Feedback').textContent = '';
-    document.getElementByID('Feedback').className = 'feedback';
+    document.getElementById('feedback').textContent = '';
+    document.getElementById('feedback').className = 'feedback';
 
 }
 
@@ -375,7 +379,7 @@ function selectOption(chosenIdx) {
     const btns = document.querySelectorAll('.option-btn');
     btns.forEach((btn, i) => {
         btn.disabled = true;
-        if ( i === chosenIdx && isCorrect) btn.classList.add('corret');
+        if ( i === chosenIdx && isCorrect) btn.classList.add('correct');
         if ( i === chosenIdx && !isCorrect) btn.classList.add('wrong');
         if ( i === correct && !isCorrect) btn.classList.add('reveal');
     });
@@ -384,7 +388,7 @@ function selectOption(chosenIdx) {
 
     if (isCorrect) {
         score++;
-        fb.textContent = 'Corrrect!';
+        fb.textContent = 'Correct!';
         fb.className = 'feedback correct';
     }
     else {
@@ -423,16 +427,7 @@ function handleNext() {
     }
 }
 
-loadQuestions();
+loadQuestion();
 </script>
-
-    
-    
-    
-
-
-
-</script>         
-
 </body>    
 </html>
