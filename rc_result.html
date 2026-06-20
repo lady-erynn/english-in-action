@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Language Master - Reading Comprehension Result</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.om" crossorigin>
+    <link href="https://fonts.googleapis.com/cc2?family=kalam:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+    * { box-sizing: border-box; margin:0; padding: 0; }
+
+    body {
+        font-family: 'Kalam', cursive;
+        background: #eef4fb;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    .card {
+        width: 680px;
+        max-width: 100%;
+        background: white;
+        border: 2px solid #bcc8d7;
+        border-radius: 18px 14px 20px 12px;
+        padding: 2.7rem 3rem 2.3rem;
+        box-shadow: 0 5px 18px rgba(0,0,0,0:05);
+    }
+
+    .result-header { text-align: center; margin-bottom: 2 rem; }
+    .result-title { font-size: 2 rem; color: #243447; margin-bottom: 0.4rem; }
+    .result-msg { color: #6a7280; font-size: 1rem; }
+
+    .score-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f8fbff;
+        border: 2px solid #d9e4ef;
+        border-radius: 14px 18px 13px 17px;
+        padding: 1.2rem;
+        margin-bottom: 2rem;
+        transform: rotate(-1deg);
+    }
+
+
+    .score-number { font-size: 3rem; font-weight: bold; color: #243447; }
+    .score-divider { font-size: 2rem; color: #b8c4d2; }
+    .score-total { font-size: 2 rem; color: #b8c4d2; }
+    .score-label { margin-top: 4 px; text-align: center; color: #8b95a3; font-size: 0.9rem; }
+
+    .summary-label {
+        color: #8b95a3;
+        margin-bottom: 0.8rem;
+        letter-spacing: 2px;
+        text-transform: lowercase;
+        font-size: 0.85rem;
+    }
+
+
+    .section-header td {
+        background: #32465a;
+        color: white;
+        font-size: 0.85rem;
+        padding: 8px 12px;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+    }
+
+
+    thead tr { background: #32465a; color: white; }
+    thead th {
+        padding: 10px 12px;
+        text-align: left;
+        font-size: 0.85rem;
+    }
+
+    thead th:last-child { text-align: center; }
+
+    tbody tr:nth-child(even) { background: #f7fbff; }
+
+    tbody td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #e4ebf3;
+        color: #243447;
+        vertical-align: top;
+    }
+
+
+    .q-num { color: #7a8694; font-weight: bold; white-space: nowrap; }
+
+    .correct-word { font-weight: bold; }
+
+    .your-answer-correct { color: #4c8b57; font-weight: bold; }
+    .your-answer-wrong { color: #b75a5a; font-weight: bold;}
+
+    .btn-row { display: flex; gap: 12px; }
+
+    .btn-home {
+        flex: 1;
+        background: white;
+        border: 2px solid #d4deea;
+        border-radius: 14px 10px 16px 12px;
+        padding: 12px;
+        cursor: pointer;
+        font-family: 'Kalam', cursive;
+        font-size: 1rem;
+        color: #66717f;
+        transition: 0.15s;
+    }
+
+    .btn-home:hove { background: #f8fbff; }
+
+    .btn-retry {
+        flex: 2;
+        border: none;
+        background: #32465a;
+        color: white;
+        padding: 12px;
+        cursor: pointer;
+        border-radius: 13px 17px 11px 15px;
+        font-family: 'Kalam', cursive;
+        font-size: 1rem;
+        transition: 0.15s;
+    }
+
+    .btn-retry:hover { opacity: 0.5; }
+    .btn-retry:active { transform: scale(0.98); }
+
+    .doodle { position: fixed; z-index: -1; image-rendering:pixelated; opacity: 0.9; }
+    .stars { width:130px; top: 70px; right: 100px; }
+    .worm { width: 100px; top: 80px; left: 90px; transform: rotate(180deg); }
+    .cat{width:140px; right: 70px; bottom: 80px; }
+    .guy { width: 100px; left: 200px; bottom: 70px; transform: rotate(-8deg);}
+
+</style>    
+</head>
+
+<body>
+    <img src="pixiart-drawing.png" class="doodle stars">
+    <img src="worm.png" class="doodle worm">
+    <img src="cat.png" class="doodle cat">
+    <img src="guy.png" class="doodle guy">
+
+    <div class="card">
+        <div class="result-title">Quiz Complete</div>
+        <div class="result-msg" id="resultMsg"></div>
+    </div>
+
+
+    <p class="summary-label">Answer Summary</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Q</th>
+                <th>Question</th>
+                <th>Correct Answer</th>
+                <th>Your Answer</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody id="summaryBody"></tbody>
+    </table>
+
+    <div class="btn-row">
+        <button class="btn-home" onclick="goHome()">Home</button>
+        <button class="btn-retry" onclick="retryQuiz()">TRY AGAIN</button>
+    </div>
+</div>
+<script>
+    const score = parseInt(sessionStorage.getItem('rcScore')) || 0;
+    const results = JSON.parse(sessionStorage.getItem('rcResults')) || [];
+
+    function getMessage(s) {
+        if (s === 10 ) return "perfect score! you read well";
+        if (s >= 8 ) return "really strong reading!";
+        if (s >= 6 ) return "not bad. a few details slipped by";
+        if ( s>= 4 ) return "keep reading, you'll get there";
+        return "re-read the paragraphs and try again";
+    }
+
+    document.getElementById('scoreNumber').textContent = score;
+    document.getElementById('resultMsg').textContent = getMessage(score);
+
+    const tbody = document.getElementById('summaryBody');
+    let lastSection='';
+
+    results.forEach((r, i) => {
+        if (r.section !== lastSection) {
+            lastSection = r.section;
+            const sep = document.createElement('tr');
+            sep.className = 'section-header';
+            sep.innerHTML = `<td colspan="5">${r.section}</td>;
+            tbody.appendChild(sep);
+        }
+
+        const tr = document.createElement('tr');
+        const cls = r.ok ? 'your-answer-correct' : 'your-answer-wrong';
+        const status = r.ok ? 'nice' : 'oops';
+
+        tr.innerHTML = `
+        <td class="q-num">${i + 1}</td>
+        <td>${r.question}</td>
+        <td class="correct -word">${r.correctAnswer}</td>
+        <td class="${cls}">${r.yourAnswer}</td>
+        <td style="text-align:center">${status}</td>
+        `;
+        tbody.appendChild(tr);
+
+    });
+
+    function goHome() { window.location.href = 'index.html'; }
+    function retryQuiz() { window.location.href = 'rc_quiz.html';}
+</script>
+</body>
+
+</html>
