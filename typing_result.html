@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <tilte>Language Master - Typing Skill Result</tilte>
-        <link rel="preconnect" href="https://font.googleapis.com">
+        <title>Language Master - Typing Skill Result</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&dispay=swap" rel="styleshet">
+        <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
 
         <style>
             * { box-sizing: border-box; margin: 0; padding: 0; }
 
             body{
-                font-samily: 'Kalam', cursive;
+                font-family: 'Kalam', cursive;
                 background: #eef4fb;
                 min-height: 100vh;
                 display: flex;
@@ -29,7 +29,7 @@
                 border: 2px solid #bcc8d7;
                 border-radius: 18px 14px 20px 12px;
                 padding: 2.7rem 3rem 2.3rem;
-                box-shadow: 0 5px 18px rbga(0,0,0,0.5);
+                box-shadow: 0 5px 18px rgba(0,0,0,0.05);
             }
 
 
@@ -103,9 +103,11 @@
             .your-answer-correct { color: #4c8b57; font-weight: bold; }
             .your-answer-wrong { color: #b75a5a; font-weight: bold;}
 
+            .btn-row { display: flex; gap: 12px; }
+            
             .btn-home {
                 flex: 1;
-                background: 2px solid #d4deea;
+                background: white ;
                 border: 2px solid #d4deea;
                 border-radius: 14px 10px 16px 12px;
                 padding: 12px;
@@ -132,11 +134,11 @@
             }
 
             .btn-retry:hover { opacity: 0.9; }
-            .btn-retry:active { transform: scale (0.98);}
+            .btn-retry:active { transform: scale(0.98);}
 
             .doodle { position: fixed; z-index:-1; image-rendering:pixelated; opacity:0.9; }
             .stars { width: 130px; top: 70px; right: 100px; }
-            .worm { width: 100px; top:80px; left: 90px; transform: rotate(180 deg);}
+            .worm { width: 100px; top:80px; left: 90px; transform: rotate(180deg);}
             .cat { width: 140px; right: 70px; bottom: 80px; }
             .guy { width: 100px; left: 200px; bottom: 70px; }
         </style>
@@ -157,7 +159,7 @@
 
         <div class="score-box">
             <div>
-                <div style="display:flex"; align-items:baseline; gap:6px;>
+                <div style="display:flex; align-items:baseline; gap:6px;">
                     <span class="score-number" id="scoreNumber">0</span>
                     <span class="score-divider">/</span>
                     <span class="score-total" id="totalAttempts">10</span>
@@ -166,9 +168,9 @@
             </div>
         </div>
 
-        <p class="summary-label">Attempt Summar</p>
+        <p class="summary-label">Attempt Summary</p>
 
-        <div class="targer-ref">
+        <div class="target-ref">
             <strong>Target:</strong> The quick brown fox jumps over the lazy dog
         </div>
 
@@ -206,7 +208,7 @@
     }
 
     document.getElementById('scoreNumber').textContent = score;
-    document.getElementById('totalAttempts').textContent= attemps;
+    document.getElementById('totalAttempts').textContent= attempts;
     document.getElementById('resultMsg').textContent = getMessage(score,attempts);
 
     const tbody = document.getElementById('summaryBody');
@@ -224,11 +226,8 @@
             <td style="text-align:center">${status}</td>
             `;
             tbody.appendChild(tr);
-        
-    }
-
-
-);
+    });
+    
 
 function escapeHtml(str){
         return str
