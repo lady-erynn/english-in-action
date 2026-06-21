@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="device-width", initial-scale=1.0"/>
+        <title>Language Master : Listening Comprehension</title>
+        <style>
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f4f8;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem;
+            }
+
+            .card {
+                background: #ffffff;
+                border: 2px solid #b0b8c8;
+                border-radius: 14px;
+                padding: 2.8rem 3rem 2.2rem;
+                max-width: 100%;
+                width: 620px;
+            }    
+
+            .top-bar{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 1.4rem;
+            }
+
+            .q-label { font-size: 13px; color: #666; }
+            .q-count { font-size: 22px; font-weight: bold; color: #1a1a2e; }
+
+            .score-pill {
+                background: #f1f5f9;
+                border: 1px solid #e0e0e0;
+                border-radius: 20px;
+                padding: 4px 14px;
+                font-size: 13px;
+                color: #666;
+            }
+
+            .score-pill {
+                background: #f1f5f9;
+                border: 1px solid #e0e0e0;
+                border-radius: 20px;
+                padding: 4px 14px;
+                font-size: 13px;
+                color: #666;
+            }
+
+            .score-pill span { font-weight: bold; color: #1a1a2e; }
+
+            .progress-bar-gb{
+                height: 6px;
+                background: #e3e8f0;
+                border-radius: 6px;
+                margin-bottom: 1.6rem;
+                overflow: hidden;
+            }
+
+            .progess-bar-fill {
+                height: 100%;
+                background: #1d4ed8;
+                border-radius: 6px;
+                transition: width 0.4s ease;
+            }
+
+            .speech-section {
+                background: #f8fafc;
+                border: 1.5px solid #dbeafe;
+                border-radius: 10px;
+                padding: 1.2rem 1.4rem;
+                margin-bottom: 1.4rem;
+            }
+
+            .speech-label {
+                font-size: 11px;
+                font-weight: bold;
+                color: #1d4ed8;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                margin-bottom: 0.8rem;
+            }
+
+            .hear-btn {
+                width: 100%;
+                border: 2px dashed #b0b8c8;
+                border-radius: 12px;
+                padding: 1.2rem;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                background: #fff;
+                cursor: pointer;
+                transition: border-color 0.15s, background 0.15s;
+            }
+
+            .hear-btn:hover { border-color: #1d4ed8; background: #eff6ff; }
+            .hear-btn.speaking {
+                border-color: #1d4ed8;
+                border-style: solid;
+                background: #eff6ff;
+            }
+
+            .hear-icon { font-size: 26px; flex-shrink: 0;}
+            .hear-text-col { display: flex; flex-direction: column; gap: 2px; text-align: left; }
+
+            .hear-label { font-size: 15px; color: #1d4ed8; font-weight: bold; }
+            .hear-hint { font-size: 12px; color: #999; }
+
+            .replay-row {
+                display: flex;
+                justify-content: flex-end;
+                margin-top: 0.6rem;
+            }
+
+            .btn-replay-small {
+                background: none;
+                border: 1px solid #b0b8c8;
+                border-radius: 6px;
+                padding: 4px 12px;
+                font-size: 12px;
+                color: #555;
+                cursor: pointer;
+                transition: background 0.12s;
+            }
+
+            .btn-replay-small.hover { background: #f1f5f9; }
+
+            .question-text {
+                font-size: 16px;
+                font-weight: bold;
+                color: #1a1a2e;
+                margin-bottom: 1rem;
+                line-height: 1.5;
+            }
+
+            .options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.2rem; }
+            .options-btn {
+                width: 100%;
+                text-align: left;
+                padding: 11px 16px;
+                border: 1.5px solid #b0b8c8;
+                border-radius: 8px;
+                background: #fff;
+                font-size: 15px;
+                color: #1a1a2e;
+                cursor: pointer;
+                transition: border-color 0.12s, background 0.12s;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .option-btn:hover:not(:disabled) { border-color: #1d4ed8; background: #eff6ff; }
+            .option-btn.selected { border-color: #1d4ed8; background: #eff6ff; }
+            .option-btn.correct { border-color: #15803d; background: #f0fdf4; color: #15803d; }
+            .option-btn.wrong { border-color: #dc2626; background: #fef2f2; color: #dc2626; }
+            .option-btn.reveal { border-color: #15803d; background: #f0fdf4; color: #15803d; }
+
+            .opt-letter{
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                border: 1.5px solid #b0b8c8;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 12px;
+                font-weight: bold;
+                flex-shrink: 0;
+                color: #555;
+            }
+
+            .option-btn.correct .opt-letter,
+            .option-btn.reveal .opt-letter { border-color: #15803d; color: #15803d; }
+            .option-btn.wrong .opt-letter { border-color: #dc2626; color: #dc2626; }
+            .option-btn.selected .opt-letter { border-color: #1d4ed8; color: #1d4ed8; }
+
+            .feedback{
+                min-height: 22px;
+                text-align: center;
+                font-size: 14px;
+                font-weight: bold;
+                margin-bottom: 14px;
+            }
+
+            .feedback.correct { color: #15803d; }
+            .feedback.wrong { color: #dc2626; }
+
+            .btn-row { display:flex; gap: 10px; }
+            .btn-next {
+                flex: 1;
+                padding: 11px;
+                border: none;
+                border-radius: 8px;
+                background: #1a1a2e;
+                color: #fff;
+                font-size: 15px;
+                font-weight: bold;
+                letter-spacing: 0.06rem;
+                cursor: pointer;
+                transition: opacity 0.15s;
+            }
+
+            .btn-next:hover { opacity: 0.85; }
+            .btn-next:active { transform: scale(0.98); }
+
+            .doodle {
+                position: fixed;
+                z-index: -1;
+                image-rendering: pixelated;
+                opacity: 0.9;
+            }
+
+            .worm { width: 95px; top: 140px; left: 100px; transform: rotate(25deg);}
+            .hm { width: 90px; top: 100px; right: 100px; }
+            .hmm { width: 120px; bottom: 110px; left: 80px; }
+            .stars { width: 110px; bottom: 90px; right: 100px; }
+        </style>
+    </head>
+
+    <body>
+        <img src = "worm.png" class = "doodle worm">
+        <img src ="hm.png" class ="doodle hm">
+        <img src = "pixilart-drawing.png" class="doodle stars">
+
+        <div class ="card">
+            <div class ="top-bar">
+                <div>
+                    <div class ="q-label">Question</div>
+                    <div class ="q-count"><span id = "scoreDisplay">0</span></div>
+                </div>
+                <div class ="score-pill">Score- <span id="scoreDisplay">0</span></div>
+            </div>
+            <div class="progress-bar-bg">
+                <div class=""progress-bar-fill" id="progressBar" style="width:10%"></div>
+            </div>
+
+            <div class = "speech-section">
+                <div class="peech-label" id="speechLabel">Speec 1</div>
+                <button class="hear-btn" id="hearBtn" onclick="speakSpeech()">
+                    <span class="hear">HEAR</span>
+                    <div class="hear-text-col">
+                        <span class="hear label">Listen to the speech</span>
+                        <span class="hearHint" id="hearHint">Click to listen before you answer</span>
+                    </div>
+                </button>
+                <div class ="replay-row">
+                    <button class="btn-replay-small" onclick="speakSpeech()">Replay</button>
+                </div>
+            </div>
+
+            <!--questionsss....riddles in the dark....-->
+
+            <p class="question-text" id ="questionText"></p>
+            <div class="options" id="optionsContainer"></div>
+            <div class="feedback" id="feedback"></div>
+
+            <div class="btn-row">
+                <button class="btn-next" id = "nextBtn" onclick="handleNext()">NEXT</button>
+            </div>
+        </div>
+
+        <script src="https://code.responivevoice.org/responsivevoice.js?key=QzMnSrg"></script>
+
+        <script>
+            const SECTIONS = [
+                {
+                label: "speech 1",
+                    speech: 'The Amazon Rainforest is often called the lungs of the earth because it produces about twenty percent of the oxygen of the world. It covers more than five and a half million square kilometers across nine countries in South America. The forest is home to an extraordinay variety if life. Scientists estimte it contains around ten percent of all living specis on Earth. Unfortunately, deforestation driven by farming, logging and mining has destroyed large seas of the rainforest. Protecting the Amazon is considered important for biodiversity and for regulating global climate',
+
+                    questions: [
+                        {
+                            q: "Why is the Amazon rainforest called the lungs of the Earth?",
+                            options: [
+                                "Because it is very large",
+                                "Because it produces about twenty percent of the world's oxygen",
+                                "Because it contains many rivers",
+                                "Because it regulated rainfall"
+                            ],
+                            answer: 1
+                        },
+                        {
+                            q: "How many countries does the Amazon rainforest span?",
+                            options: ["Five","Seven","Nine","Twelve"],
+                            answer: 2
+                        },
+                        {
+                            q: "Approximately what fraction of all species on Earth live in the Amazon?",
+                            option: ["One percent","Five percent","Ten percent","Twenty-five percent"],
+                            answer: 2
+                        },
+                        {
+                            q: "According to the speech, why is protecting the Amazon considered important?",
+                            option: [
+                                "It supplies freshwater to cities",
+                                "It is a major tourist destionation",
+                                "It is important for biodiversity and regulating the global climate",
+                                "It contains large amount of minerals"
+                            ],
+                            answer: 2
+                        }
+                    ]
+                },
+                {
+                    label: "Speech 2",
+                    speech: `Libraries have been at the heart of communities for thousand of years, serving as
+                    places where knowledge is started and shared freely. Today, public libraries offer far more
+                    than books - they provide access to computers, internet, language classes, and community 
+                    events. Studies hae shown that children who visit libraries regularly tend to develop
+                    stronger reading and language skills. Libraries also play a vital role in supporting
+                    people who cannot afford to buy books or access the internet at home. Despite the rise
+                    of digital technology, libraries remain one of the most values public services in 
+                    countries around the world.`,
+
+                    questions: [
+                        {
+                            q: "How long have libraries been serving communities?",
+                            options: [
+                                "For about one hundered years",
+                                "For thousand of years",
+                                "Since the invention of the printing press",
+                                "Since the twentieth century"
+                            ],
+                            answer: 1
+                        },
+                        {
+                            q: "Which of the following is mentioned as something modern libraries provide?",
+                            options: ["Free meals","Language Classes","Medical advice","Sports facilities"],
+                            answer: 2
+                        }
+                        {
+                            q: "What benefit do children who visit libraries regularly gain?",
+                            options: [
+                                "Better mathematics skills",
+                                "Stronger reading and language skills",
+                                "Improved memory",
+                                "Greater confidance in sports"
+                            ],
+                            answer: 1
+                        },
+                        {
+                            q: "Who do libraries especially support, according to the speech?",
+                            options: [
+                                "Government workers",
+                                "University students",
+                                "People who cannot afford books or home internet",
+                                "Teachers and educators"
+                            ],
+                            answer: 2
+                        },
+                        {
+                            q: "What challenge do libraries face today?",
+                            options: [
+                                "Lack of government funding",
+                                "Not enough books",
+                                "The rise of digital technology",
+                                "Fewer people living in cities"
+                            ],
+                            answer: 2
+                        }
+                    ]
+                }
+            ];
+
+let sectionIndex = 0;
+let qIndexInSection = 0;
+let globalQ = 0;
+let score = 0;
+let answered = false;
+let results = [];
+
+const LETTERS = ['A','B','C','D'];
+
+function currentSection() { return SECTIONS[sectionIndex]; }
+function currentQuestion() { return currentSection().questions[qIndexInSection];}
+
+function speakSpeech() {
+    if (typeof responsiveVoice === "undefined") {
+        console.error('Responsive Voice not loaded');
+        return;
+    }
+
+    const text = currentSection().speech;
+    const btn = document.getElementById('hearBtn');
+    btn.className = 'hear-btn speaking';
+    document.getElementById('hearHint').textContent = 'Speaking...';
+    responsiveVoice.speak(text,'UK English Female', {
+        rate: 0.88,
+        onend: function () {
+            btn.className = "hear-btn";
+            document.getElementById('hearHint').textContent = 'Click to listen again';
+        }
+    });
+}
+
+function loadQuestion() {
+    answered = false;
+
+    const sec = currentSection();
+    const qData = currentQuestion();
+
+    document.getElementById('speechLabel').textContent = sec.label;
+    document.getElementById('qNum').textContent = globalQ + 1;
+    document.getElementById('progessBar').style.width = ((globalQ + 1) / 10 *100) + '%';
+    document.getElementById('nextBtn').textContent = (globalQ === 9) ? 'FINISH' : 'NEXT' ;
+
+    if (qIndexInSection === 0) {
+        document.getElementById('hearHint').textContent = 'Click to listen before answering';
+        document.getElementById('hearBtn').className = 'hear-btn';
+    } else {
+        document.getElementById('hearHint').textContent = 'Replay if needed';
+    }
+
+    document.getElementById('questionText').textContent = qData.q;
+
+    const container = document.getElementById('optionsContainer');
+    container.innerHTML = '';
+    qData.options.forEach ((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<span class="opt-letter">${LETTERS[i]}</span> ${opt}`;
+        btn.onclick = () => selectOption(i);
+        container.appendChild(btn);
+    });
+
+    document.getElementById('feedback').textContent ='';
+    document.getElementById('feedback').className = 'feedback';
+
+}
+
+function selectOption(chosendIdx) {
+    if (answered) return;
+    answered = true;
+
+    const qData = currentQuestion();
+    const correct = qData.answer;
+    const isCorrect = (chosenIdx === correct);
+
+    const btns = document.querySelectorAll('.option-btn');
+    btns.forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === chosenIdx && isCorrect) btn.classList.add('correct');
+        if (i === chosenIdx && !isCorrect) btn.classList.add('wrong');
+        if (i === correct && !isCorrect) btn.classList.add('reveal');
+    });
+
+    const fb = document.getElementById('feedback');
+
+    if(isCorrect) {
+        score ++;
+        fb.textContent = 'Correct!';
+        fb.className = 'feedback correct';
+    } else {
+        fb.textContent = 'Wrong! Correct answer: ' + LETTERS[correct];
+        fb.className = 'feedback wrong';
+    }
+
+    document.getElementById('scoreDisplay').textContent = score;
+
+    results.push({
+        section: currentSection().label,
+        question: qData.q,
+        correctAnswer: qData.options[correct],
+        yourAnswer: qData.options[chosenIdx],
+        ok: isCorrect
+    });
+}
+
+function handleNext() {
+    if (!ansered) return;
+
+    globalQ++;
+    qIndexInSection ++;
+
+    if (qIndexInSection === 5 && sectionIndex === 0) {
+        sectionIndex = 1;
+        qIndexInSection = 0;
+        if (typeof responsiveVoice !== 'undefined') responsiveVoice.cancel();
+    }
+
+    if (globalQ < 10) {
+        loadQuestion();
+    } else {
+        if (typeof responsiveVoice !== 'undefined') responsiveVoice.cancel();
+        sessionStorage.setItem('lcScore', score);
+        sessionStorage.setItem('lcResults', JSON.strinify(results));
+        window.location.href = 'lc_result.html';
+    }
+}
+
+        </script>
+        </body>
+    </html>
