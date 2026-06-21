@@ -40,7 +40,7 @@
 
              .score-pill{
                 background: #f1f5f9;
-                border: 1px solide #e0e0e0;
+                border: 1px solid #e0e0e0;
                 border-radius: 20px;
                 padding: 4px 14px;
                 font-size: 13px;
@@ -130,7 +130,7 @@
                 background: #fff;
                 color: #1a1a2e;
                 outline: none;
-                transition: border-colr 0.15s;
+                transition: border-color 0.15s;
                 resize: none;
                 font-family: Arial, sans-serif;
                 line-height: 1.5;
@@ -169,7 +169,7 @@
                 color: white;
                 font-size: 15px;
                 font-weight: bold;
-                letter-spacing: 0.6rem;
+                letter-spacing: 0.06rem;
                 cursor: pointer;
                 transition: opacity 0.15s;
             }
@@ -202,7 +202,7 @@
                 display: none;
                 position: fixed;
                 inset: 0;
-                background: rgba(0,0,0.45);
+                background: rgba(0,0,0,0.45);
                 z-index: 100;
                 align-items: center;
                 justify-content:center;
@@ -211,7 +211,7 @@
 
             .overlay.show {display:flex;}
 
-            .overlay.card{
+            .overlay-card{
                 background: #fff;
                 border: 2px solid #b0b8c8;
                 border-radius: 14px;
@@ -261,7 +261,7 @@
     <img src="hmm.png" class="doodle hmm">
     <img src="pixilart-drawing.png" class="doodle stars">
 
-    <div class="overay" id="timeOverlay">
+    <div class="overlay" id="timeOverlay">
         <div class="overlay-card">
             <div class="overlay-title">    Time's Up !!! </div>
             <div class="overlay-msg" id="overlayMsg">Let's see your performance</div>
@@ -278,16 +278,14 @@
             <div class="score-pill">Correct: <span id="scoreDisplay">0</span></div>
         </div>
 
-        <div class="progess-bar-bg">
-            <div class="progress-bar-fill" id="progressBar" style="width:100%"></div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar" style="width:10%"></div>
         </div>
 
         <div class="timer-row">
             <div class="timer-label">Time Remaining</div>
             <div class="timer-value" id="timerDisplay">30</div>
         </div>
-    </div>
-
     <div class="attempt-dots" id="attemptDots"></div>
 
     <div class="target-section">
@@ -300,13 +298,14 @@
     <p class="input-label">Your Typing:</p>
     <textarea class="answer-input" id="answerInput" rows="2"
     placeholder="Start typing here..."
-    autocomplete="off" autocorrect="off" autocapacitalize="off"
+    autocomplete="off" autocorrect="off" autocapitalize="off"
     spellcheck="false"></textarea>
 
     <div class="feedback" id="feedback"></div>
 
     <div class="btn-row">
         <button class="btn-submit" id="submitBtn" onclick="handleSubmit()">SUBMIT</button>
+    </div>
     </div>
     
 <script>
@@ -337,7 +336,7 @@
         for (let i = 0; i < TOTAL ; i++) {
             const d = document.getElementById('dot' + i);
             if (i < results.length){
-                d.className = 'dot' + (results[i].ok ? 'done-correct' : 'done-wrong');
+                d.className = 'dot ' + (results[i].ok ? 'done-correct' : 'done-wrong');
             } else if (i === attempt) {
                 d.className = 'dot current';
             } else {
@@ -350,15 +349,16 @@
     function startTimer() {
         timerID = setInterval(() => {
             timeLeft--;
-            const e1 = documen.getElementById('timerDisplay');
+            const e1 = document.getElementById('timerDisplay');
             e1.textContent = timeLeft;
-            e1.className = 'timer-value' + (timeLeft <= 10 ? 'urgent' : '');
+            e1.className = 'timer-value' + (timeLeft <= 10 ? ' urgent' : '');
 
             if (timeLeft <= 0) {
                 clearInterval(timerID);
-                endQuiz('timerout');
-            }, 1000);
-        }
+                endQuiz('timeout');
+            }
+        }, 1000);
+    }
 
         function normalise(str) {
             return str.trim().replace(/\s+/g, ' ').toLowerCase();
@@ -366,7 +366,7 @@
     
         function loadAttempt() {
             document.getElementById('attNum').textContent = attempt + 1;
-            document.getElementById('progessBar').style.width = ((attempt + 1) / TOTAL * 100) + '%';
+            document.getElementById('progressBar').style.width = ((attempt + 1) / TOTAL * 100) + '%';
             document.getElementById('feedback').textContent ='';
             document.getElementById('feedback').className = 'feedback';
 
@@ -386,7 +386,7 @@
             const inp = document.getElementById('answerInput');
             const typed = inp.value;
 
-            const isCorrect = normalise(typed) === normalise(TRAGET);
+            const isCorrect = normalise(typed) === normalise(TARGET);
             if (isCorrect) score++;
 
             results.push({
@@ -423,9 +423,9 @@
             document.getElementById('submitBtn').disabled = true;
 
             if (reason === 'timeout') {
-                const msg = attempt == 0
+                const msg = attempt === 0
                 ? "You didn't complete any attempts."
-                : `You completed ${attempt} attempt${attempt} > 1 ? 's' : '').`;
+                : `You completed ${attempt} attempt${attempt > 1 ? 's' : ''}.`;
                 document.getElementById('overlayMsg').textContent = msg;
                 document.getElementById('timeOverlay').classList.add('show');
             } else {
@@ -433,11 +433,11 @@
             }
         }
 
-        function goToResults() {
+        function goToResult() {
             sessionStorage.setItem('typingScore', score);
             sessionStorage.setItem('typingResults',  JSON.stringify(results));
-            sessionStorage.setItem('typingAttemps', attempt());
-            windows.location.href = 'typing_result.html';
+            sessionStorage.setItem('typingAttempts', attempt);
+            window.location.href = 'typing_result.html';
         }
 
         buildDots();
