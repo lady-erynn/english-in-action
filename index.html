@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en";
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="device-width", initial-scale=1.0"/>
+    <meta name="viewport" content="device-width, initial-scale=1.0"/>
     <title> Language Master</title>
     <style>
         *{box-sizing: border-box; margin:0; padding:0;}
@@ -208,7 +208,7 @@
             background-color: #1a1a2e;
             color: #ffffff;
             border: none;
-            border-radius: 8 px;
+            border-radius: 8px;
             padding: 13px 60px;
             font-size: 16px;
             font-weight: bold;
@@ -247,64 +247,74 @@
     <!--  SCREEN 1 : WELCOME / CHOOSE ACTIVITY -->
       <div id="welcomeScreen">
         <div class="app-title">Language Master</div>
-        <p class="app-subtitle">Choose an activity to get started</p>
-        <hr class="divider">
-        <p class="choose-label">Choose your activity</p>
+            <p class="app-subtitle">Choose an activity to get started</p>
+            <hr class="divider">
+            <p class="choose-label">Choose your activity</p>
 
-        <div class="activity-grid">
-            <div classs="acivity-card" id="cardSpell" onclick="selectActivity('spell')">
-                <div class="activity-icon"></div>
-                <div class="activity-name">Spell Check</div>
-                <div class="activity-desc">Listen; Spell 10 words</div>
+            <div class="activity-grid">
+                <div class="activity-card" id="cardSpell" onclick="selectActivity('spell')">
+                    <div class="activity-icon"></div>
+                    <div class="activity-name">Spell Check</div>
+                    <div class="activity-desc">Listen; Spell 10 words</div>
+                </div>
+                <div class="activity-card" id="cardRC" onclick="selectActivity('rc')">
+                    <div class="activity-icon"> </div>
+                    <div class="activity-name">Reading Comprehension</div>
+                    <div class="activity-desc">Read the paragraph. Answer the questions</div>
+                </div>
+                <div class="activity-card" id="cardLC" onclick="selectActivity('lc')">
+                    <div class="activity-icon">   </div>
+                    <div class="activity-name">Listening Comprehension</div>
+                    <div class="activity-desc">Listen to a speech. Answer the questions</div>
+                </div>
             </div>
-            <div class="acitvity-card" id="cardRC" onclick="selectActivity('rc')">
-                <div class="acitivity-icon"> </div>
-                <div class="activity-name">Listening Comprehension</div>
-                <div class="activity-desc">Listen to a speech. Answer the questions</div>
-            </div>
-        </div>
-</div>
+        </div>  
+   
+         
+
+
 
 <!-- SCREEN 2: INSTRUCTIONS -->
 <div id="instructionScreen">
     <button class="back-btn" onclick="goBack()"> Back </button>
 
     <!-- Spell Check Instructions -->
-     <div id="instrSpell">
-        <span class="instr-icon"></span>
-        <span class="instr-title">Spell Check</span>
-     </div>
+        <div id="instrSpell">
+            <div class="instr-header">
+                <span class="instr-icon"></span>
+                <span class="instr-title">Spell Check</span>
+            </div>
 
-     <p class="instr-subtitle">Test your English spelling skills</p>
-     <hr class="divider">
-     <p class="instructions-label">How this works</p>
-     <ol class="steps">
-        <li class="step">
-            <span class="step-num">1</span>
-            <span class="step-text"> There are <span class="highlight">10 questions </span> in the activity</span>
-        </li>
-        <li class="step">
-            <span class="step-num">2</span>
-            <span class="step-text">Click the <span class="highlight">Hear the Word</span> button to listen to the word </span>           
-        </li>
-        <li class="step">
-            <span class="step-num">3</span>
-            <span class="step-text">Type the word you heard in the box provided</span>
-        </li>
-        <li class="step">
-            <span class="step-num">4</span>
-            <span class="step-text">Click <span class="highlight" >Next</span>to move to the following word </span>            
-        </li>
-        <li class="step">
-            <span class="step-num">5</span>
-            <span class="step-text">After completing all 10 words, your <span class="highlight">final score </span> will be displayed</span>
-        </li>
-     </ol>
-     <div class="start-row">
-        <p class="start-hint">When you are ready, press <strong> START </strong></p>
-        <button class="btn-start" onclick="window.location.href='quiz.html'">START</button>
-     </div>
-</div>
+            <p class="instr-subtitle">Test your English spelling skills</p>
+            <hr class="divider">
+            <p class="instructions-label">How this works</p>
+            <ol class="steps">
+                <li class="step">
+                    <span class="step-num">1</span>
+                    <span class="step-text"> There are <span class="highlight">10 questions </span> in the activity</span>
+                </li>
+                <li class="step">
+                    <span class="step-num">2</span>
+                    <span class="step-text">Click the <span class="highlight">Hear the Word</span> button to listen to the word </span>           
+                </li>
+                <li class="step">
+                    <span class="step-num">3</span>
+                    <span class="step-text">Type the word you heard in the box provided</span>
+                </li>
+                <li class="step">
+                    <span class="step-num">4</span>
+                    <span class="step-text">Click <span class="highlight" >Next</span>to move to the following word </span>            
+                </li>
+                <li class="step">
+                    <span class="step-num">5</span>
+                    <span class="step-text">After completing all 10 words, your <span class="highlight">final score </span> will be displayed</span>
+                </li>
+            </ol>
+            <div class="start-row">
+                <p class="start-hint">When you are ready, press <strong> START </strong></p>
+                <button class="btn-start" onclick="window.location.href='quiz.html'">START</button>
+            </div>
+        </div>
 
 <!-- Reading Comprehension instructions -->
  <div id="instrRC" style="display:none">
@@ -319,7 +329,7 @@
     <ol class="steps">
         <li class="step">
             <span class="step-num">1</span>
-            <span class="step-text">You wull read <span class="highlight"> 2 short paragraphs</span></span>
+            <span class="step-text">You will read <span class="highlight"> 2 short paragraphs</span></span>
         </li>
         <li class="step">
             <span class="step-num">2</span>
@@ -354,11 +364,11 @@
     </div>
     <p class="instr-subtitle">Listen carefully and answer questions</p>
     <hr class="divider">
-    <p class="instruction-label">How this works</p>
+    <p class="instructions-label">How this works</p>
     <ol class="steps">
         <li class="step">
             <span class="step-num">1</span>
-            <span class="step-text">You will hear <span class=highlight"> 2 short speeches</span></span>
+            <span class="step-text">You will hear <span class="highlight"> 2 short speeches</span></span>
         </li>
         <li class="step">
             <span class="step-num">2</span>
@@ -366,7 +376,7 @@
         </li>
         <li class="step">
             <span class="step-num">3</span>
-            <span class="step-text">You can <span class="highlight">replay the speech</span> before answering</sapn>
+            <span class="step-text">You can <span class="highlight">replay the speech</span> before answering</span>
         </li>
         <li class="step">
             <span class="step-num">4</span>
@@ -383,6 +393,8 @@
     </div>
   </div>
 </div>
+</div>
+
 
 <script>
     function selectActivity(type) {
