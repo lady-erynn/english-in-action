@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="device-width, initial-scale=1.0" />
+        <title>Language Master : Typing Skill Test </title>
+        <style>
+            * { box-sizing: border-box; margin: 0; padding: 0;}
+
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f4f8;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem;
+            }
+
+            .card{
+                background: #ffffff;
+                border: 2px solid #b0b8c8;
+                border-radius: 14px;
+                padding: 2.8rem 3rem 2.2rem;
+                max-width: 100%;
+                width: 620px;
+            }
+
+
+            .top-bar{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 1.4rem;
+            }
+
+
+            .q-label { font-size: 13px; color: #666; }
+            .q-count { font-size: 22px; font-weight: bold; color: #1a1a2e; }
+
+             .score-pill{
+                background: #f1f5f9;
+                border: 1px solide #e0e0e0;
+                border-radius: 20px;
+                padding: 4px 14px;
+                font-size: 13px;
+                color: #666;
+             }     
+
+             .score-pill span { font-weight: bold; color: #1a1a2e; }
+
+             .progress-bar-bg{
+                height: 6px;
+                background: #e3e8f0;
+                border-radius: 6px;
+                margin-bottom: 1.6rem;
+                overflow: hidden;
+             }
+
+
+             .progress-bar-fill {
+                height: 100%;
+                background: #1d4ed8;
+                border-radius: 6px;
+                transition: width 0.4s ease;
+             }
+
+             .timer-row {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 1.4rem;
+             }
+
+             .timer-label {
+                font-size: 11px;
+                font-weight: bold;
+                color: #1d4ed8;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                margin-bottom: 2px;
+             }
+
+             .timer-value {
+                font-size: 32px;
+                font-weight: bold;
+                color: #1a1a2e;
+                font-variant-numeric: tabular-nums;
+                transition: color 0.3s;
+             }
+
+             .timer-value.urgent { color: #dc2626; }
+
+             .target-section {
+                background: #f8fafc;
+                border: 1.5px solid #dbeafe;
+                border-radius: 10px;
+                padding: 1.2rem 1.4rem;
+                margin-bottom: 1.4rem;
+             }
+
+             .target-label {
+                font-size: 11px;
+                font-weight: bold;
+                color: #1d4ed8;
+                letter-spacing: 0.08em;
+                text-transform:uppercase;
+                margin-bottom: 0.6rem;
+             }
+
+             .target-text {
+                font-size: 17px;
+                font-weight: bold;
+                color: #1a1a2e;
+                line-height: 1.6;
+                letter-spacing: 0.01em;
+             }
+
+             .input-label {
+                font-size: 13px;
+                color: #666;
+                margin-bottom: 6px;
+             }
+
+             .answer-input {
+                width: 100%;
+                padding: 12px 14px;
+                font-size: 16px;
+                border: 1.5px solid #b0b8c8;
+                border-radius: 8px;
+                background: #fff;
+                color: #1a1a2e;
+                outline: none;
+                transition: border-colr 0.15s;
+                resize: none;
+                font-family: Arial, sans-serif;
+                line-height: 1.5;
+             }
+
+             .answer-input:focus{
+                border-color: #1d4ed8;
+                box-shadow: 0 0 0 3px #dbeafe;
+             }
+             .answer-input:disabled{
+                background: whitesmoke;
+                color: #999;
+                cursor: not-allowed;
+             }
+
+             .feedback{
+                min-height: 22px;
+                text-align: center;
+                font-size: 14px;
+                font-weight:bold;
+                margin: 10px 0  14px;
+             }
+
+             .feedback.correct { color: green;}
+             .feedback.wrong {color: red;}
+
+             .btn-row {display: flex;
+            gap:10px;}
+
+            .btn-submit {
+                flex: 1;
+                padding: 11px;
+                border: none;
+                border-radius: 8px;
+                background: #1a1a2e;
+                color: white;
+                font-size: 15px;
+                font-weight: bold;
+                letter-spacing: 0.6rem;
+                cursor: pointer;
+                transition: opacity 0.15s;
+            }
+
+
+            .btn-submit:hover {opacity: 0.85;}
+            .btn-submit:active {transform: scale(0.98);}
+            .btn-submit:disabled {opacity: 0.45; cursor: not-allowed;}
+
+            .attempt-dots{
+                display: flex;
+                justify-content: center;
+                gap:8px;
+                margin-bottom:1.4rem;
+            }
+            .dot{
+                width:10px;
+                height: 10px;
+                border-radius: 50%;
+                background: whitesmoke;
+                border: 1.5px solid #b0b8c8;
+                transition: background 0.2s, border-color 0.2s;
+            }
+            .dot.done-correct {background: #15803d; border-color: #15803d;}
+            .dot.done-wrong{background:#dc2626; border-color: #dc2626;}
+            .dot.current{ background: #1d4ed8; border-color:#1d4ed8;}
+
+
+            .overlay{
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0.45);
+                z-index: 100;
+                align-items: center;
+                justify-content:center;
+
+            }
+
+            .overlay.show {display:flex;}
+
+            .overlay.card{
+                background: #fff;
+                border: 2px solid #b0b8c8;
+                border-radius: 14px;
+                padding: 2.4rem 2.8rem;
+                text-align: center;
+                max-width: 340px;
+            }
+
+            .overlay-title{
+                font-size: 22px;
+                font-weight: bold;
+                color: #1a1a2e;
+                margin-bottom: 0.5rem;
+            }
+
+            .overlay-msg{ font-size: 14px; color: #666; margin-bottom: 1.4rem; }
+
+            .btn-overlay {
+                padding: 10px 36px;
+                border: none;
+                border-radius: 8px;
+                background: #1a1a2e;
+                color: #fff;
+                font-size: 15px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+
+            .doodle{
+                position: fixed;
+                z-index: -1;
+                image-rendering: pixelated;
+                opacity: 0.9;
+            }
+
+            .worm { width: 95px; top: 140px; left: 100px; transform: rotate(25deg);}
+            .hm { width: 90px; top: 100px; right: 100px;}
+            .hmm { width: 120px; bottom: 110px; left: 80px; }
+            .stars { width: 110px; bottom: 90px; right: 100px; }
+        </style>
+    </head>
+
+<body>
+    <img src="worm.png" class="doodle worm">
+    <img src="hm.png" class="doodle hm">
+    <img src="hmm.png" class="doodle hmm">
+    <img src="pixilart-drawing.png" class="doodle stars">
+
+    <div class="overay" id="timeOverlay">
+        <div class="overlay-card">
+            <div class="overlay-title">    Time's Up !!! </div>
+            <div class="overlay-msg" id="overlayMsg">Let's see your performance</div>
+            <button class="btn-overlay" onclick="goToResult()">See Results</button>
+        </div>       
+    </div>
+
+    <div class="card">
+        <div class="top-bar">
+            <div>
+                <div class="q-label">Attempt</div>
+                <div class="q-count"><span id="attNum">1</span> / 10</div>
+            </div>
+            <div class="score-pill">Correct: <span id="scoreDisplay">0</span></div>
+        </div>
+
+        <div class="progess-bar-bg">
+            <div class="progress-bar-fill" id="progressBar" style="width:100%"></div>
+        </div>
+
+        <div class="timer-row">
+            <div class="timer-label">Time Remaining</div>
+            <div class="timer-value" id="timerDisplay">30</div>
+        </div>
+    </div>
+
+    <div class="attempt-dots" id="attemptDots"></div>
+
+    <div class="target-section">
+        <div class="target-label">Type this sentence</div>
+        <div class="target-text" id="targetText">
+            The quick brown fox jumps over the lazy dog
+        </div>
+    </div>
+
+    <p class="input-label">Your Typing:</p>
+    <textarea class="answer-input" id="answerInput" rows="2"
+    placeholder="Start typing here..."
+    autocomplete="off" autocorrect="off" autocapacitalize="off"
+    spellcheck="false"></textarea>
+
+    <div class="feedback" id="feedback"></div>
+
+    <div class="btn-row">
+        <button class="btn-submit" id="submitBtn" onclick="handleSubmit()">SUBMIT</button>
+    </div>
+    
+<script>
+    const TARGET = "The quick brown fox jumps over the lazy dog";
+    const TOTAL = 10;
+    const TOTAL_SECONDS = 30;
+
+    let attempt = 0;
+    let score = 0;
+    let results = [];
+    let timeLeft = TOTAL_SECONDS;
+    let timerID = null;
+    let finished = false;
+
+    function buildDots() {
+        const container = document.getElementById('attemptDots');
+        container.innerHTML = '';
+        for (let i=0; i< TOTAL; i++) {
+            const d = document.createElement('div');
+            d.className = 'dot';
+            d.id = 'dot' + i;
+            container.appendChild(d);
+        }
+        updateDots();
+    }
+
+    function updateDots() {
+        for (let i = 0; i < TOTAL ; i++) {
+            const d = document.getElementById('dot' + i);
+            if (i < results.length){
+                d.className = 'dot' + (results[i].ok ? 'done-correct' : 'done-wrong');
+            } else if (i === attempt) {
+                d.className = 'dot current';
+            } else {
+                d.className = 'dot';
+            }
+        }
+    }
+
+
+    function startTimer() {
+        timerID = setInterval(() => {
+            timeLeft--;
+            const e1 = documen.getElementById('timerDisplay');
+            e1.textContent = timeLeft;
+            e1.className = 'timer-value' + (timeLeft <= 10 ? 'urgent' : '');
+
+            if (timeLeft <= 0) {
+                clearInterval(timerID);
+                endQuiz('timerout');
+            }, 1000);
+        }
+
+        function normalise(str) {
+            return str.trim().replace(/\s+/g, ' ').toLowerCase();
+        }
+    
+        function loadAttempt() {
+            document.getElementById('attNum').textContent = attempt + 1;
+            document.getElementById('progessBar').style.width = ((attempt + 1) / TOTAL * 100) + '%';
+            document.getElementById('feedback').textContent ='';
+            document.getElementById('feedback').className = 'feedback';
+
+            const inp = document.getElementById('answerInput');
+            inp.value ='';
+            inp.disabled = false;
+            inp.focus();
+            document.getElementById('submitBtn').disabled = false;
+            document.getElementById('submitBtn').textContent =
+                (attempt === TOTAL - 1) ? 'FINISH' : 'SUBMIT' ;
+            updateDots();    
+        }
+
+        function handleSubmit() {
+            if (finished) return;
+
+            const inp = document.getElementById('answerInput');
+            const typed = inp.value;
+
+            const isCorrect = normalise(typed) === normalise(TRAGET);
+            if (isCorrect) score++;
+
+            results.push({
+                attempt: attempt + 1,
+                typed: typed.trim() || '(nothing typed)',
+                ok: isCorrect
+            });
+
+            const fb= document.getElementById('feedback');
+            fb.textContent = isCorrect ? 'Correct!' : 'Wrong!' ;
+            fb.className  = 'feedback ' + (isCorrect ? 'correct' : 'wrong');
+
+            document.getElementById('scoreDisplay').textContent = score;
+            inp.disabled = true;
+            document.getElementById('submitBtn').disabled = true;
+
+            updateDots ();
+
+            attempt++;
+
+            if (attempt >= TOTAL) {
+                setTimeout(() => endQuiz('complete'), 600);
+            } else {
+                setTimeout(() => loadAttempt(), 500);
+            }
+        }
+
+        function endQuiz(reason) {
+            if (finished) return;
+            finished = true;
+            clearInterval(timerID);
+
+            document.getElementById('answerInput').disabled = true;
+            document.getElementById('submitBtn').disabled = true;
+
+            if (reason === 'timeout') {
+                const msg = attempt == 0
+                ? "You didn't complete any attempts."
+                : `You completed ${attempt} attempt${attempt} > 1 ? 's' : '').`;
+                document.getElementById('overlayMsg').textContent = msg;
+                document.getElementById('timeOverlay').classList.add('show');
+            } else {
+                goToResult();
+            }
+        }
+
+        function goToResults() {
+            sessionStorage.setItem('typingScore', score);
+            sessionStorage.setItem('typingResults',  JSON.stringify(results));
+            sessionStorage.setItem('typingAttemps', attempt());
+            windows.location.href = 'typing_result.html';
+        }
+
+        buildDots();
+        loadAttempt();
+        startTimer();
+
+</script>    
+</body>
+</html>
