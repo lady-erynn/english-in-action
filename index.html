@@ -1,335 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="device-width, initial-scale=1.0"/>
-    <title> Language Master</title>
-    <style>
-        *{box-sizing: border-box; margin:0; padding:0;}
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="device-width, inital-scale=1.0"/>
+        <title> Language Master</title>
+        <style>
+            *{box-sizing: border-box; margin:0; padding:0;}
 
-        body{
-            font-family: Arial, sans-serif;
-            background-color: #f0f4f8;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
+            body{
+                font-family: Arial, san-serif;
+                background-color: #f0f4f8;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem;
+            }
 
-        .card {
-            background: #ffffff;
-            border: 2px solid #b0b8c8;
-            border-radius: 14px;
-            padding: 2.8rem 3rem 2.2rem;
-            max-width: 100%;
-            width: 560px;
-        }
+            .card{
+                background: #ffffff;
+                border: 2px solid #b0b8c8;
+                border-radius: 14px;
+                padding: 2.8rem 3rem 2.2rem;
+                max-width: 100%;
+                width: 560px;
+            }
 
-        #welcomeScreen { display: block; }
-        #instructionScreen { display: none; }
+            #welcomeScreen { display: block; }
+            #instructionScreen { display: none; }
 
-        .app-title {
-            font-size: 26px;
-            font-weight: bold;
-            color: #1a1a2e;
-            text-align: center;
-            margin-bottom: 0.3rem;
-        }
-
-        .app-subtitle {
-            font-size: 14px;
-            color: #666;
-            text-align: center;
-            margin-bottom: 1.6rem;
-        }
-
-        .divider {
-            border: none;
-            border-top: 1px solid #e0e0e0;
-            margin-bottom: 1.4rem;
-        }
+            .app-title{
+                font-size: 26px;
+                font-weight: bold;
+                color: #1a1a2e;
+                text-align: center;
+                margin-bottom: 0.3rem;
+            }
 
 
-        .choose-label{
-            font-size: 11px;
-            font-weight: bold;
-            color: #999;
-            letter-spacing: 0.08rem;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
+            .app-subtitle{
+                font-size: 14px;
+                color: #666;
+                text-align: center;
+                margin-bottom: 1.6rem;
+            }
 
 
-        .activity-grid{
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 14px;
-            margin-bottom: 1.6rem;
-        }
+            .divider {
+                border: none;
+                border-top: 1px solid #e0e0e0;
+                margin-bottom: 1.4rem;
+            }
+
+            .choose-label{
+                font-size: 11px;
+                font-weight: bold;
+                color: #999;
+                letter-spacing: 0.08rem;
+                text-transform: uppercase;
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+
+            .activity-grid{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 14px;
+                margin-bottom: 1.6rem;
+            }
+
+            .activity-card{
+                border: 2px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 1.4rem 1rem;
+                text-align: center;
+                cursor: pointer;
+                transition: border-color 0.15s, background 0.15s, transform 0.1s;
+                background: #f8fafc;
+            }
+
+            .activity-card:hover {
+                border-color: #1d4ed8;
+                background: #eff6ff;
+            }
+
+            .activity-card.selected{
+                border-color: #1d4ed8;
+                background: #eff6ff;
+            }
+
+            .activity-icon {
+                font-size: 32px;
+                margin-bottom: 8px;
+            }
+
+            .activity-name{
+                font-size: 14px;
+                font-weight: bold;
+                color: #1a1a2e;
+                line-height: 1.3;
+            }
+
+            .activity-desc{
+                font-size: 12px;
+                color: #888;
+                margin-top: 4px;
+            }
+
+            .back-btn{
+                background: none;
+                border:none;
+                color: #1d4ed8;
+                font-size: 13px;
+                cursor: pointer;
+                padding: 0;
+                margin-bottom: 1.2rem;
+                display: flex;
+                align-items: center;
+                gap: 4px;
+            }
+
+            .back-btn:hover { text-decoration: underline; }
+
+            .instr-icon { font-size: 26px; }
+
+            .instr-title{
+                font-size: 22px;
+                font-weight: bold;
+                color: #1a1a2e;
+            }
+
+            .instr-subtitle{
+                font-size: 13px;
+                color: #666;
+                margin-bottom: 1.4rem;
+                margin-left: 36px;
+            }
+
+            .instructions-label{
+                font-size: 11px;
+                font-weight: bold;
+                color: #999;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                margin-bottom: 0.8rem;
+            }
 
 
-        .activity-card{
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 1.4rem 1rem;
-            text-align: center;
-            cursor: pointer;
-            transition: border-color 0.15s, background 0.15s, transform 0.1s;
-            background: #f8fafc;
-        }
+            .steps{
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+                margin-bottom: 1.8 rem;
+            }
 
-        .activity-card:hover {
-            border-color: #1d4ed8;
-            background: #eff6ff;
-        }
+            .step{
+                display: flex;
+                align-items: flex-start;
+                gap: 14px;
+            }
 
-        .activity-card.selected{
-            border-color: #1d4ed8;
-            background: #eff6ff;
-        }
+            .step-num{
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                background-color: #dbeafe;
+                color: #1d4ed8;
+                font-size: 13px;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                margin-top: 1px;
+            }
 
-        .activity-icon { font-size: 32px; margin-bottom: 8px;}
+            .step-text {
+                font-size: 15px;
+                color: #222;
+                line-height: 1.65;
+                padding-top: 3px;
+            }
 
-        .activity-name {
-            font-size: 14px;
-            font-weight: bold;
-            color: #1a1a2e;
-            line-height: 1.3;
-        }
+            .step-text .highlight{
+                color: #1d4ed8;
+                font-weight: bold;
+            }
 
+            .start-row{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                padding-top: 1rem;
+                border-top: 1px solid #e0e0e0;
+            }
 
-        .activity-desc{
-            font-size: 12px;
-            color: #888;
-            margin-top: 4px;
-        }
+            .start-hint{
+                font-size: 13px;
+                color: #555;
+            }
 
+            .btn-start {
+                background-color: #1a1a2e;
+                color: #ffffff;
+                border: none;
+                border-radius: 8px;
+                padding: 13px 60px;
+                font-size: 16px;
+                font-weight: bold;
+                letter-spacing: 0.1rem;
+                cursor: pointer;
+                margin-top: 4px;
+                transition: opacity 0.15s, transform 0.1s;
+            }
 
-        .back-btn{
-            background: none;
-            border: none;
-            color: #1d4ed8;
-            font-size: 13px;
-            cursor: pointer;
-            padding: 0;
-            margin-bottom: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
+            .btn-start:hover { opacity: 0.02; }
+            .btn-start:active { transform: scale(0.97);}
 
+            .doodle {
+                position: fixed;
+                z-index: -1;
+                image-rendering: pixelated;
+                opacity: 0.9;
+            }
 
-        .back-btn:hover { text-decoration: underline; }
+            .worm { width: 100px; top: 60px; left: 80px; transform:rotate(-15deg);}
+            .stars { width: 120px; top: 70px; right: 100px; }
+            .cat {width: 140px; bottom: 70px; right: 80px; }
+            .guy { width: 110px; bottom: 80px; left:100px; transform: rotate(10deg);}
 
-        .instr-icon { font-size: 26px;}
-
-        .instr-title{
-            font-size: 22px;
-            font-weight: bold;
-            color: #1a1a2e;
-        }
-
-        .instr-subtitle{
-            font-size: 13px;
-            color: #666;
-            margin-bottom: 1.4rem;
-            margin-left: 36px;
-        }
-
-        .instructions-label{
-            font-size: 11px;
-            font-weight: bold;
-            color: #999;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 0.8rem;
-        }
-
-        .steps {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-bottom: 1.8rem;
-        }
-
-        .step{
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-        }
-
-        .step-num{
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background-color: #dbeafe;
-            color: #1d4ed8;
-            font-size: 13px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            margin-top: 1px;
-        }
-
-
-        .step-text {
-            font-size: 15px;
-            color: #222;
-            line-height: 1.65;
-            padding-top: 3px;
-        }
-
-
-        .step-text .highlight{
-            color: #1d4ed8;
-            font-weight: bold;
-        }
-
-        .start-row {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            padding-top: 1rem;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .start-hint { 
-            font-size: 13px;
-            color: #555;
-        }
-
-        .btn-start {
-            background-color: #1a1a2e;
-            color: #ffffff;
-            border: none;
-            border-radius: 8px;
-            padding: 13px 60px;
-            font-size: 16px;
-            font-weight: bold;
-            letter-spacing: 0.1rem;
-            cursor: pointer;
-            margin-top: 4px;
-            transition: opacity 0.15s, transform 0.1s;
-        }
-
-        .btn-start:hover { opacity: 0.82; }
-        .btn-start:active { transform: scale(0.97); }
-
-        .doodle{
-            position: fixed;
-            z-index: -1;
-            image-rendering: pixelated;
-            opacity: 0.9;
-        }
-
-        .worm { width: 100px; top: 60px; left: 80px; transform:rotate(-15deg);}
-        .stars { width: 120px; top: 70px; right: 100px;}
-        .cat { width: 140px; bottom: 70px; right: 80px; }
-        .guy { width: 110px; bottom: 80px; left:100px; transform: rotate(10deg); }
-
-    </style>
-</head>
+        </style>
+    </head>
 
 <body>
-<!-- doodles -->
-<img src="worm.png" class="doodle worm">
-<img src="pixiart-drawing.png" class="doodle stars">
-<img src="cat.png" class="doodle cat">
-<img src="guy.png" class="doodle guy">
+    <!-- doodles -->
+     <img scr="worm.png" class="doodle worm">
+     <img scr="pixiart-drawing.png" class="doodle stars">
+     <img src="cat.png" class="doodle cat">
+     <img src="guy.png" class="doodle guy">
 
-<div class="card">
-    <!--  SCREEN 1 : WELCOME / CHOOSE ACTIVITY -->
-      <div id="welcomeScreen">
-        <div class="app-title">Language Master</div>
-            <p class="app-subtitle">Choose an activity to get started</p>
-            <hr class="divider">
-            <p class="choose-label">Choose your activity</p>
+    <div class="card">
+        <!-- SCREEN 1 : WELCOME / CHOOSE ACTIVITY -->
+        <div id="welcomeScreen">
+            <div class="app-title">Language Master</div>
+                <p class="app-subtitle">Choose an activity to get started</p>
+                <hr class="divider">
+                <p class="choose-label">Choose your activity</p>
 
-            <div class="activity-grid">
-                <div class="activity-card" id="cardSpell" onclick="selectActivity('spell')">
-                    <div class="activity-icon"></div>
-                    <div class="activity-name">Spell Check</div>
-                    <div class="activity-desc">Listen; Spell 10 words</div>
+                <div class="activity-grid">
+                    <div class="activity-card" id="cardSpell" onclick="selectActivity('spell')">
+                        <div class="activity-icon"></div>
+                        <div class="activity-name">Spell Check</div>
+                        <div class="activity-desc">Listen; Spell 10 words</div>
+                    </div>
+                    <div class="activity-card" id="cardRC" onclick="selectActivity('rc')">
+                        <div class="activity-icon"></div>
+                        <div class="activity-name">Reading Comprehension</div>
+                        <div class="activity-desc">Read the paragraph. Anwser the questions</div>
+                    </div>
+                    <div class="activity-card" id="cardLC" onclick="selectActivity('lc')">
+                        <div class="activity-icon"></div>
+                        <div class="activity-name">Listening Comprehension</div>
+                        <div class="activity-desc">Listen to a speech. Anwser the questions</div>
+                    </div>
+                    <div class="activity-card" id="cardTyping" onClick="selectActivity('typing')">
+                        <div class="activity-icon"></div>
+                        <div class="activity-name">Typing Skill Test</div>
+                        <div class="activity-desc">Type the sentence 10 times in 30 seconds</div>
+                    </div>
                 </div>
-                <div class="activity-card" id="cardRC" onclick="selectActivity('rc')">
-                    <div class="activity-icon"> </div>
-                    <div class="activity-name">Reading Comprehension</div>
-                    <div class="activity-desc">Read the paragraph. Answer the questions</div>
-                </div>
-                <div class="activity-card" id="cardLC" onclick="selectActivity('lc')">
-                    <div class="activity-icon">   </div>
-                    <div class="activity-name">Listening Comprehension</div>
-                    <div class="activity-desc">Listen to a speech. Answer the questions</div>
-                </div>
-            </div>
-        </div>  
-   
-         
-
-
+        </div>
 
 <!-- SCREEN 2: INSTRUCTIONS -->
 <div id="instructionScreen">
-    <button class="back-btn" onclick="goBack()"> Back </button>
+    <buton class="back-btn" onclick="goBack()"> Back </buton>
 
-    <!-- Spell Check Instructions -->
-        <div id="instrSpell">
-            <div class="instr-header">
-                <span class="instr-icon"></span>
-                <span class="instr-title">Spell Check</span>
-            </div>
-
-            <p class="instr-subtitle">Test your English spelling skills</p>
-            <hr class="divider">
-            <p class="instructions-label">How this works</p>
-            <ol class="steps">
-                <li class="step">
-                    <span class="step-num">1</span>
-                    <span class="step-text"> There are <span class="highlight">10 questions </span> in the activity</span>
-                </li>
-                <li class="step">
-                    <span class="step-num">2</span>
-                    <span class="step-text">Click the <span class="highlight">Hear the Word</span> button to listen to the word </span>           
-                </li>
-                <li class="step">
-                    <span class="step-num">3</span>
-                    <span class="step-text">Type the word you heard in the box provided</span>
-                </li>
-                <li class="step">
-                    <span class="step-num">4</span>
-                    <span class="step-text">Click <span class="highlight" >Next</span>to move to the following word </span>            
-                </li>
-                <li class="step">
-                    <span class="step-num">5</span>
-                    <span class="step-text">After completing all 10 words, your <span class="highlight">final score </span> will be displayed</span>
-                </li>
-            </ol>
-            <div class="start-row">
-                <p class="start-hint">When you are ready, press <strong> START </strong></p>
-                <button class="btn-start" onclick="window.location.href='quiz.html'">START</button>
-            </div>
+    <!-- Spell Check  Instructions -->
+     <div id="instrSpell">
+        <div class="instr-header">
+            <span class="instr-icon"></span>
+            <span class="instr-title">Spell Check</span>
         </div>
 
-<!-- Reading Comprehension instructions -->
- <div id="instrRC" style="display:none">
+        <p class="instr-subtitle">Test your English spelling skills</p>
+        <hr class="divider">
+        <p class="instructions-label">How this works</p>
+        <ol class="steps">
+            <li class="step">
+                <span class="step-num">1</span>
+                <span class="step-text"> There are <span class="highlight">10 questions </span> in the activity </span>
+            </li>
+            <li class="step">
+                <span class="step-num">2</span>
+                <span class="step-text">Click the <span class="highlight">Hear the Word </span> button to listen to the word </span>
+            </li>
+            <li class="step">
+                <span class="step-num">3</span>
+                <span class="step-text">Type the word you heard in the box provided</span>
+            </li>
+            <li class="step">
+                <span class="step-num">4</span>
+                <span class="step-text">Click <span class="highlight">Next </span> to move to the following word </span>
+            </li>
+            <li class="step">
+                <span class="step-num">5</span>
+                <span class="step-text">After completing all 10 words, your <span class="highlight">final score </span> will be displayed </span>
+            </li>            
+        </ol>
+        <div class="start-row">
+                <p class="start-hint">When you are ready, press <strong> START </strong></p>
+                <button class="btn-start" onclick="window.href='quiz.html'">START</button>
+        </div>
+     </div>
+
+<div id="instrRC" style="display:none">
     <div class="instr-header">
-        <span class="instr-icon"> </span>
+        <span class="instr-icon"></span>
         <span class="instr-title"> Reading Comprehension </span>
     </div>
 
     <p class="instr-subtitle">Read, understand and answer questions</p>
     <hr class="divider">
-    <p class="instructions-label">How this works</p>
+    <p class="instruction-label">How this works</p>
     <ol class="steps">
         <li class="step">
             <span class="step-num">1</span>
-            <span class="step-text">You will read <span class="highlight"> 2 short paragraphs</span></span>
+            <span class="step-text">You will read <span class="highlight"> 2 short paragraphs </span></span>
         </li>
         <li class="step">
             <span class="step-num">2</span>
@@ -337,16 +335,16 @@
         </li>
         <li class="step">
             <span class="step-num">3</span>
-            <span class="step-text">Choose the <span class="highlight">best answer </span> from the four options given </span>
+            <span class="step-text">Choose the <span class="highlight"> best answer </span> from teh four options given </span>
         </li>
         <li class="step">
             <span class="step-num">4</span>
-            <span class="step-text">Click <span class="highlight">Next</span> to move to the next questions </span>
+            <span class="step-text">Click <span class="highlight"> Next </span> to move to the next questions </span>
         </li>
         <li class="step">
             <span class="step-num">5</span>
-            <span class="step-text">After all 10 questions, your <span class="highlight">final score </span> will be displayed</span>
-        </li>
+            <span class="step-text">After all 10 questions, your <span class="highlight"> final score </span> will be displayed </span>
+        </li>        
     </ol>
 
     <div class="start-row">
@@ -354,62 +352,93 @@
         <button class="btn-start"
         onclick="window.location.href='rc_quiz.html'"> START </button>
     </div>
- </div>
 
- <!-- Listening Comprehension instructions -->
-  <div id="instrLC" style="display:none">
-    <div class="instr-header">
-        <span class="instr-icon">   </span>
-        <span class="instr-title">Listening Comprehension</span>
-    </div>
-    <p class="instr-subtitle">Listen carefully and answer questions</p>
-    <hr class="divider">
-    <p class="instructions-label">How this works</p>
-    <ol class="steps">
-        <li class="step">
-            <span class="step-num">1</span>
-            <span class="step-text">You will hear <span class="highlight"> 2 short speeches</span></span>
-        </li>
-        <li class="step">
-            <span class="step-num">2</span>
-            <span class="step-text">Each speech is followed by <span class="highlight">5 questions </span> about what you heard </span>
-        </li>
-        <li class="step">
-            <span class="step-num">3</span>
-            <span class="step-text">You can <span class="highlight">replay the speech</span> before answering</span>
-        </li>
-        <li class="step">
-            <span class="step-num">4</span>
-            <span class="step-text">Choose the <span class="highlight">best answer </span> from the four options given </span>
-        </li>
-        <li class="step">
-            <span class="step-num">5</span>
-            <span class="step-text">After all 10 questions, your <span class="highlight">final score</span> will be displayed </span>
-        </li>        
-    </ol>
-    <div class="start-row">
-        <p class="start-hint">When you are ready, press <strong>START</strong></p>
-        <button class="btn-start" onclick="window.location.href='lc_quiz.html'">START</button>
-    </div>
-  </div>
-</div>
-</div>
+    <div id="instrLC" style="display:none">
+        <div class="instr-header">
+             <span class="instr-icon"> </span>
+             <span class="instr-tile">Listening Comprehension</span>   
+        </div>
+        <p class="instr-subtitle">Listen carefully and answer questions</p>
+        <hr class="divider">
+        <p class="instructions-label">How this works</p>
+        <ol class="steps">
+            <li class="step">
+                <span class="step-num">1</span>
+                <span class="step-text">You will hear <span class="highlight"> 2 short speeches </span> </span>
+            </li>
+            <li class="step">
+                <span class="step-num">2</span>
+                <span class="step-text">Each speech is followed by <span class="highlight">5 questions </span> about what you heard </span>
+            </li>
+            <li class="step">
+                <span class="step-num">3</span>
+                <span class="step-text">You can <span class="highlight"> replay the speech </span> before answering </span>
+            </li>
+            <li class="step">
+                <span class="step-num">4</span>
+                <span class="step-text">Choose the <span class="highlight">best answer </span> from the four options given </span>
+            </li>
+            <li class="step">
+                <span class="step-num">5</span>
+                <span class="step-text">After all 10 questions, your <span class="highlight"> final score </span> will be displayed  </span>
+            </li>            
+        </ol>
+        <div class="start-row">
+            <p class="start-hint">When you are ready, press <strong> START </strong></p>
+            <button class="btn-start" onclick="window.location.href"='lc_quiz.html'">START</button>
+        </div>
+    </div>    
 
+    <div id="instrTyping" style="display:none">
+        <div class="instr-header">
+            <span class="instr-icon"> <</span>
+            <span class="instr-title">Typing Skill Test</span>
+        </div>
+        <p class="instr-subtitle">How fast and accurate can you type?</p>
+        <hr class="divider">
+        <p class="instructions-label">How this works</p>
+        <ol class="steps">
+            <li class="step">
+                <span class="step-num">1</span>
+                <span class="step-text">You have <span class="highlight"> 30 seconds </span> in total </span>
+            </li>
+            <li class="step">
+                <span class="step-num">2</span>
+                <span class="step-text">Type the sentence: <span class="highlight"> "The quick brown fox jumps over the lazy dog </span></span>
+            </li>
+            <li class="step">
+                <span class="step-num">3</span>
+                <span class="step-text">Click <span class="highlight">SUBMIT</span> after each attempt - up to <span class="highlight"> 10 attempts </span></span>
+            </li>
+            <li class="step">
+                <span class="step-num">4</span>
+                <span class="step-text">Extra spaces are ignored, but spelling and word order must be <span class="highlight"> exact </span></span>
+            </li>
+            <li class="step">
+                <span class="step-num">5</span>
+                <span class="step-text">Your score shows how many attempts you typed <span class="highlight"> correctly </span> </span>
+            </li>
+        </ol>
+        <div class="start-row">
+            <p class="start-hint">When you are ready, press <strong>START</strong></p>
+            <button class="btn-start" onclick="windows.location.href='typing_quiz.html'">START</button>
+        </div>
+    </div>
 
 <script>
     function selectActivity(type) {
-        document.getElementById('welcomeScreen').style.display= 'none';
+        document.getElementById('wlecomeScreen').style.display='none';
         document.getElementById('instructionScreen').style.display='block';
         document.getElementById('instrSpell').style.display= (type === 'spell') ? 'block' : 'none';
         document.getElementById('instrRC').style.display= (type === 'rc') ? 'block' : 'none';
         document.getElementById('instrLC').style.display= (type === 'lc') ? 'block' : 'none';
+        document.getElementById('instrTyping').style.display (type === 'typing') ? 'block' : 'none';
     }
 
     function goBack() {
         document.getElementById('instructionScreen').style.display= 'none';
         document.getElementById('welcomeScreen').style.display= 'block';
     }
-</script>
-
-</body>
+</script>    
+</body>    
 </html>
