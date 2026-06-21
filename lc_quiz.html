@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="device-width", initial-scale=1.0"/>
+        <meta name="viewport" content="device-width, initial-scale=1.0"/>
         <title>Language Master : Listening Comprehension</title>
         <style>
             * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -36,16 +36,7 @@
             .q-label { font-size: 13px; color: #666; }
             .q-count { font-size: 22px; font-weight: bold; color: #1a1a2e; }
 
-            .score-pill {
-                background: #f1f5f9;
-                border: 1px solid #e0e0e0;
-                border-radius: 20px;
-                padding: 4px 14px;
-                font-size: 13px;
-                color: #666;
-            }
-
-            .score-pill {
+           .score-pill {
                 background: #f1f5f9;
                 border: 1px solid #e0e0e0;
                 border-radius: 20px;
@@ -56,7 +47,7 @@
 
             .score-pill span { font-weight: bold; color: #1a1a2e; }
 
-            .progress-bar-gb{
+            .progress-bar-bg {
                 height: 6px;
                 background: #e3e8f0;
                 border-radius: 6px;
@@ -64,7 +55,7 @@
                 overflow: hidden;
             }
 
-            .progess-bar-fill {
+            .progress-bar-fill {
                 height: 100%;
                 background: #1d4ed8;
                 border-radius: 6px;
@@ -131,7 +122,7 @@
                 transition: background 0.12s;
             }
 
-            .btn-replay-small.hover { background: #f1f5f9; }
+            .btn-replay-small:hover { background: #f1f5f9; }
 
             .question-text {
                 font-size: 16px;
@@ -142,7 +133,7 @@
             }
 
             .options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.2rem; }
-            .options-btn {
+            .option-btn {
                 width: 100%;
                 text-align: left;
                 padding: 11px 16px;
@@ -235,21 +226,21 @@
             <div class ="top-bar">
                 <div>
                     <div class ="q-label">Question</div>
-                    <div class ="q-count"><span id = "scoreDisplay">0</span></div>
+                    <div class="q-count"><span id="qNum">1</span></div>
                 </div>
-                <div class ="score-pill">Score- <span id="scoreDisplay">0</span></div>
+                <div class="score-pill">Score: <span id="scoreDisplay">0</span></div>
             </div>
             <div class="progress-bar-bg">
-                <div class=""progress-bar-fill" id="progressBar" style="width:10%"></div>
+                <div class="progress-bar-fill" id="progressBar" style="width:10%"></div>
             </div>
 
             <div class = "speech-section">
-                <div class="peech-label" id="speechLabel">Speec 1</div>
+                <div class="speech-label" id="speechLabel">Speech 1</div>
                 <button class="hear-btn" id="hearBtn" onclick="speakSpeech()">
-                    <span class="hear">HEAR</span>
+                    <span class="hear-icon">HEAR</span>
                     <div class="hear-text-col">
-                        <span class="hear label">Listen to the speech</span>
-                        <span class="hearHint" id="hearHint">Click to listen before you answer</span>
+                        <span class="hear-label">Listen to the speech</span>
+                        <span class="hear-hint" id="hearHint">Click to listen before you answer</span>
                     </div>
                 </button>
                 <div class ="replay-row">
@@ -268,12 +259,12 @@
             </div>
         </div>
 
-        <script src="https://code.responivevoice.org/responsivevoice.js?key=QzMnSrg"></script>
+        <script src="https://code.responsivevoice.org/responsivevoice.js?key=QzMnSrg3"></script>
 
         <script>
             const SECTIONS = [
                 {
-                label: "speech 1",
+                label: "Speech 1",
                     speech: 'The Amazon Rainforest is often called the lungs of the earth because it produces about twenty percent of the oxygen of the world. It covers more than five and a half million square kilometers across nine countries in South America. The forest is home to an extraordinay variety if life. Scientists estimte it contains around ten percent of all living specis on Earth. Unfortunately, deforestation driven by farming, logging and mining has destroyed large seas of the rainforest. Protecting the Amazon is considered important for biodiversity and for regulating global climate',
 
                     questions: [
@@ -294,17 +285,22 @@
                         },
                         {
                             q: "Approximately what fraction of all species on Earth live in the Amazon?",
-                            option: ["One percent","Five percent","Ten percent","Twenty-five percent"],
+                            options: ["One percent","Five percent","Ten percent","Twenty-five percent"],
                             answer: 2
                         },
                         {
                             q: "According to the speech, why is protecting the Amazon considered important?",
-                            option: [
+                            options: [
                                 "It supplies freshwater to cities",
                                 "It is a major tourist destionation",
                                 "It is important for biodiversity and regulating the global climate",
                                 "It contains large amount of minerals"
                             ],
+                            answer: 2
+                        },
+                        {
+                            q: "Which of the following is mentioned as a cause of deforestation?",
+                            options: ["Tourism","Flooding","Logging","Earthquakes"],
                             answer: 2
                         }
                     ]
@@ -334,8 +330,8 @@
                         {
                             q: "Which of the following is mentioned as something modern libraries provide?",
                             options: ["Free meals","Language Classes","Medical advice","Sports facilities"],
-                            answer: 2
-                        }
+                            answer: 1
+                        },
                         {
                             q: "What benefit do children who visit libraries regularly gain?",
                             options: [
@@ -409,7 +405,7 @@ function loadQuestion() {
 
     document.getElementById('speechLabel').textContent = sec.label;
     document.getElementById('qNum').textContent = globalQ + 1;
-    document.getElementById('progessBar').style.width = ((globalQ + 1) / 10 *100) + '%';
+    document.getElementById('progressBar').style.width = ((globalQ + 1) / 10 *100) + '%';
     document.getElementById('nextBtn').textContent = (globalQ === 9) ? 'FINISH' : 'NEXT' ;
 
     if (qIndexInSection === 0) {
@@ -436,7 +432,7 @@ function loadQuestion() {
 
 }
 
-function selectOption(chosendIdx) {
+function selectOption(chosenIdx) {
     if (answered) return;
     answered = true;
 
@@ -475,7 +471,7 @@ function selectOption(chosendIdx) {
 }
 
 function handleNext() {
-    if (!ansered) return;
+    if (!answered) return;
 
     globalQ++;
     qIndexInSection ++;
@@ -491,7 +487,7 @@ function handleNext() {
     } else {
         if (typeof responsiveVoice !== 'undefined') responsiveVoice.cancel();
         sessionStorage.setItem('lcScore', score);
-        sessionStorage.setItem('lcResults', JSON.strinify(results));
+        sessionStorage.setItem('lcResults', JSON.stringify(results));
         window.location.href = 'lc_result.html';
     }
 }
