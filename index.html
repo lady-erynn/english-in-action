@@ -2,10 +2,10 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="device-width, initial-scale=1.0"/>
-        <title> Language Master</title>
+        <meta name="viewport" content="device-width, inital-scale=1.0"/>
+        <title> Language Master </title>
         <style>
-            *{box-sizing: border-box; margin:0; padding:0;}
+            *{box-sizing: border-box; margin:0; padding:0; }
 
             body{
                 font-family: Arial, sans-serif;
@@ -27,16 +27,15 @@
             }
 
             #welcomeScreen { display: block; }
-            #instructionScreen { display: none; }
+            #instructionScreen { display: none }
 
-            .app-title{
+            .app-title {
                 font-size: 26px;
                 font-weight: bold;
                 color: #1a1a2e;
                 text-align: center;
                 margin-bottom: 0.3rem;
             }
-
 
             .app-subtitle{
                 font-size: 14px;
@@ -46,8 +45,8 @@
             }
 
 
-            .divider {
-                border: none;
+            .divider{
+                border:none;
                 border-top: 1px solid #e0e0e0;
                 margin-bottom: 1.4rem;
             }
@@ -79,19 +78,14 @@
                 background: #f8fafc;
             }
 
-            .activity-card:hover {
+            .activity-card:hover{
                 border-color: #1d4ed8;
                 background: #eff6ff;
             }
 
             .activity-card.selected{
                 border-color: #1d4ed8;
-                background: #eff6ff;
-            }
-
-            .activity-icon {
-                font-size: 32px;
-                margin-bottom: 8px;
+                background: #effeff;
             }
 
             .activity-name{
@@ -124,7 +118,7 @@
 
             .instr-icon { font-size: 26px; }
 
-            .instr-title{
+            .instr-title {
                 font-size: 22px;
                 font-weight: bold;
                 color: #1a1a2e;
@@ -146,8 +140,7 @@
                 margin-bottom: 0.8rem;
             }
 
-
-            .steps{
+            .steps {
                 list-style: none;
                 display: flex;
                 flex-direction: column;
@@ -156,7 +149,7 @@
             }
 
             .step{
-                display: flex;
+                display:flex;
                 align-items: flex-start;
                 gap: 14px;
             }
@@ -202,7 +195,7 @@
                 color: #555;
             }
 
-            .btn-start {
+            .btn-start{
                 background-color: #1a1a2e;
                 color: #ffffff;
                 border: none;
@@ -216,7 +209,7 @@
                 transition: opacity 0.15s, transform 0.1s;
             }
 
-            .btn-start:hover { opacity: 0.82; }
+            .btn-start:hover { opacity:0.82;}
             .btn-start:active { transform: scale(0.97);}
 
             .doodle {
@@ -227,61 +220,64 @@
             }
 
             .worm { width: 100px; top: 60px; left: 80px; transform:rotate(-15deg);}
-            .stars { width: 120px; top: 70px; right: 100px; }
-            .cat {width: 140px; bottom: 70px; right: 80px; }
-            .guy { width: 110px; bottom: 80px; left:100px; transform: rotate(10deg);}
-
+            .stars { width: 120px; top: 70px; right:100px;}
+            .cat { width:140px; bottom: 70px; right: 80px; }
+            .guy { width:110px; bottom: 80px; left:100px; transform: rotate(10deg);}
         </style>
-    </head>
+        </head>
 
 <body>
-    <!-- doodles yayaya-->
-     <img src="worm.png" class="doodle worm">
-     <img src="pixiart-drawing.png" class="doodle stars">
-     <img src="cat.png" class="doodle cat">
-     <img src="guy.png" class="doodle guy">
+    <!--doodles yayaya-->
+    <img src="worm.png" class="doodle worm">
+    <img src="pixiart-drawing.png" class="doodle stars">
+    <img src="cat.png" class="doodle cat">
+    <img src="guy.png" class="doodle guy">
 
     <div class="card">
-        <!-- SCREEN 1 : WELCOME / CHOOSE ACTIVITY -->
         <div id="welcomeScreen">
-            <div class="app-title">Language Master</div>
-                <p class="app-subtitle">Choose an activity to get started</p>
-                <hr class="divider">
-                <p class="choose-label">Choose your activity</p>
+            <div class="app-title"> Language Master </div>
+            <p class="app-subtitle">Choose an activity to get started</p>
+            <hr class="divider">
+            <p class="choose-label">Choose your activity</p>
 
-                <div class="activity-grid">
-                    <div class="activity-card" id="cardSpell" onclick="selectActivity('spell')">
-                        <div class="activity-icon"></div>
-                        <div class="activity-name">Spell Check</div>
-                        <div class="activity-desc">Listen; Spell 10 words</div>
-                    </div>
-                    <div class="activity-card" id="cardRC" onclick="selectActivity('rc')">
-                        <div class="activity-icon"></div>
-                        <div class="activity-name">Reading Comprehension</div>
-                        <div class="activity-desc">Read the paragraph. Answer the questions</div>
-                    </div>
-                    <div class="activity-card" id="cardLC" onclick="selectActivity('lc')">
-                        <div class="activity-icon"></div>
-                        <div class="activity-name">Listening Comprehension</div>
-                        <div class="activity-desc">Listen to a speech. Answer the questions</div>
-                    </div>
-                    <div class="activity-card" id="cardTyping" onclick="selectActivity('typing')">
-                        <div class="activity-icon"></div>
-                        <div class="activity-name">Typing Skill Test</div>
-                        <div class="activity-desc">Type the sentence 10 times in 30 seconds</div>
-                    </div>
+            <div class="activity-grid">
+                <div class="activity-card" id="cardSpell" onclick="selectActivity('spell')">
+                    <div class="activity-icon"></div>
+                    <div class="activity-name">Spell Check</div>
+                    <div class="activity-desc">Listen, Spell 10 words</div>
                 </div>
+                <div class="activity-card" id="cardRC" onclick="selectActivity('rc')">
+                    <div class="activity-icon"></div>
+                    <div class="acitivty-name">Reading Comprehension</div>
+                    <div class="activity-desc">Read the paragraph. Answer the questions</div>
+                </div>
+                <div class="activity-card" id="cardLC" onclick="selectActivity('lc')">
+                    <div class="activity-icon"></div>
+                    <div class="activity-name">Listening Comprehension</div>
+                    <div class="activity-desc">Listen to a speach. Answer the questions</div>
+                </div>
+                <div class="activity-card" id="cardTyping" onclick="selectActivity('typing')">
+                    <div class="activity-icon"></div>
+                    <div class="activity-name">Typing Skill Test</div>
+                    <div class="activity-desc">Type the sentence 10 times in 30 seconds</div>
+                </div>
+                <div class="activity-card" id="cardSC" onclick="selectActivity('sc')" style="grid-column: span 2;">
+                    <div class="actiity-icon"></div>
+                    <div class="activity-name">Speaking Comprehension</div>
+                    <div class="activity-desc">Read the paragraph aloud - your speech is checked word by word</div>
+                </div>
+            </div>
+
         </div>
 
-<!-- SCREEN 2: INSTRUCTIONS -->
+
 <div id="instructionScreen">
     <button class="back-btn" onclick="goBack()"> Back </button>
 
-    <!-- Spell Check  Instructions -->
-     <div id="instrSpell">
+    <div id="instrSpell">
         <div class="instr-header">
             <span class="instr-icon"></span>
-            <span class="instr-title">Spell Check</span>
+            <span class="instr-title">Spell Checlk</span>
         </div>
 
         <p class="instr-subtitle">Test your English spelling skills</p>
@@ -290,11 +286,11 @@
         <ol class="steps">
             <li class="step">
                 <span class="step-num">1</span>
-                <span class="step-text"> There are <span class="highlight">10 questions </span> in the activity </span>
+                <span class="step-text">There are <span class="highlight">10 questions </span> in the activity </span>
             </li>
             <li class="step">
                 <span class="step-num">2</span>
-                <span class="step-text">Click the <span class="highlight">Hear the Word </span> button to listen to the word </span>
+                <span class="step-text">Click the <span class="highlight">Har the Word </span> button to listen to the word </span>
             </li>
             <li class="step">
                 <span class="step-num">3</span>
@@ -306,14 +302,14 @@
             </li>
             <li class="step">
                 <span class="step-num">5</span>
-                <span class="step-text">After completing all 10 words, your <span class="highlight">final score </span> will be displayed </span>
+                <span class="step-text">After completing all 10 wrods, your <span class="highlight"> final score </span> will be displayed</span>
             </li>            
         </ol>
         <div class="start-row">
-                <p class="start-hint">When you are ready, press <strong> START </strong></p>
-                <button class="btn-start" onclick="window.location.href='quiz.html'">START</button>
+            <p class="start-hint">When you are ready, press <strong> START </strong></p>
+            <button class="btn-start" onclick="window.location.href='quiz.html'">START</button>
         </div>
-     </div>
+    </div>
 
 <div id="instrRC" style="display:none">
     <div class="instr-header">
@@ -327,11 +323,11 @@
     <ol class="steps">
         <li class="step">
             <span class="step-num">1</span>
-            <span class="step-text">You will read <span class="highlight"> 2 short paragraphs </span></span>
+            <span class="step-text">You will read <span class="highlight"> 2 short paragrahs </span></span>
         </li>
         <li class="step">
             <span class="step-num">2</span>
-            <span class="step-text">Each paragraph is followed by <span class="highlight"> 5 questions </span> about what you read </span>
+            <span class="step-text">Each paragraph is followed by <span class="highlight"> 5 questions </span> about what your read</span>
         </li>
         <li class="step">
             <span class="step-num">3</span>
@@ -339,12 +335,12 @@
         </li>
         <li class="step">
             <span class="step-num">4</span>
-            <span class="step-text">Click <span class="highlight"> Next </span> to move to the next questions </span>
+            <span class="step-text">Click <span class="highlight"> Next </span> to move to the next question </span>
         </li>
         <li class="step">
             <span class="step-num">5</span>
             <span class="step-text">After all 10 questions, your <span class="highlight"> final score </span> will be displayed </span>
-        </li>        
+        </li>
     </ol>
 
     <div class="start-row">
@@ -352,93 +348,131 @@
         <button class="btn-start"
         onclick="window.location.href='rc_quiz.html'"> START </button>
     </div>
-    </div>
-    <div id="instrLC" style="display:none">
-        <div class="instr-header">
-             <span class="instr-icon"> </span>
-             <span class="instr-title">Listening Comprehension</span>   
-        </div>
-        <p class="instr-subtitle">Listen carefully and answer questions</p>
-        <hr class="divider">
-        <p class="instructions-label">How this works</p>
-        <ol class="steps">
-            <li class="step">
-                <span class="step-num">1</span>
-                <span class="step-text">You will hear <span class="highlight"> 2 short speeches </span> </span>
-            </li>
-            <li class="step">
-                <span class="step-num">2</span>
-                <span class="step-text">Each speech is followed by <span class="highlight">5 questions </span> about what you heard </span>
-            </li>
-            <li class="step">
-                <span class="step-num">3</span>
-                <span class="step-text">You can <span class="highlight"> replay the speech </span> before answering </span>
-            </li>
-            <li class="step">
-                <span class="step-num">4</span>
-                <span class="step-text">Choose the <span class="highlight">best answer </span> from the four options given </span>
-            </li>
-            <li class="step">
-                <span class="step-num">5</span>
-                <span class="step-text">After all 10 questions, your <span class="highlight"> final score </span> will be displayed  </span>
-            </li>            
-        </ol>
-        <div class="start-row">
-            <p class="start-hint">When you are ready, press <strong> START </strong></p>
-            <button class="btn-start" onclick="window.location.href='lc_quiz.html'">START</button>
-        </div>
-    </div>    
+</div>    
 
-    <div id="instrTyping" style="display:none">
-        <div class="instr-header">
-            <span class="instr-icon"> </span>
-            <span class="instr-title">Typing Skill Test</span>
-        </div>
-        <p class="instr-subtitle">How fast and accurate can you type?</p>
-        <hr class="divider">
-        <p class="instructions-label">How this works</p>
-        <ol class="steps">
-            <li class="step">
-                <span class="step-num">1</span>
-                <span class="step-text">You have <span class="highlight"> 30 seconds </span> in total </span>
-            </li>
-            <li class="step">
-                <span class="step-num">2</span>
-                <span class="step-text">Type the sentence: <span class="highlight"> "The quick brown fox jumps over the lazy dog" </span></span>
-            </li>
-            <li class="step">
-                <span class="step-num">3</span>
-                <span class="step-text">Click <span class="highlight">SUBMIT</span> after each attempt - up to <span class="highlight"> 10 attempts </span></span>
-            </li>
-            <li class="step">
-                <span class="step-num">4</span>
-                <span class="step-text">Extra spaces are ignored, but spelling and word order must be <span class="highlight"> exact </span></span>
-            </li>
-            <li class="step">
-                <span class="step-num">5</span>
-                <span class="step-text">Your score shows how many attempts you typed <span class="highlight"> correctly </span> </span>
-            </li>
-        </ol>
-        <div class="start-row">
-            <p class="start-hint">When you are ready, press <strong>START</strong></p>
-            <button class="btn-start" onclick="window.location.href='typing_quiz.html'">START</button>
-        </div>
+<div id="instrLC" style="display:none">
+    <div class="instr-header">
+        <span class="instr-icon"></span>
+        <span clas="instr-title">Listening Comprehension</span>
     </div>
+    <p class="instr-subtitle">Listen carefully and answer questions</p>
+    <hr class="divider">
+    <p class="instructions-label">How this works</p>
+    <ol class="steps">
+        <li class="step">
+            <span class="step-num">1</span>
+            <span class="step-text">You will hear <span class="highlight"> 2 short speeches </span> </span>
+        </li>
+        <li class="step">
+            <span class="step-num">2</span>
+            <span class="step-text">Each speech is followed by <span class="highlight"> 5 questions </span> about what you heard </span>
+        </li>
+        <li class="step">
+            <span class="step-num">3</span>
+            <span class="step-text">You can <span class="highlight"> replay the speech </span> before answering </span>
+        </li>
+        <li class="step">
+            <span class="step-num">4</span>
+            <span class="step-text">Choose the <span class="highlight"> best answer </span> from the four options given </span>
+        </li>
+        <li class="step">
+            <span class="step-num">5</span>
+            <span class="step-text">After all 10 questions, your <span class="highlight"> final score </span> will be displayed</span>
+        </li>   
+    </ol>
+    <div class="start-row">
+        <p class="start-hint">When you are ready, press <strong> START </strong></p>
+        <button class="btn-start" onclick="window.location.href='lc_quiz.html'">START</button>
+    </div>  
 </div>
+
+<div id="instrSC" style="display:none">
+    <div class="instr-header">
+        <span class="inst-icon"></span>
+        <span class="instr-title">Speaking Comprehension</span>
+    </div>
+    <p class="instr-subtitle">Read aloud and check your pronunciation</p>
+    <hr class="divider">
+    <p class="instructions-label">How this works</p>
+    <ol class="steps">
+        <li class="step">
+            <span class="step-num">1</span>
+            <span class="step-text">You will see <span class="highlight">3 short paragraphs </span> one at a time </span>
+        </li>
+        <li class="step">
+            <span class="step-num">2</span>
+            <span class="step-text">Read the paragraph carefully, then click <span class="highlight"> Record </span> and read it aloud </span> </span>
+        </li>
+        <li class="step">
+            <span class="step-num">3</span>
+            <span class="step-text">Click <span class="highlight"> Stop </span> when you finish - your speech is checked <span class="highlight">word by word</span></span>
+        </li>   
+        <li class="step">
+            <span class="step-num">4</span>
+            <span class="step-text">Green words = correct, red words = missed or wrong. You can <span class="highlight"> Try Again </span> before moving on</span>
+        </li>
+        <li class="step">
+            <span class="step-num">5</span>
+            <span class="step-text">Score 85% accuracy or above to <span class="highlight">pass </span> a paragraph </span>
+</li>
+</ol>
+<div class="start-row">
+    <p class="start-hint">When you are ready, press <strong>START </strong></p>
+    <button class="btn-start" onclick="window.location.href='sc_quiz.html'">START</button>
+</div>
+</div>
+
+<div id="instrTyping" style="display:none">
+    <div class="instr-header">
+        <span class="instr-icon"></span>
+        <span class="instr-title">Typing Skill Test</span>
+    </div>
+    <p class="instr-subtitle">How fast and accurate can you type? </p>
+    <hr class="divider">
+    <p class="instructions-label">How this works</p>
+    <ol class="steps">
+        <li class="step">
+            <span class="step-num">1</span>
+            <span class="step-text">You have <span class="highlight"> 30 seconds </span> in total </span>
+        </li>
+        <li class="step">
+            <span class="step-num">2</span>
+            <span class="step-text">Type the sentence: <span class="highlight"> "The quick brown fox jumps over the lazy dog"  </span></span>
+        </li>
+        <li class="step">
+            <span class="step-num">3</span>
+            <span class="step-text">Click <span class="highlight">SUBMIT </span> after each attempt - upto <span class="highlight"> 10 attempts </span></span>
+        </li>
+        <li class="step">
+            <span class="step-num">4</span>
+            <span class="step-text">Extra spaces are ignored, but spelling and word order must be <span class="highlight"> exact </span></span>
+        </li>
+        <li class="step">
+            <span class="step-num">5</span>
+            <span class="step-text">Your score shows how many attempts you typed <span class="highlight"> correctly </span></span>
+        </li>
+    </ol>
+    <div class="start-row">
+        <p class=""start-hint">When you are ready, press <strong>START</strong></p>
+        <button class="btn-start" onclick="window.location.href='typing_quiz.html'">START</button>
+</div>
+</div>        
+
 <script>
     function selectActivity(type) {
-        document.getElementById('welcomeScreen').style.display='none';
+        document.getElementById('welcomeScreen').style.display.none;
         document.getElementById('instructionScreen').style.display='block';
         document.getElementById('instrSpell').style.display= (type === 'spell') ? 'block' : 'none';
         document.getElementById('instrRC').style.display= (type === 'rc') ? 'block' : 'none';
         document.getElementById('instrLC').style.display= (type === 'lc') ? 'block' : 'none';
-        document.getElementById('instrTyping').style.display = (type === 'typing') ? 'block' : 'none';
+        document.getElementById('instrTyping').style.display= (type === 'typing') ? 'block' : 'none';
+        document.getElementById('instrSC').style.display= (type === 'sc') ? 'block' : 'none';
     }
 
     function goBack() {
         document.getElementById('instructionScreen').style.display= 'none';
         document.getElementById('welcomeScreen').style.display= 'block';
     }
-</script>    
-</body>    
+</script>
+</body>                
 </html>
