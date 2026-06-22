@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="device-width, inital-scale=1.0"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title> Language Master </title>
         <style>
             *{box-sizing: border-box; margin:0; padding:0; }
@@ -27,7 +27,7 @@
             }
 
             #welcomeScreen { display: block; }
-            #instructionScreen { display: none }
+            #instructionScreen { display: none; }
 
             .app-title {
                 font-size: 26px;
@@ -85,7 +85,7 @@
 
             .activity-card.selected{
                 border-color: #1d4ed8;
-                background: #effeff;
+                background: #eff6ff;
             }
 
             .activity-name{
@@ -117,6 +117,13 @@
             .back-btn:hover { text-decoration: underline; }
 
             .instr-icon { font-size: 26px; }
+
+            .instr-header {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 0.4rem;
+            }
 
             .instr-title {
                 font-size: 22px;
@@ -248,13 +255,13 @@
                 </div>
                 <div class="activity-card" id="cardRC" onclick="selectActivity('rc')">
                     <div class="activity-icon"></div>
-                    <div class="acitivty-name">Reading Comprehension</div>
+                    <div class="activity-name">Reading Comprehension</div>
                     <div class="activity-desc">Read the paragraph. Answer the questions</div>
                 </div>
                 <div class="activity-card" id="cardLC" onclick="selectActivity('lc')">
                     <div class="activity-icon"></div>
                     <div class="activity-name">Listening Comprehension</div>
-                    <div class="activity-desc">Listen to a speach. Answer the questions</div>
+                    <div class="activity-desc">Listen to a speech. Answer the questions</div>
                 </div>
                 <div class="activity-card" id="cardTyping" onclick="selectActivity('typing')">
                     <div class="activity-icon"></div>
@@ -262,7 +269,7 @@
                     <div class="activity-desc">Type the sentence 10 times in 30 seconds</div>
                 </div>
                 <div class="activity-card" id="cardSC" onclick="selectActivity('sc')" style="grid-column: span 2;">
-                    <div class="actiity-icon"></div>
+                    <div class="activity-icon"></div>
                     <div class="activity-name">Speaking Comprehension</div>
                     <div class="activity-desc">Read the paragraph aloud - your speech is checked word by word</div>
                 </div>
@@ -271,45 +278,47 @@
         </div>
 
 
-<div id="instructionScreen">
-    <button class="back-btn" onclick="goBack()"> Back </button>
+        <div id="instructionScreen">
+            <button class="back-btn" onclick="goBack()"> Back </button>
 
-    <div id="instrSpell">
-        <div class="instr-header">
-            <span class="instr-icon"></span>
-            <span class="instr-title">Spell Checlk</span>
-        </div>
+            <div id="instrSpell">
+                <div class="instr-header">
+                    <span class="instr-icon"></span>
+                    <span class="instr-title">Spell Check</span>
+                </div>
 
-        <p class="instr-subtitle">Test your English spelling skills</p>
-        <hr class="divider">
-        <p class="instructions-label">How this works</p>
-        <ol class="steps">
-            <li class="step">
-                <span class="step-num">1</span>
-                <span class="step-text">There are <span class="highlight">10 questions </span> in the activity </span>
-            </li>
-            <li class="step">
-                <span class="step-num">2</span>
-                <span class="step-text">Click the <span class="highlight">Har the Word </span> button to listen to the word </span>
-            </li>
-            <li class="step">
-                <span class="step-num">3</span>
-                <span class="step-text">Type the word you heard in the box provided</span>
-            </li>
-            <li class="step">
-                <span class="step-num">4</span>
-                <span class="step-text">Click <span class="highlight">Next </span> to move to the following word </span>
-            </li>
-            <li class="step">
-                <span class="step-num">5</span>
-                <span class="step-text">After completing all 10 wrods, your <span class="highlight"> final score </span> will be displayed</span>
-            </li>            
-        </ol>
-        <div class="start-row">
-            <p class="start-hint">When you are ready, press <strong> START </strong></p>
-            <button class="btn-start" onclick="window.location.href='quiz.html'">START</button>
-        </div>
-    </div>
+                <p class="instr-subtitle">Test your English spelling skills</p>
+                <hr class="divider">
+                <p class="instructions-label">How this works</p>
+                <ol class="steps">
+                    <li class="step">
+                        <span class="step-num">1</span>
+                        <span class="step-text">There are <span class="highlight">10 questions </span> in the activity </span>
+                    </li>
+                    <li class="step">
+                        <span class="step-num">2</span>
+                        <span class="step-text">Click the <span class="highlight">Hear the Word </span> button to listen to the word </span>
+                    </li>
+                    <li class="step">
+                        <span class="step-num">3</span>
+                        <span class="step-text">Type the word you heard in the box provided</span>
+                    </li>
+                    <li class="step">
+                        <span class="step-num">4</span>
+                        <span class="step-text">Click <span class="highlight">Next </span> to move to the following word </span>
+                    </li>
+                    <li class="step">
+                        <span class="step-num">5</span>
+                        <span class="step-text">After completing all 10 words, your <span class="highlight"> final score </span> will be displayed</span>
+                    </li>            
+                </ol>
+                <div class="start-row">
+                    <p class="start-hint">When you are ready, press <strong> START </strong></p>
+                    <button class="btn-start" onclick="window.location.href='quiz.html'">START</button>
+                </div>
+            </div>
+         
+      
 
 <div id="instrRC" style="display:none">
     <div class="instr-header">
@@ -323,11 +332,11 @@
     <ol class="steps">
         <li class="step">
             <span class="step-num">1</span>
-            <span class="step-text">You will read <span class="highlight"> 2 short paragrahs </span></span>
+            <span class="step-text">You will read <span class="highlight"> 2 short paragraphs </span></span>
         </li>
         <li class="step">
             <span class="step-num">2</span>
-            <span class="step-text">Each paragraph is followed by <span class="highlight"> 5 questions </span> about what your read</span>
+            <span class="step-text">Each paragraph is followed by <span class="highlight"> 5 questions </span> about what you read</span>
         </li>
         <li class="step">
             <span class="step-num">3</span>
@@ -353,7 +362,7 @@
 <div id="instrLC" style="display:none">
     <div class="instr-header">
         <span class="instr-icon"></span>
-        <span clas="instr-title">Listening Comprehension</span>
+        <span class="instr-title">Listening Comprehension</span>
     </div>
     <p class="instr-subtitle">Listen carefully and answer questions</p>
     <hr class="divider">
@@ -388,7 +397,7 @@
 
 <div id="instrSC" style="display:none">
     <div class="instr-header">
-        <span class="inst-icon"></span>
+        <span class="instr-icon"></span>
         <span class="instr-title">Speaking Comprehension</span>
     </div>
     <p class="instr-subtitle">Read aloud and check your pronunciation</p>
@@ -401,7 +410,7 @@
         </li>
         <li class="step">
             <span class="step-num">2</span>
-            <span class="step-text">Read the paragraph carefully, then click <span class="highlight"> Record </span> and read it aloud </span> </span>
+            <span class="step-text">Read the paragraph carefully, then click <span class="highlight"> Record </span> and read it aloud </span> 
         </li>
         <li class="step">
             <span class="step-num">3</span>
@@ -441,7 +450,7 @@
         </li>
         <li class="step">
             <span class="step-num">3</span>
-            <span class="step-text">Click <span class="highlight">SUBMIT </span> after each attempt - upto <span class="highlight"> 10 attempts </span></span>
+            <span class="step-text">Click <span class="highlight">SUBMIT </span> after each attempt - up to <span class="highlight"> 10 attempts </span></span>
         </li>
         <li class="step">
             <span class="step-num">4</span>
@@ -453,14 +462,16 @@
         </li>
     </ol>
     <div class="start-row">
-        <p class=""start-hint">When you are ready, press <strong>START</strong></p>
+        <p class="start-hint">When you are ready, press <strong>START</strong></p>
         <button class="btn-start" onclick="window.location.href='typing_quiz.html'">START</button>
 </div>
 </div>        
+</div>
+</div>
 
 <script>
     function selectActivity(type) {
-        document.getElementById('welcomeScreen').style.display.none;
+        document.getElementById('welcomeScreen').style.display = 'none';
         document.getElementById('instructionScreen').style.display='block';
         document.getElementById('instrSpell').style.display= (type === 'spell') ? 'block' : 'none';
         document.getElementById('instrRC').style.display= (type === 'rc') ? 'block' : 'none';
