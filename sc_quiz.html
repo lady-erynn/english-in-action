@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="device-width, initial-scale=1.0"/>
+        <title>Language Master : Speaking Comprehension </title>
+        <style>
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f4f8;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 2rem;
+            }
+
+
+            .card {
+                background: #ffffff;
+                border: 2px solid #b0b8c8;
+                border-radius: 14px;
+                padding: 2.8rem 3rem 2.2rem;
+                max-width: 100%;
+                width: 640px;
+            }
+
+            .top-bar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 1.4rem;
+            }
+
+            .q-label { font-size: 13px; color: #666; }
+            .q-count { font-size: 22px; font-weight:bold; color: #1a1a2e; }
+
+            .score-pill{
+                background: #f1f5f9;
+                border: 1px solid #e0e0e0;
+                border-radius: 20px;
+                padding: 4px 14px;
+                font-size: 13px;
+                color: #666;
+            }
+
+            .score-pill span { font-weight: bold; color: #1a1a2e; }
+
+            .progress-bar-bg {
+                height: 6px;
+                background: #e3e8f0;
+                border-radius: 6px;
+                margin-bottom: 1.6rem;
+                overflow: hidden;
+            }
+
+            .progress-bar-fill{
+                height: 100%;
+                background: #1d4ed8;
+                border-radius: 6px;
+                transition: width 0.4s ease;
+            }
+
+            .para-section {
+                background: #f8fafc;
+                border: 1.5px solid #dbeafe;
+                border-radius: 10px;
+                padding: 1.2rem 1.4rem;
+                margin-bottom: 1.4rem;
+            }
+
+            .para-label{
+                font-size: 11px;
+                font-weight: bold;
+                color: #1d4ed8;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                margin-bottom: 0.6rem;
+            }
+
+            .para-text {
+                font-size: 15px;
+                color: #1a1a2e;
+                line-height: 1.8;
+            }
+
+            .para-text .w-correct { color: #15803d; font-weight:bold; }
+            .para-text .w-wrong { color: #dc2626; font-weight: bold; text-decoration: underline; }
+            .para-text .w-unsaid { color: #999; }
+
+            .record-area {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 1.4rem;
+            }
+
+            .btn-record {
+                width: 100%;
+                border: 2px dashed #b0b8c8;
+                border-radius: 12px;
+                padding: 1.2rem;
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                background: #f8fafc;
+                cursor: pointer;
+                transition: border-color 0.15s, background 0.15s;
+                font-family: Arial, sans-serif;
+            }
+
+            .btn-record:hover:not(:disabled) { border-color: #1d4ed8; background: #eff6ff; }
+
+            .btn-record.recording{
+                border-color: #dc2626;
+                border-style: solid;
+                background: #fef2f2;
+                animation: pulse-border is infinite;
+            }
+
+            .btn-record.done {
+                border-color: #15803d;
+                border-style: solid;
+                background: #f0fdf4;
+                cursor: default;
+            }
+
+            .btn-record:disabled { cursor: not-allowed; opacity: 0.5; }
+
+            @keyframes pulse-border {
+                0%, 100% {box-shadow: 0 0 0 0 rgba(220,38,38,0.3);}
+                50%      {box-shadow: 0 0 0 6px rgba(220,38,38,0);}
+            }
+
+            .record-icon { font-size: 28px; flex-shrink: 0; }
+            .record-text-col { display: flex; flex-direction: column; gap: 2px; text-align: left; }
+            .record-label { font-size: 15px; font-weight: bold; color: #1d4ed8; }
+            .record-label.recording-lbl { color: #dc2626; }
+            .record-label.done-lbl { color: #15803d; }
+            .record-hint { font-size: 12px; color: #999; }
+
+            .transcript-box {
+                width: 100%;
+                min-height: 52px;
+                background: #f8fafc;
+                border: 1.5px solid #e2e8f0;
+                border-radius: 8px;
+                padding: 10px 14px;
+                font-size: 14px;
+                color: #444;
+                line-height: 1.6;
+                font-style: italic;
+            }
+
+            .transcript-box.has-text { color: #1a1a2e; font-style: normal; }
+
+            .accuracy-row {
+                display: flex;
+                align-itmes: center;
+                gap: 10px;
+                margin-bottom: 1.2rem;
+            }
+
+            .accurarcy-bar-bg {
+                flex: 1;
+                height: 8px;
+                background: #ede8f0;
+                border-radius: 6px;
+                overflow: hidden;
+            }
+
+            .accuracy-bar-fill {
+                height: 100%;
+                background: #1d4ed8;
+                border-radius: 6px;
+                width: 0%;
+                transition: width 0.5s ease;
+            }
+
+            .accuracy-pct {
+                font-size: 13px;
+                font-weight: bold;
+                color: #1a1a2e;
+                min-width: 36px;
+                text-align: right;
+            }
+
+            .feedback {
+                min-height: 22px;
+                text-align: center;
+                font-size: 14px;
+                font-weight: bold;
+                margin-bottom: 14px;
+            }
+
+            .feedback.correct { color: #15803d;}
+            .feedback.partial { color: #d97706; }
+            .feedback.wrong { color: #dc2626; }
+
+            .btn-row { display: flex; gap: 10px; }
+
+            .btn-retry-attempt {
+                flex: 1;
+                padding: 11px;
+                border: 1.5px solid #b0b8c8;
+                border-radius: 8px;
+                background: #fff;
+                font-size: 14px;
+                color: #555;
+                cursor: pointer;
+                transition: background 0.12s;
+            }
+
+
+            .btn-retry-attmept:hover:not(:disabled) { background: #f1f5f9; }
+            .btn-retry-attempt:disabled { opacity: 0.4; cursor: not-allowed; }
+
+            .btn-next {
+                flex: 2;
+                padding: 11px;
+                border: none;
+                border-radius: 8px;
+                background: #1a1a2e;
+                color: #fff;
+                font-size: 15px;
+                font-weight: bold;
+                letter-spacing: 0.06rem;
+                cursor: pointer;
+                transition: opacity 0.15s;
+            }
+
+            .btn-next:hover:not(:disabled) { opacity: 0.85; }
+            .btn-next:active { transform: scale(0.98);}
+            .btn-next:disabled { opacity: 0.4; cursor: not-allowed; }
+
+            .no-support {
+                display: none;
+                background: #fef9c3;
+                border: 1.5px solid #fde047;
+                border-radius: 8px;
+                padding: 10px 14px;
+                font-size: 13px;
+                color: #713f12;
+                margin-bottom: 1rem;
+            }
+
+
+            .doodle {
+                position: fixed;
+                z-index: -1;
+                image-rendering: pixelated;
+                opacity: 0.9;
+            }
+
+
+            .worm { width: 95px; top: 140px; left:100px; transform: rotate(25deg);}
+            .hm { width: 90px; top: 100px; right: 100px; }
+            .hmm { width: 120px; bottom: 110px; left: 80px; }
+            .stars { width: 110px; bottom: 90px; right: 100px;}
+        </style>
+    </head>
+
+<body>
+    <img src="worm.png"  class="doodle worm">
+    <img src="hm.png" class="doodle hm">
+    <img src="hmm.png" class="doodle hmm"
+    <img src="pixilart-drawing.png" class="doodle stars">
+
+    <div class="card">
+        <div class="top-bar">
+            <div class="q-label">Paragraph</div>
+            <div class="q-count"><span id="qNum">1</span> /3 </div>
+        </div>
+
+        <div class="score-pill">Score: <span id="scoreDisplay">0</span></div>
+    </div>
+
+    <div class="progess-bar-bg">
+        <div class="progress-bar-fill" id="progressBar" sytle="width:33%"></div>
+    </div>
+
+    <div class="no-support" id="noSupport">
+        Your browser doesn't support speech recognition.
+        Please try Chrome or Edge on a desktop/Android device.
+    </div>
+
+    <div class="para-section">
+        <div class="para-label" id="paraLabel">Paragraph 1</div>
+        <p class="para-text" id="paraText"></p>
+    </div>
+
+    <div class="record-area">
+        <button class="btn-record" id="recordBtn" onclick="toggleRecord()">
+            <span class="record-icon" id="recordIcon"> </span>
+            <div class="record-text-col">
+                <span class="record-label" id="recordLabel">Read the paragraph aloud</span>
+                <span class="record-hint" id="recordHint">Click to start recording</span>
+            </div>
+        </button>
+
+        <div class="transcript-box" id="transcriptBox">Your spoken words will appear here...</div>
+    </div>
+
+    <div class="accurarcy-row" id="accuracyRow" style="display:none">
+        <span style="font-size:12px; color: #666; white-space:nowrap"> Accuracy </span>
+        <div class="accuracy-bar-bg">
+            <div class="accuracy-bar-fill" id="accuracyFill"></div>
+        </div>
+        <span class="accuracy-pct" id="accuracyPct">0%</span>
+    </div>
+
+    <div class="feedback" id="feedback"></div>
+    <div class="btn-row">
+        <button class="btn-retry-attempt" id="retryBtn" onclick="resetAttempt()" disabled>  Try Again</button>
+        <button class="btn-next" id="nextBtn" onclick="handleNext()" disabled>NEXT</button>
+    </div>
+</div>
+
+const PARAGRAPHS = [
+    {
+        label: "Paragraph 1",
+        text: "Water is one of the most important substances on Earth. It covers about seventy-one percent
+        of the planet's surface and is essential for all known forms of life. The water cycle describes how
+        water moves continuously through the environment, evaporating from oceans and lakes, rising as vapour,
+        forming clouds, and falling back as rain or snow."
+    },
+    {
+        label: "Paragraph 2",
+        text: "The sun os the star at the center of our solar system. It is by far the largest object in
+        the solar sysgem, about one hundred and nine times the diameter of Earth. Energy from the sun is produced
+        by nuclear fusion in its core, where hydrogen atoms combine to form helium, releasing vast amounts of
+        energy as light and heat."        
+    },
+    {
+        label: "Paragraph 3",
+        text: "Libraries have been at the heart of communities for thousands of years, serving as places
+        where knowledge is stored and shared freely. Today, public libraries offer far more than books. They
+        provide access to computers, internet, language classes, and community events. Libraries also play
+        a vital role in supporting people who cannot to buy books or access the internet at home"
+    }   
+];
+
+let currentIdx = 0;
+let score = 0;
+let results = [];
+let isRecording = false;
+let isScored = false;
+let recognition = null;
+let finalTranscirpt = '';
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (!SpeechRecognition) {
+    document.getElementById('noSupport').style.display = 'block';
+    document.getElementById('recordBtn').disabled = true;
+}
+
+function buildRecognition() {
+    const r = new SpeechRecognition();
+    r.lang = 'en-GB';
+    r.continuous = true;
+    r.interimResults = true;
+
+    r.onresult = function(e) {
+        let interim = '';
+        finalTranscript = '';
+        for (let i = 0; i< e.results.length; i++) {
+            if (e.results[i].isFinal) {
+                finalTranscript += e.results[i][0].transcript + ' ';
+            } else {
+                interim +=  e.results[i][0].transcript;
+            }
+        }
+
+        const displayed = (finalTranscript + interim).trim();
+        const box = document.getElementById('transcriptBox');
+        box.textContent = displayed || 'Listening...';
+        box.classList.toggle('has-text', displayed.length > 0);
+    };
+
+    r.onerror = function(e) {
+        console.error('Speech recognition error:', e.error);
+        stopRecording();
+        if (e.error === 'not-allowed') {
+            document.getElementById('feedback').textContent = 'Microphone access denied. Please allow microphone and try again.';
+            document.getElementById('feedback').className = 'feedback wrong';
+        };
+
+    r.onend = function() {
+        if (isRecording) {
+            try { r.start(); } catch(err) {}
+        }
+    };
+    
+    return r;
+    }
+
+function loadParagraph() {
+    isScored = false;
+    finalTranscript = '';
+
+    const p = PARAGRAPHS[currentIdx];
+    document.getElementById('paraLabel').textContent = p.label;
+    document.getElementById('paraText').textContent = p.text;
+    document.getElementById('qNum').textContent = currentIdx + 1;
+    document.getElementById('progressBar').style.width = ((currentIdx + 1) / PARAGRAPHS.lenght * 100) + '%';
+    document.getElementById('nextBtn').textContent = (currentIdx === PARAGRAPHS.length - 1) ? 'FINISH' : 'NEXT'; 
+
+    resetAttempt();
+}
+
+function toggleRecord() {
+    if (isScored) return;
+    if (isRecording) {
+        stopRecording();
+        scoreAttempt();
+    } else {
+        startRecording();
+    }
+}
+
+function startRecording() {
+    isRecording = true;
+    finalTranscript = '';
+
+    recognition = buildRecognition();
+    recognition.start();
+
+    document.getElementById('recordBtn').className = 'btn-record recording';
+    document.getElementById('recordIcon').textContent = '    ';
+    document.getElementById('recordLabel').textContent = 'Recording...';
+    document.getElementById('recordLabel').className  'record-label recording-lbl';
+    document.getElementById('recordHint').textContent = 'click to stop and check';
+
+    const box = document.getElementById('transcriptBox');
+    box.textContent = 'Listening...';
+    box.classList.remove('has-text');
+
+    document.getElementById('accuracyRow').style.display  'none';
+    document.getElementById('feedback').textContent= '';
+    document.getElementById('feedback').className = 'feedback';
+    document.getElementById('nextBtn').disabled = true;
+
+}
+
+function stopRecording() {
+    isRecording = false;
+    if (recognition) {
+        recognition.onend = null;
+        recognition.stop();
+        recognition = null;
+    }
+
+    document.getElementById('recordBtn').className = 'btn-record done';
+    document.getElementById('recordIcon').textContent = '  ';
+    document.getElementById('recordLabel').textContent = 'Recording complete';
+    document.getElementById('recordLabel').className = 'record-label done-lbl';
+    document.getElementById('recordHint').textContent = 'See your result below';
+}
+
+function tokenise(str) {
+    return str.toLowerCase().replace(/[^a-z0-9\s']/g,'').trim().split(/\s+/).filter(Boolean);
+}
+
+function scoreAttempt() {
+    isScored = true;
+    const target = PARAGRAPHS[currentIdx].text;
+    const spoken = finalTranscript.trim();
+
+    if (!spoken) {
+        document.getElementById('feedback').textContent = 'Nothing was recorded. Try again !';
+        document.getElementById('feedback').className = 'feedback wrong';
+        document.getElementById('retryBtn').disabled == false;
+        resetRecordButton();
+        return;
+    }
+
+    const targetWords = tokenise(target);
+    const spokenWords = tokenise(spoken);
+
+    const spokenSet = {};
+    spokenWords.forEach(w => { spokenSet[w] = (spokenSet[w] || 0) + 1; });
+
+    let matched = 0;
+    const usedCounts = {};
+
+    const wordStatuses = targetWords.map(tw => {
+        const cnt = spokenSet[tw] || 0;
+        const used = usedCounts[tw] || 0;
+
+        if (cnt > used) {
+            usedCounts[tw] = used + 1;
+            matched++;
+            return 'correct';
+        }
+        return 'wrong';
+    });
+
+    const pct = Math.round(matched / targetWords.length * 100);
+    const roundedScore = pct >= 85 ? 1 : pct >= 60 ? 0.5 : 0;
+    score += roundedScore;
+
+    const paraE1 = document.getElementById('paraText');
+    paraE1.innerHTML = targetWords.map((w,i) => {
+        const cls = wordStatuses[i];
+        return `<span class="w-${cls}">${escapeHTML(targeWords[i])}</span>`;
+    }).join(' ');
+
+    document.getElementById('accuracyRow').style.display = 'flex';
+    document.getElementById('accuracyFill').style.width = pct + '%';
+    document.getElementById('accuracyFill').style.background =
+        pct >= 85 ? `#15803d` : pct >= 60 ? `#d97706` : `#dc2626`;
+    document.getElementById('accuracyPct').textContent = pct + '%';
+    
+    const fb = document.getElementById('feedback');
+    if (pct >= 85) {
+        fb.textContent = 'Really clear pronunication';
+        fb.className = 'feedback correct';
+    } else if (pct >= 60) {
+        fb.textContent = 'A few words were off';
+        fb.className = 'feedback partial';
+    } else {
+        fb.textContent = 'Keep practising';
+        fb.className = 'feedback wrong';
+    }
+
+    document.getElementById('scoreDisplay').textContent = score;
+
+    results.push({
+        paragraph: PARAGRAPHS[currentIdx].label,
+        target: target,
+        spoken: spoken,
+        accuracy: pct,
+        ok: pct >= 85
+    });
+
+    document.getElementById('retryBtn').disabled = false;
+    document.getElementById('nextBtn').disabled = false;
+}
+
+function escapeHtml(str) {
+    return str.replace;
+}
+
+function resetAttempt() {
+    if (isRecording) {
+        isRecording = false;
+        if (recognition) { recognition.onend = null; recognition.stop(); recognition = null;}
+    }
+
+    isScored = false;
+    finalTranscript = '';
+
+    resetRecordButton();
+    const p= PARAGRAPHS[currentIdx];
+    document.getElementByID('paraText').textContent = p.text;
+
+    const box = document.getElementByID('transcriptBox');
+    box.textContent = 'Your spoken words will appear here ...';
+    box.classList.remove('has-text');
+
+    document.getElementById('accuracyRow').style.display = 'none';
+    document.getElementById('feedback').textContent = '';
+    document.getElementById('feedback').className = 'feedback';
+    document.getElementById('retryBtn').disabled = true;
+    document.getElementById('nexBtn').disabled = true;
+}
+
+function resetRecordButton() {
+    document.getElementById('recordBtn').className    = 'btn-record';
+    document.getElementById('recordIcon').textContent  = '🎙️';
+    document.getElementById('recordLabel').textContent = 'Read the paragraph aloud';
+    document.getElementById('recordLabel').className   = 'record-label';
+    document.getElementById('recordHint').textContent  = 'Click to start recording';
+    document.getElementById('recordBtn').disabled      = false;
+}
+
+
+function handleNext() {
+    if (!isScored) return;
+ 
+    currentIdx++;
+    if (currentIdx < PARAGRAPHS.length) {
+        loadParagraph();
+    } else {
+        sessionStorage.setItem('scScore',   JSON.stringify(score));
+        sessionStorage.setItem('scResults', JSON.stringify(results));
+        window.location.href = 'sc_result.html';
+    }
+}
+
+loadParagraph();
+</script>
+
+
+</body>    
+</html>

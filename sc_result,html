@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en>
+
+    <head>
+        <title>Language Master - Speaking Comprehension Result</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+ 
+        <style>
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+
+            body {
+                font-family: 'Kalam', cursive;
+                background: #eef4fb;
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 2 rem;
+                position: relative;
+                overflow-x: hidden;
+            }
+ 
+            .card {
+                width: 680px;
+                max-width: 100%;
+                background: white;
+                border: 2px solid #bcc8d7;
+                border-radius: 18px 14px 20px 12 px;
+                padding: 2.7rem 3rem 2.3rem;
+                box-shadow: 0 5px 18px rgba(0,0,0,0.05);
+            }
+ 
+            .result-header { text-align: center; margin-bottom: 2rem; }
+            .result-title  { font-size: 2rem; color: #243447; margin-bottom: 0.4rem; }
+            .result-msg    { color: #6a7280; font-size: 1 rem; }
+ 
+            .score-box {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: #f8fbff;
+                border: 2px solid #d9e4ef;
+                border-radius: 14px 18px 13px 17px;
+                padding: 1.2rem;
+                margin-bottom: 2rem;
+                transform: rotate(-1 deg);
+            }
+
+            .score-number  { font-size: 3rem; font-weight: bold; color: #243447; }
+            .score-divider { font-size: 2rem; color: #b8c4d2; }
+            .score-total   { font-size: 2 rem; color: #b8c4d2; }
+            .score-label   { margin-top: 4px; text-align: center; color: #8b95a3; font-size: 0.9rem; }
+ 
+            .summary-label {
+                color: #8b95a3;
+                margin-bottom: 0.8rem;
+                letter-spacing: 2px;
+                text-transform: lowercase;
+                font-size: 0.85rem;
+            }
+ 
+            /* per-paragraph result cards */
+            .para-results { display: flex; flex-direction: column; gap: 14px; margin-bottom: 2rem; }
+ 
+            .para-card {
+                background: #f8fbff;
+                border: 1.5px solid #d9e4ef;
+                border-radius: 12px 10px 14px 10 px;
+                padding: 1rem 1.2rem;
+            }
+
+             .para-card-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0.5rem;
+            }
+ 
+            .para-card-title { font-size: 0.9rem; color: #243447; font-weight: bold; }
+ 
+            .badge {
+                font-size: 0.8rem;
+                padding: 3px 10px;
+                border-radius: 20px;
+                font-weight: bold;
+            }
+ 
+            .badge.excellent { background: #dcfce7; color: #15803d; }
+            .badge.good      { background: #fef9c3; color: #92400e; }
+            .badge.needs     { background: #fee2e2; color: #b91c1c; }
+ 
+            .mini-bar-bg {
+                height: 6px;
+                background: #e3e8f0;
+                border-radius: 6px;
+                overflow: hidden;
+                margin-bottom: 0.4rem;
+            }
+ 
+            .mini-bar-fill {
+                height: 100%;
+                border-radius: 6px;
+            }
+ 
+            .para-card-meta { font-size: 0.78rem; color: #8b95a3; }
+
+             .spoken-snippet {
+                margin-top: 0.5rem;
+                font-size: 0.83 rem;
+                color: #4a5568;
+                background: white;
+                border-radius: 6px;
+                padding: 6px 10px;
+                border: 1px solid #e4ebf3;
+                font-family: Arial, sans-serif;
+                font-style: italic;
+                line-height: 1.5;
+                /* truncate long transcripts */
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+ 
+            .btn-row { display: flex; gap: 12px; }
+ 
+            .btn-home {
+                flex: 1;
+                background: white;
+                border: 2px solid #d4deea;
+                border-radius: 14px 10px 16px 12px;
+                padding: 12px;
+                cursor: pointer;
+                font-family: 'Kalam', cursive;
+                font-size: 1rem;
+                color: #66717f;
+                transition: 0.15s;
+            }
+ 
+            .btn-home:hover { background: #f8fbff; }
+ 
+            .btn-retry {
+                flex: 2;
+                border: none;
+                background: #32465a;
+                color: white;
+                padding: 12px;
+                cursor: pointer;
+                border-radius: 13px 17px 11px 15 px;
+                font-family: 'Kalam', cursive;
+                font-size: 1rem;
+                transition: 0.15s;
+            }
+ 
+            .btn-retry:hover  { opacity: 0.9; }
+            .btn-retry:active { transform: scale(0.98); }
+
+            .doodle { position: fixed; z-index: -1; image-rendering: pixelated; opacity: 0.9; }
+            .stars { width: 130px; top: 70px; right: 100px; }
+            .worm  { width: 100px; top: 80px; left: 90px; transform: rotate(180deg); }
+            .cat   { width: 140px; right: 70px; bottom: 80px; }
+            .guy   { width: 100px; left: 200px; bottom: 70px; }
+        </style>
+    </head>
+
+    <body>
+    <img scr="pixiart-drawing.png" class="doodle stars">
+    <img src="worm.png"            class="doodle worm">
+    <img src="cat.png"             class="doodle cat">
+    <img src="guy.png"             class="doodle guy">
+ 
+    <div class="card">
+        <div class="result-header">
+            <div class="result-title">Speaking Complete</div>
+            <div class="result-msg" id="resultMsg"></div>
+        </div>
+ 
+        <div class="score-box">
+            <div>
+                <div style="display:flex; align-items:baseline; gap:6px;">
+                    <span class="score-number" id="scoreNumber">0</span>
+                    <span class="score-divider">/</span>
+                    <span class="score-total">3</span>
+                </div>
+                <div class="score-label">Paragraphs Passed (≥ 85%)</div>
+            </div>
+        </div>
+ 
+        <p class="summary-label">Paragraph Breakdown</p>
+ 
+        <div class="para-results" id="paraResults"></div>
+ 
+        <div class="btn-row">
+            <button class="btn-home"  onclick="goHome()">Home</button>
+            <button class="btn-retry" onclick="retryQuiz()">TRY AGAIN</button>
+        </div>
+    </div>
+
+    <script>
+    const rawScore = sessionStorage.getItem('scScore');
+    const score    = rawScore !== null ? parseFloat(rawScore) : 0;
+    const results  = JSON.parse(sessionStorage.getItem('scResults')) || [];
+ 
+    // Count full passes (≥ 85%)
+    const passes   = results.filter(r => r.accuracy >= 85).length;
+ 
+    function getMessage(p) {
+        if (p === 3) return "all three paragraphs nailed. seriously impressive!";
+        if (p === 2) return "great speaking! just one more to perfect.";
+        if (p === 1) return "a solid start — keep reading aloud every day!";
+        return "speaking is tough — keep practising and you'll get there.";
+    }
+ 
+    document.getElementById('scoreNumber').textContent = passes;
+    document.getElementById('resultMsg').textContent   = getMessage(passes);
+ 
+    const container = document.getElementById('paraResults');
+ 
+    results.forEach(r => {
+        const pct = r.accuracy;
+        const badgeClass = pct >= 85 ? 'excellent' : pct >= 60 ? 'good' : 'needs';
+        const badgeText  = pct >= 85 ? '✓ Passed' : pct >= 60 ? 'Almost!' : 'Keep practising';
+        const barColor   = pct >= 85 ? '#15803d'  : pct >= 60 ? '#d97706' : '#dc2626';
+        const card = document.createElement('div');
+        card.className = 'para-card';
+        card.innerHTML = `
+            <div class="para-card-header">
+                <span class="para-card-title">${r.paragraph}</span>
+                <span class="badge ${badgeClass}">${badgeText}</span>
+            </div>
+            <div class="mini-bar-bg">
+                <div class="mini-bar-fill" style="width:${pct}%; background:${barColor}"></div>
+            </div>
+            <div class="para-card-meta">${pct}% word accuracy</div>
+            <div class="spoken-snippet">"${escapeHtml(r.spoken || '(nothing recorded)')}"</div>
+        `;
+        container.appendChild(card);
+    });
+ 
+    function escapeHtml(str) {
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+ 
+    function goHome()    { window.location.href = 'index.html';   }
+    function retryQuiz() { window.location.href = 'sc_quiz.html'; }
+</script>
+</body>
+</html>
+ 
