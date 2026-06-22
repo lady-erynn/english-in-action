@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="device-width, initial-scale=1.0"/>
-        <title>Language Master : Speaking Comprehension </title>
+        <title>Language Master : Speaking Comprehension</title>
         <style>
             * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -16,7 +16,6 @@
                 justify-content: center;
                 padding: 2rem;
             }
-
 
             .card {
                 background: #ffffff;
@@ -35,9 +34,9 @@
             }
 
             .q-label { font-size: 13px; color: #666; }
-            .q-count { font-size: 22px; font-weight:bold; color: #1a1a2e; }
+            .q-count { font-size: 22px; font-weight: bold; color: #1a1a2e; }
 
-            .score-pill{
+            .score-pill {
                 background: #f1f5f9;
                 border: 1px solid #e0e0e0;
                 border-radius: 20px;
@@ -56,7 +55,7 @@
                 overflow: hidden;
             }
 
-            .progress-bar-fill{
+            .progress-bar-fill {
                 height: 100%;
                 background: #1d4ed8;
                 border-radius: 6px;
@@ -71,7 +70,7 @@
                 margin-bottom: 1.4rem;
             }
 
-            .para-label{
+            .para-label {
                 font-size: 11px;
                 font-weight: bold;
                 color: #1d4ed8;
@@ -86,9 +85,9 @@
                 line-height: 1.8;
             }
 
-            .para-text .w-correct { color: #15803d; font-weight:bold; }
-            .para-text .w-wrong { color: #dc2626; font-weight: bold; text-decoration: underline; }
-            .para-text .w-unsaid { color: #999; }
+            .para-text .w-correct { color: #15803d; font-weight: bold; }
+            .para-text .w-wrong   { color: #dc2626; font-weight: bold; text-decoration: underline; }
+            .para-text .w-unsaid  { color: #999; }
 
             .record-area {
                 display: flex;
@@ -114,11 +113,11 @@
 
             .btn-record:hover:not(:disabled) { border-color: #1d4ed8; background: #eff6ff; }
 
-            .btn-record.recording{
+            .btn-record.recording {
                 border-color: #dc2626;
                 border-style: solid;
                 background: #fef2f2;
-                animation: pulse-border is infinite;
+                animation: pulse-border 1s infinite;
             }
 
             .btn-record.done {
@@ -131,8 +130,8 @@
             .btn-record:disabled { cursor: not-allowed; opacity: 0.5; }
 
             @keyframes pulse-border {
-                0%, 100% {box-shadow: 0 0 0 0 rgba(220,38,38,0.3);}
-                50%      {box-shadow: 0 0 0 6px rgba(220,38,38,0);}
+                0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.3); }
+                50%       { box-shadow: 0 0 0 6px rgba(220,38,38,0); }
             }
 
             .record-icon { font-size: 28px; flex-shrink: 0; }
@@ -159,15 +158,15 @@
 
             .accuracy-row {
                 display: flex;
-                align-itmes: center;
+                align-items: center;
                 gap: 10px;
                 margin-bottom: 1.2rem;
             }
 
-            .accurarcy-bar-bg {
+            .accuracy-bar-bg {
                 flex: 1;
                 height: 8px;
-                background: #ede8f0;
+                background: #e3e8f0;
                 border-radius: 6px;
                 overflow: hidden;
             }
@@ -196,9 +195,9 @@
                 margin-bottom: 14px;
             }
 
-            .feedback.correct { color: #15803d;}
+            .feedback.correct { color: #15803d; }
             .feedback.partial { color: #d97706; }
-            .feedback.wrong { color: #dc2626; }
+            .feedback.wrong   { color: #dc2626; }
 
             .btn-row { display: flex; gap: 10px; }
 
@@ -214,8 +213,7 @@
                 transition: background 0.12s;
             }
 
-
-            .btn-retry-attmept:hover:not(:disabled) { background: #f1f5f9; }
+            .btn-retry-attempt:hover:not(:disabled) { background: #f1f5f9; }
             .btn-retry-attempt:disabled { opacity: 0.4; cursor: not-allowed; }
 
             .btn-next {
@@ -233,7 +231,7 @@
             }
 
             .btn-next:hover:not(:disabled) { opacity: 0.85; }
-            .btn-next:active { transform: scale(0.98);}
+            .btn-next:active { transform: scale(0.98); }
             .btn-next:disabled { opacity: 0.4; cursor: not-allowed; }
 
             .no-support {
@@ -247,7 +245,6 @@
                 margin-bottom: 1rem;
             }
 
-
             .doodle {
                 position: fixed;
                 z-index: -1;
@@ -255,101 +252,94 @@
                 opacity: 0.9;
             }
 
-
-            .worm { width: 95px; top: 140px; left:100px; transform: rotate(25deg);}
-            .hm { width: 90px; top: 100px; right: 100px; }
-            .hmm { width: 120px; bottom: 110px; left: 80px; }
-            .stars { width: 110px; bottom: 90px; right: 100px;}
+            .worm  { width: 95px;  top: 140px;  left: 100px; transform: rotate(25deg); }
+            .hm    { width: 90px;  top: 100px;  right: 100px; }
+            .hmm   { width: 120px; bottom: 110px; left: 80px; }
+            .stars { width: 110px; bottom: 90px;  right: 100px; }
         </style>
     </head>
 
 <body>
-    <img src="worm.png"  class="doodle worm">
-    <img src="hm.png" class="doodle hm">
-    <img src="hmm.png" class="doodle hmm"
-    <img src="pixilart-drawing.png" class="doodle stars">
+    <img src="worm.png"              class="doodle worm">
+    <img src="hm.png"                class="doodle hm">
+    <img src="hmm.png"               class="doodle hmm">
+    <img src="pixilart-drawing.png"  class="doodle stars">
 
     <div class="card">
         <div class="top-bar">
-            <div class="q-label">Paragraph</div>
-            <div class="q-count"><span id="qNum">1</span> /3 </div>
-        </div>
-
-        <div class="score-pill">Score: <span id="scoreDisplay">0</span></div>
-    </div>
-
-    <div class="progess-bar-bg">
-        <div class="progress-bar-fill" id="progressBar" sytle="width:33%"></div>
-    </div>
-
-    <div class="no-support" id="noSupport">
-        Your browser doesn't support speech recognition.
-        Please try Chrome or Edge on a desktop/Android device.
-    </div>
-
-    <div class="para-section">
-        <div class="para-label" id="paraLabel">Paragraph 1</div>
-        <p class="para-text" id="paraText"></p>
-    </div>
-
-    <div class="record-area">
-        <button class="btn-record" id="recordBtn" onclick="toggleRecord()">
-            <span class="record-icon" id="recordIcon"> </span>
-            <div class="record-text-col">
-                <span class="record-label" id="recordLabel">Read the paragraph aloud</span>
-                <span class="record-hint" id="recordHint">Click to start recording</span>
+            <div>
+                <div class="q-label">Paragraph</div>
+                <div class="q-count"><span id="qNum">1</span> / 3</div>
             </div>
-        </button>
-
-        <div class="transcript-box" id="transcriptBox">Your spoken words will appear here...</div>
-    </div>
-
-    <div class="accurarcy-row" id="accuracyRow" style="display:none">
-        <span style="font-size:12px; color: #666; white-space:nowrap"> Accuracy </span>
-        <div class="accuracy-bar-bg">
-            <div class="accuracy-bar-fill" id="accuracyFill"></div>
+            <div class="score-pill">Score: <span id="scoreDisplay">0</span></div>
         </div>
-        <span class="accuracy-pct" id="accuracyPct">0%</span>
+
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar" style="width:33%"></div>
+        </div>
+
+        <div class="no-support" id="noSupport">
+            ⚠️ Your browser doesn't support speech recognition.
+            Please try Chrome or Edge on a desktop/Android device.
+        </div>
+
+        <div class="para-section">
+            <div class="para-label" id="paraLabel">Paragraph 1</div>
+            <p class="para-text" id="paraText"></p>
+        </div>
+
+        <div class="record-area">
+            <button class="btn-record" id="recordBtn" onclick="toggleRecord()">
+                <span class="record-icon" id="recordIcon">🎙️</span>
+                <div class="record-text-col">
+                    <span class="record-label" id="recordLabel">Read the paragraph aloud</span>
+                    <span class="record-hint"  id="recordHint">Click to start recording</span>
+                </div>
+            </button>
+
+            <div class="transcript-box" id="transcriptBox">Your spoken words will appear here...</div>
+        </div>
+
+        <div class="accuracy-row" id="accuracyRow" style="display:none">
+            <span style="font-size:12px; color:#666; white-space:nowrap">Accuracy</span>
+            <div class="accuracy-bar-bg">
+                <div class="accuracy-bar-fill" id="accuracyFill"></div>
+            </div>
+            <span class="accuracy-pct" id="accuracyPct">0%</span>
+        </div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <div class="btn-row">
+            <button class="btn-retry-attempt" id="retryBtn" onclick="resetAttempt()" disabled>🔄 Try Again</button>
+            <button class="btn-next" id="nextBtn" onclick="handleNext()" disabled>NEXT</button>
+        </div>
     </div>
 
-    <div class="feedback" id="feedback"></div>
-    <div class="btn-row">
-        <button class="btn-retry-attempt" id="retryBtn" onclick="resetAttempt()" disabled>  Try Again</button>
-        <button class="btn-next" id="nextBtn" onclick="handleNext()" disabled>NEXT</button>
-    </div>
-</div>
+<script>
 
 const PARAGRAPHS = [
     {
         label: "Paragraph 1",
-        text: "Water is one of the most important substances on Earth. It covers about seventy-one percent
-        of the planet's surface and is essential for all known forms of life. The water cycle describes how
-        water moves continuously through the environment, evaporating from oceans and lakes, rising as vapour,
-        forming clouds, and falling back as rain or snow."
+        text: "Water is one of the most important substances on Earth. It covers about seventy-one percent of the planet's surface and is essential for all known forms of life. The water cycle describes how water moves continuously through the environment, evaporating from oceans and lakes, rising as vapour, forming clouds, and falling back as rain or snow."
     },
     {
         label: "Paragraph 2",
-        text: "The sun os the star at the center of our solar system. It is by far the largest object in
-        the solar sysgem, about one hundred and nine times the diameter of Earth. Energy from the sun is produced
-        by nuclear fusion in its core, where hydrogen atoms combine to form helium, releasing vast amounts of
-        energy as light and heat."        
+        text: "The sun is the star at the centre of our solar system. It is by far the largest object in the solar system, about one hundred and nine times the diameter of Earth. Energy from the sun is produced by nuclear fusion in its core, where hydrogen atoms combine to form helium, releasing vast amounts of energy as light and heat."
     },
     {
         label: "Paragraph 3",
-        text: "Libraries have been at the heart of communities for thousands of years, serving as places
-        where knowledge is stored and shared freely. Today, public libraries offer far more than books. They
-        provide access to computers, internet, language classes, and community events. Libraries also play
-        a vital role in supporting people who cannot to buy books or access the internet at home"
-    }   
+        text: "Libraries have been at the heart of communities for thousands of years, serving as places where knowledge is stored and shared freely. Today, public libraries offer far more than books. They provide access to computers, internet, language classes, and community events. Libraries also play a vital role in supporting people who cannot afford to buy books or access the internet at home."
+    }
 ];
 
 let currentIdx = 0;
-let score = 0;
-let results = [];
-let isRecording = false;
-let isScored = false;
-let recognition = null;
-let finalTranscirpt = '';
+let score      = 0;
+let results    = [];
+let isRecording   = false;
+let isScored      = false;
+let recognition   = null;
+let finalTranscript = '';
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -367,14 +357,13 @@ function buildRecognition() {
     r.onresult = function(e) {
         let interim = '';
         finalTranscript = '';
-        for (let i = 0; i< e.results.length; i++) {
+        for (let i = 0; i < e.results.length; i++) {
             if (e.results[i].isFinal) {
                 finalTranscript += e.results[i][0].transcript + ' ';
             } else {
-                interim +=  e.results[i][0].transcript;
+                interim += e.results[i][0].transcript;
             }
         }
-
         const displayed = (finalTranscript + interim).trim();
         const box = document.getElementById('transcriptBox');
         box.textContent = displayed || 'Listening...';
@@ -387,16 +376,18 @@ function buildRecognition() {
         if (e.error === 'not-allowed') {
             document.getElementById('feedback').textContent = 'Microphone access denied. Please allow microphone and try again.';
             document.getElementById('feedback').className = 'feedback wrong';
-        };
+        }
+    };
 
     r.onend = function() {
         if (isRecording) {
+            // auto-restart while still in recording mode (browser cuts off after ~60s)
             try { r.start(); } catch(err) {}
         }
     };
-    
+
     return r;
-    }
+}
 
 function loadParagraph() {
     isScored = false;
@@ -404,10 +395,10 @@ function loadParagraph() {
 
     const p = PARAGRAPHS[currentIdx];
     document.getElementById('paraLabel').textContent = p.label;
-    document.getElementById('paraText').textContent = p.text;
-    document.getElementById('qNum').textContent = currentIdx + 1;
-    document.getElementById('progressBar').style.width = ((currentIdx + 1) / PARAGRAPHS.lenght * 100) + '%';
-    document.getElementById('nextBtn').textContent = (currentIdx === PARAGRAPHS.length - 1) ? 'FINISH' : 'NEXT'; 
+    document.getElementById('paraText').textContent  = p.text;
+    document.getElementById('qNum').textContent      = currentIdx + 1;
+    document.getElementById('progressBar').style.width = ((currentIdx + 1) / PARAGRAPHS.length * 100) + '%';
+    document.getElementById('nextBtn').textContent   = (currentIdx === PARAGRAPHS.length - 1) ? 'FINISH' : 'NEXT';
 
     resetAttempt();
 }
@@ -429,40 +420,40 @@ function startRecording() {
     recognition = buildRecognition();
     recognition.start();
 
-    document.getElementById('recordBtn').className = 'btn-record recording';
-    document.getElementById('recordIcon').textContent = '    ';
+    document.getElementById('recordBtn').className    = 'btn-record recording';
+    document.getElementById('recordIcon').textContent  = '⏹️';
     document.getElementById('recordLabel').textContent = 'Recording...';
-    document.getElementById('recordLabel').className  'record-label recording-lbl';
-    document.getElementById('recordHint').textContent = 'click to stop and check';
+    document.getElementById('recordLabel').className   = 'record-label recording-lbl';
+    document.getElementById('recordHint').textContent  = 'Click to stop and check';
 
     const box = document.getElementById('transcriptBox');
     box.textContent = 'Listening...';
     box.classList.remove('has-text');
 
-    document.getElementById('accuracyRow').style.display  'none';
-    document.getElementById('feedback').textContent= '';
-    document.getElementById('feedback').className = 'feedback';
-    document.getElementById('nextBtn').disabled = true;
-
+    document.getElementById('accuracyRow').style.display = 'none';
+    document.getElementById('feedback').textContent = '';
+    document.getElementById('feedback').className   = 'feedback';
+    document.getElementById('nextBtn').disabled     = true;
 }
 
 function stopRecording() {
     isRecording = false;
     if (recognition) {
-        recognition.onend = null;
+        recognition.onend = null; // prevent auto-restart
         recognition.stop();
         recognition = null;
     }
 
-    document.getElementById('recordBtn').className = 'btn-record done';
-    document.getElementById('recordIcon').textContent = '  ';
+    document.getElementById('recordBtn').className    = 'btn-record done';
+    document.getElementById('recordIcon').textContent  = '✅';
     document.getElementById('recordLabel').textContent = 'Recording complete';
-    document.getElementById('recordLabel').className = 'record-label done-lbl';
-    document.getElementById('recordHint').textContent = 'See your result below';
+    document.getElementById('recordLabel').className   = 'record-label done-lbl';
+    document.getElementById('recordHint').textContent  = 'See your result below';
 }
 
+
 function tokenise(str) {
-    return str.toLowerCase().replace(/[^a-z0-9\s']/g,'').trim().split(/\s+/).filter(Boolean);
+    return str.toLowerCase().replace(/[^a-z0-9\s']/g, '').trim().split(/\s+/).filter(Boolean);
 }
 
 function scoreAttempt() {
@@ -471,15 +462,15 @@ function scoreAttempt() {
     const spoken = finalTranscript.trim();
 
     if (!spoken) {
-        document.getElementById('feedback').textContent = 'Nothing was recorded. Try again !';
-        document.getElementById('feedback').className = 'feedback wrong';
-        document.getElementById('retryBtn').disabled == false;
+        document.getElementById('feedback').textContent = 'Nothing was recorded. Try again!';
+        document.getElementById('feedback').className   = 'feedback wrong';
+        document.getElementById('retryBtn').disabled    = false;
         resetRecordButton();
         return;
     }
 
     const targetWords = tokenise(target);
-    const spokenWords = tokenise(spoken);
+    const spokenWords  = tokenise(spoken);
 
     const spokenSet = {};
     spokenWords.forEach(w => { spokenSet[w] = (spokenSet[w] || 0) + 1; });
@@ -490,7 +481,6 @@ function scoreAttempt() {
     const wordStatuses = targetWords.map(tw => {
         const cnt = spokenSet[tw] || 0;
         const used = usedCounts[tw] || 0;
-
         if (cnt > used) {
             usedCounts[tw] = used + 1;
             matched++;
@@ -500,34 +490,36 @@ function scoreAttempt() {
     });
 
     const pct = Math.round(matched / targetWords.length * 100);
-    const roundedScore = pct >= 85 ? 1 : pct >= 60 ? 0.5 : 0;
+    const roundedScore = pct >= 85 ? 1 : pct >= 60 ? 0.5 : 0; // full / half / no point
     score += roundedScore;
 
-    const paraE1 = document.getElementById('paraText');
-    paraE1.innerHTML = targetWords.map((w,i) => {
+    const paraEl = document.getElementById('paraText');
+    paraEl.innerHTML = targetWords.map((w, i) => {
         const cls = wordStatuses[i];
-        return `<span class="w-${cls}">${escapeHTML(targeWords[i])}</span>`;
+        // use the original casing from target text where possible
+        return `<span class="w-${cls}">${escapeHtml(targetWords[i])}</span>`;
     }).join(' ');
 
+
     document.getElementById('accuracyRow').style.display = 'flex';
-    document.getElementById('accuracyFill').style.width = pct + '%';
+    document.getElementById('accuracyFill').style.width  = pct + '%';
     document.getElementById('accuracyFill').style.background =
-        pct >= 85 ? `#15803d` : pct >= 60 ? `#d97706` : `#dc2626`;
+        pct >= 85 ? '#15803d' : pct >= 60 ? '#d97706' : '#dc2626';
     document.getElementById('accuracyPct').textContent = pct + '%';
-    
+
     const fb = document.getElementById('feedback');
     if (pct >= 85) {
-        fb.textContent = 'Really clear pronunication';
-        fb.className = 'feedback correct';
+        fb.textContent = 'Excellent! Really clear pronunciation.';
+        fb.className   = 'feedback correct';
     } else if (pct >= 60) {
-        fb.textContent = 'A few words were off';
-        fb.className = 'feedback partial';
+        fb.textContent = 'Good effort! A few words were off.';
+        fb.className   = 'feedback partial';
     } else {
-        fb.textContent = 'Keep practising';
-        fb.className = 'feedback wrong';
+        fb.textContent = 'Keep practising — try reading it again.';
+        fb.className   = 'feedback wrong';
     }
 
-    document.getElementById('scoreDisplay').textContent = score;
+     document.getElementById('scoreDisplay').textContent = score;
 
     results.push({
         paragraph: PARAGRAPHS[currentIdx].label,
@@ -538,35 +530,35 @@ function scoreAttempt() {
     });
 
     document.getElementById('retryBtn').disabled = false;
-    document.getElementById('nextBtn').disabled = false;
+    document.getElementById('nextBtn').disabled  = false;
 }
 
 function escapeHtml(str) {
-    return str.replace;
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 function resetAttempt() {
     if (isRecording) {
         isRecording = false;
-        if (recognition) { recognition.onend = null; recognition.stop(); recognition = null;}
+        if (recognition) { recognition.onend = null; recognition.stop(); recognition = null; }
     }
-
     isScored = false;
     finalTranscript = '';
 
     resetRecordButton();
-    const p= PARAGRAPHS[currentIdx];
-    document.getElementByID('paraText').textContent = p.text;
 
-    const box = document.getElementByID('transcriptBox');
-    box.textContent = 'Your spoken words will appear here ...';
+    const p = PARAGRAPHS[currentIdx];
+    document.getElementById('paraText').textContent = p.text;
+
+    const box = document.getElementById('transcriptBox');
+    box.textContent = 'Your spoken words will appear here...';
     box.classList.remove('has-text');
 
     document.getElementById('accuracyRow').style.display = 'none';
-    document.getElementById('feedback').textContent = '';
-    document.getElementById('feedback').className = 'feedback';
-    document.getElementById('retryBtn').disabled = true;
-    document.getElementById('nexBtn').disabled = true;
+    document.getElementById('feedback').textContent      = '';
+    document.getElementById('feedback').className        = 'feedback';
+    document.getElementById('retryBtn').disabled         = true;
+    document.getElementById('nextBtn').disabled          = true;
 }
 
 function resetRecordButton() {
@@ -578,10 +570,9 @@ function resetRecordButton() {
     document.getElementById('recordBtn').disabled      = false;
 }
 
-
 function handleNext() {
     if (!isScored) return;
- 
+
     currentIdx++;
     if (currentIdx < PARAGRAPHS.length) {
         loadParagraph();
@@ -594,7 +585,5 @@ function handleNext() {
 
 loadParagraph();
 </script>
-
-
-</body>    
+</body>
 </html>
