@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en>
+<html lang="en">
 
     <head>
         <title>Language Master - Speaking Comprehension Result</title>
@@ -17,7 +17,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                padding: 2 rem;
+                padding: 2rem;
                 position: relative;
                 overflow-x: hidden;
             }
@@ -27,14 +27,14 @@
                 max-width: 100%;
                 background: white;
                 border: 2px solid #bcc8d7;
-                border-radius: 18px 14px 20px 12 px;
+                border-radius: 18px 14px 20px 12px;
                 padding: 2.7rem 3rem 2.3rem;
                 box-shadow: 0 5px 18px rgba(0,0,0,0.05);
             }
  
             .result-header { text-align: center; margin-bottom: 2rem; }
             .result-title  { font-size: 2rem; color: #243447; margin-bottom: 0.4rem; }
-            .result-msg    { color: #6a7280; font-size: 1 rem; }
+            .result-msg    { color: #6a7280; font-size: 1rem; }
  
             .score-box {
                 display: flex;
@@ -45,12 +45,12 @@
                 border-radius: 14px 18px 13px 17px;
                 padding: 1.2rem;
                 margin-bottom: 2rem;
-                transform: rotate(-1 deg);
+                transform: rotate(-1deg);
             }
 
             .score-number  { font-size: 3rem; font-weight: bold; color: #243447; }
             .score-divider { font-size: 2rem; color: #b8c4d2; }
-            .score-total   { font-size: 2 rem; color: #b8c4d2; }
+            .score-total   { font-size: 2rem; color: #b8c4d2; }
             .score-label   { margin-top: 4px; text-align: center; color: #8b95a3; font-size: 0.9rem; }
  
             .summary-label {
@@ -67,7 +67,7 @@
             .para-card {
                 background: #f8fbff;
                 border: 1.5px solid #d9e4ef;
-                border-radius: 12px 10px 14px 10 px;
+                border-radius: 12px 10px 14px 10px;
                 padding: 1rem 1.2rem;
             }
 
@@ -108,7 +108,7 @@
 
              .spoken-snippet {
                 margin-top: 0.5rem;
-                font-size: 0.83 rem;
+                font-size: 0.83rem;
                 color: #4a5568;
                 background: white;
                 border-radius: 6px;
@@ -148,7 +148,7 @@
                 color: white;
                 padding: 12px;
                 cursor: pointer;
-                border-radius: 13px 17px 11px 15 px;
+                border-radius: 13px 17px 11px 15px;
                 font-family: 'Kalam', cursive;
                 font-size: 1rem;
                 transition: 0.15s;
@@ -166,7 +166,7 @@
     </head>
 
     <body>
-    <img scr="pixiart-drawing.png" class="doodle stars">
+    <img src="pixiart-drawing.png" class="doodle stars">
     <img src="worm.png"            class="doodle worm">
     <img src="cat.png"             class="doodle cat">
     <img src="guy.png"             class="doodle guy">
