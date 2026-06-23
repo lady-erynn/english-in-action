@@ -92,9 +92,13 @@ Technologies used in this project:
 
 
 I have used the following technologies:
+
 HTML
+
 CSS
+
 Javascript
+
 Web Speech API
 
 
