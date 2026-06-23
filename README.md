@@ -3,7 +3,9 @@ A little web app I made for English In Action, a program run by teens from Afgha
 <img width="291" height="308" alt="image" src="https://github.com/user-attachments/assets/81fc8b23-953a-4340-ab01-d476f419d7f5" />
 
 It is led by my friend Mahdiya N. (15), who lives in Afghanisthan. Despite the struggles she faces in her community, she doesn't let it stop her from showing up for others. she's the og goat<3
+
 I've developed this app for the participants of English In Action, after we found out that many of our participants struggled with understanding different accents and were insecure about theirs. To help with this, I started building the EIA platform.
+
 17/6/26 - I've added the first feature, a spelling checker. It uses a standard english accent. Participants type the spelling of the word that they heard, and receive instant feedback.
 They also get a final review at the end.
 <img width="1806" height="953" alt="image" src="https://github.com/user-attachments/assets/b09a28dd-144c-4bad-b054-53f34dcf7f86" />
