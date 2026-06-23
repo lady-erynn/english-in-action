@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="device-width, initial-scale=1.0"/>
-        <title>Language Master : Speaking Comprehension</title>
+        <title>Language Master : Speaking Comprehension section</title>
         <style>
             * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -11,6 +11,7 @@
     width: 100%;
     padding: 11px;
     border: none;
+    
     border-radius: 8px;
     background: #dc2626;
     color: white;
@@ -45,6 +46,7 @@
             .top-bar {
                 display: flex;
                 align-items: center;
+
                 justify-content: space-between;
                 margin-bottom: 1.4rem;
             }
@@ -65,6 +67,7 @@
 
             .progress-bar-bg {
                 height: 6px;
+
                 background: #e3e8f0;
                 border-radius: 6px;
                 margin-bottom: 1.6rem;
@@ -147,6 +150,8 @@
             }
 
             .btn-record:disabled { cursor: not-allowed; opacity: 0.5; }
+
+
 
             @keyframes pulse-border {
 
@@ -236,6 +241,9 @@
             }
 
             .btn-retry-attempt:hover:not(:disabled) { background: #f1f5f9; }
+
+
+
             .btn-retry-attempt:disabled { opacity: 0.4; cursor: not-allowed; }
 
             .btn-next {
@@ -303,12 +311,14 @@
         </div>
 
         <div class="no-support" id="noSupport">
+
             Your browser doesn't support speech recognition :[
             Pwease try Chrome or Edge on a desktop/Android device.
         </div>
 
         <div class="para-section">
             <div class="para-label" id="paraLabel">Paragraph 1</div>
+
             <p class="para-text" id="paraText"></p>
         </div>
 
@@ -330,7 +340,9 @@
         <div class="accuracy-row" id="accuracyRow" style="display:none">
             <span style="font-size:12px; color:#666; white-space:nowrap">Accuracy</span>
             <div class="accuracy-bar-bg">
+
                 <div class="accuracy-bar-fill" id="accuracyFill"></div>
+
             </div>
             <span class="accuracy-pct" id="accuracyPct">0%</span>
         </div>
@@ -372,6 +384,7 @@ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogni
 
 if (!SpeechRecognition) {
     document.getElementById('noSupport').style.display = 'block';
+
     document.getElementById('recordBtn').disabled = true;
 }
 
@@ -409,12 +422,14 @@ function buildRecognition() {
             isRecording = false;
             document.getElementById('feedback').textContent = 'Microphone access denied.';
             document.getElementById('feedback').className = 'feedback wrong';
+
             resetRecordButton();
         }
     };
 
     r.onend = function() {
         if (isRecording) {
+
             recognition = buildRecognition();
             recognition.start();
         }
@@ -554,7 +569,7 @@ if (!spoken) {
     paraEl.innerHTML = targetWords.map((w, i) => {
 
         const cls = wordStatuses[i];
-        // use the original casing from target text where possible
+        // use the original casing from target text whereevah possible
         return `<span class="w-${cls}">${escapeHtml(targetWords[i])}</span>`;
     }).join(' ');
 
