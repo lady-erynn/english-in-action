@@ -61,7 +61,7 @@
                 font-size: 0.85rem;
             }
  
-            /* per-paragraph result cards */
+            /* per-para result cards */
             .para-results { display: flex; flex-direction: column; gap: 14px; margin-bottom: 2rem; }
  
             .para-card {
@@ -207,13 +207,15 @@
     const passes   = results.filter(r => r.accuracy >= 85).length;
  
     function getMessage(p) {
-        if (p === 3) return "all three paragraphs nailed. seriously impressive!";
-        if (p === 2) return "great speaking! just one more to perfect.";
-        if (p === 1) return "a solid start — keep reading aloud every day!";
-        return "speaking is tough — keep practising and you'll get there.";
+        if (p === 3) return "a legend is born...";
+
+        if (p === 2) return "two paragraphs read beautifully, nice going!";
+        if (p === 1) return "you defeated one paragraph, but two remain. will you give up?";
+        return "words can be stubborn, but you can bend them to your will with practise";
     }
  
     document.getElementById('scoreNumber').textContent = passes;
+    
     document.getElementById('resultMsg').textContent   = getMessage(passes);
  
     const container = document.getElementById('paraResults');
@@ -244,6 +246,7 @@
     }
  
     function goHome()    { window.location.href = 'index.html';   }
+    
     function retryQuiz() { window.location.href = 'sc_quiz.html'; }
 </script>
 </body>

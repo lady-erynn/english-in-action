@@ -197,14 +197,19 @@
     const results = JSON.parse(sessionStorage.getItem('rcResults')) || [];
 
     function getMessage(s) {
-        if (s === 10 ) return "perfect score! you read well";
-        if (s >= 8 ) return "really strong reading!";
-        if (s >= 6 ) return "not bad. a few details slipped by";
-        if ( s>= 4 ) return "keep reading, you'll get there";
-        return "re-read the paragraphs and try again";
+        if (s === 10 ) return "10/10, perfect score! you read well";
+
+        if (s >= 8 ) return "excellent reading! only a few tiny details got away!";
+
+        if (s >= 6 ) return "good effort! some information escaped through the cracks";
+
+        if ( s>= 4 ) return "your brain understood most of it... buffering the rest.";
+
+        return "those paragraphs are tricky little creatures. read them again and show who's boss";
     }
 
     document.getElementById('scoreNumber').textContent = score;
+
     document.getElementById('resultMsg').textContent = getMessage(score);
 
     const tbody = document.getElementById('summaryBody');
@@ -212,9 +217,12 @@
 
     results.forEach((r, i) => {
         if (r.section !== lastSection) {
+
+
             lastSection = r.section;
             const sep = document.createElement('tr');
             sep.className = 'section-header';
+
             sep.innerHTML = `<td colspan="5">${r.section}</td>`;
             tbody.appendChild(sep);
         }

@@ -203,8 +203,10 @@
         </div>
         
         <div class="progress-bar-bg">
+
             <div class="progress-bar-fill" id="progressBar" style="width:10%"></div>
         </div>    
+
 
         <!-- paragraph display -->
          <div class="para-section" id="paraSection">
@@ -348,28 +350,34 @@ function loadQuestion() {
     document.getElementById('paraText').textContent = sec.paragraph;
 
     document.getElementById('qNum').textContent = globalQ + 1;
+
     document.getElementById('progressBar').style.width = ((globalQ + 1) / 10 * 100) + '%';
     document.getElementById('nextBtn').textContent = (globalQ === 9) ? 'FINISH' : 'NEXT' ;
 
     document.getElementById('questionText').textContent = qData.q;
 
     const container = document.getElementById('optionsContainer');
+
     container.innerHTML = '';
     qData.options.forEach((opt,i) => {
+
         const btn = document.createElement('button');
         btn.className = 'option-btn';
         btn.innerHTML = `<span class="opt-letter">${LETTERS[i]}</span> ${opt}`;
         btn.onclick = () => selectOption(i);
+
         container.appendChild(btn);
     });
 
     document.getElementById('feedback').textContent = '';
     document.getElementById('feedback').className = 'feedback';
 
+
 }
 
 function selectOption(chosenIdx) {
     if (answered) return;
+
     answered = true;
 
     const qData = currentQuestion();
@@ -380,6 +388,8 @@ function selectOption(chosenIdx) {
     btns.forEach((btn, i) => {
         btn.disabled = true;
         if ( i === chosenIdx && isCorrect) btn.classList.add('correct');
+
+
         if ( i === chosenIdx && !isCorrect) btn.classList.add('wrong');
         if ( i === correct && !isCorrect) btn.classList.add('reveal');
     });
@@ -387,10 +397,12 @@ function selectOption(chosenIdx) {
     const fb = document.getElementById('feedback');
 
     if (isCorrect) {
+
         score++;
         fb.textContent = 'Correct!';
         fb.className = 'feedback correct';
     }
+    
     else {
         fb.textContent = 'Wrong! Correct answer: ' + LETTERS[correct];
         fb.className = 'feedback wrong';
@@ -398,9 +410,11 @@ function selectOption(chosenIdx) {
 
     document.getElementById('scoreDisplay').textContent = score;
 
+
     results.push({
         section: currentSection().label,
         question: qData.q,
+
         correctAnswer: qData.options[correct],
         yourAnswer: qData.options[chosenIdx],
         ok: isCorrect
@@ -409,6 +423,7 @@ function selectOption(chosenIdx) {
 
 function handleNext() {
     if (!answered) return;
+
 
     globalQ++;
     qIndexInSection++;
@@ -428,6 +443,8 @@ function handleNext() {
 }
 
 loadQuestion();
+
 </script>
 </body>    
+
 </html>

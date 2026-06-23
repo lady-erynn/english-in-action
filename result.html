@@ -338,12 +338,11 @@
 
 <script>
 
-    // retrieving quiz stuff. hopefully it survived
+    // retrieving quiz stuff
     const score = parseInt(sessionStorage.getItem('spellScore')) || 0;
     const results = JSON.parse(sessionStorage.getItem('spellResults')) || [];
 
 
-    // little messages because empty space felt sad
     function getMessage(score) {
 
         if (score === 10) {
@@ -378,13 +377,12 @@
 
         const tr = document.createElement("tr");
 
-        // green yay, red nay
+        // green yay, red nay (twisted games?)
         const answerClass =
             r.ok
             ? "your-answer-correct"
             : "your-answer-wrong";
 
-        // words > symbols
         const status =
             r.ok
             ? "nice"

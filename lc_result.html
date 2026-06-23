@@ -191,11 +191,11 @@
         const results = JSON.parse(sessionStorage.getItem('lcResults')) || [];
 
         function getMessage(s) {
-            if (s === 10) return "perfect score";
-            if (s >=8) return "great at listening";
-            if (s >=6) return "not bad";
-            if (s >=4) return "keep practising";
-            return "try again";
+            if (s === 10) return "perfect score! your ears deserve a trophy";
+            if (s >=8) return "pretty good! a few words slipped past.";
+            if (s >=6) return "not bad! some sneaky words got away";
+            if (s >=4) return "good try but there's always more room for improvement<3";
+            return "mission failed, but we believe in second chances ;)";
         }
 
         document.getElementById('scoreNumber').textContent = score;
