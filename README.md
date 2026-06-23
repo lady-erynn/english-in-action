@@ -1,9 +1,10 @@
-English In Action is an online program that I help run. English In Action aims to help the non-English speaking community with better fluency and confidence.
+A little web app I made for English In Action, a program run by teens from Afghanistan, Uganda, Armenia, and India to help non-native English speakers build confidence. I'm going to change it (a LOT) depending upon the participants' feedback
+
 <img width="291" height="308" alt="image" src="https://github.com/user-attachments/assets/81fc8b23-953a-4340-ab01-d476f419d7f5" />
 
-It is run by by friend Mahdiya N. (15), who lives in Afghanisthan. Despite the struggles she faces in her community, she still rises to every occasion splendidly. she's the og goat.
-I've developed this app for the participants of English In Action, after we found out that many of our participants' struggled with understanding different accents. To help with this, I started building the EIA platform.
-17/6/26 - I've added only the first feature, a spelling checker. It uses a standard english accent. Participants type the spelling of the word that they heard, and receive instant feedback.
+It is led by my friend Mahdiya N. (15), who lives in Afghanisthan. Despite the struggles she faces in her community, she doesn't let it stop her from showing up for others. she's the og goat<3
+I've developed this app for the participants of English In Action, after we found out that many of our participants struggled with understanding different accents and were insecure about theirs. To help with this, I started building the EIA platform.
+17/6/26 - I've added the first feature, a spelling checker. It uses a standard english accent. Participants type the spelling of the word that they heard, and receive instant feedback.
 They also get a final review at the end.
 <img width="1806" height="953" alt="image" src="https://github.com/user-attachments/assets/b09a28dd-144c-4bad-b054-53f34dcf7f86" />
 
@@ -13,7 +14,7 @@ Usage: you can try it out with https://english-in-action.netlify.app/
 
 AI usage: Yes, AI was used during development. I had initially hosted the audio locally through my terminal and needed help debugging it TvT I also used AI when I got super confused with positioning the doodles and to resolve a few bugs along the way.
 
-However, the project itself was primarily typed and assembled by me.
+However, the project itself was primarily assembled by me.
 
 Revision History
  
@@ -44,7 +45,7 @@ Note :
 WebSpeech API which Google Chrome supports seamlessly.
 
 2. i have tested this code in Brave browser. Due to restrictions
-in accessing WebsSpeech API within Brave browser, some functionality
+in accessing WebsSpeech API within Brave browser, some functionalities
 did not work correctly
 
 Timeline tracking Visuals :
