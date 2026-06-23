@@ -7,6 +7,22 @@
         <style>
             * { box-sizing: border-box; margin: 0; padding: 0; }
 
+.btn-stop {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 8px;
+    background: #dc2626;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    font-family: Arial, sans-serif;
+}
+.btn-stop:hover:not(:disabled) { opacity: 0.85; }
+.btn-stop:disabled { opacity: 0.35; cursor: not-allowed; }
+
             body {
                 font-family: Arial, sans-serif;
                 background-color: #f0f4f8;
@@ -288,17 +304,21 @@
             <p class="para-text" id="paraText"></p>
         </div>
 
-        <div class="record-area">
-            <button class="btn-record" id="recordBtn" onclick="toggleRecord()">
-                <span class="record-icon" id="recordIcon">🎙️</span>
-                <div class="record-text-col">
-                    <span class="record-label" id="recordLabel">Read the paragraph aloud</span>
-                    <span class="record-hint"  id="recordHint">Click to start recording</span>
-                </div>
-            </button>
-
-            <div class="transcript-box" id="transcriptBox">Your spoken words will appear here...</div>
+<div class="record-area">
+    <button class="btn-record" id="recordBtn" onclick="startRecording()">
+        <span class="record-icon" id="recordIcon">🎙️</span>
+        <div class="record-text-col">
+            <span class="record-label" id="recordLabel">Read the paragraph aloud</span>
+            <span class="record-hint"  id="recordHint">Click to start recording</span>
         </div>
+    </button>
+
+    <button class="btn-stop" id="stopBtn" onclick="stopAndScore()" disabled>
+        ⏹ STOP &amp; CHECK
+    </button>
+
+    <div class="transcript-box" id="transcriptBox">Your spoken words will appear here...</div>
+</div>
 
         <div class="accuracy-row" id="accuracyRow" style="display:none">
             <span style="font-size:12px; color:#666; white-space:nowrap">Accuracy</span>
@@ -333,13 +353,13 @@ const PARAGRAPHS = [
     }
 ];
 
-let currentIdx = 0;
-let score      = 0;
-let results    = [];
-let isRecording   = false;
-let isScored      = false;
-let recognition   = null;
-let finalTranscript = '';
+    let currentIdx = 0;
+    let score      = 0;
+    let results    = [];
+    let isRecording   = false;
+    let isScored      = false;
+    let recognition   = null;
+    let finalTranscript = '';
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -351,12 +371,11 @@ if (!SpeechRecognition) {
 function buildRecognition() {
     const r = new SpeechRecognition();
     r.lang = 'en-GB';
-    r.continuous = true;
+    r.continuous = false;        // ← change from true to false
     r.interimResults = true;
 
     r.onresult = function(e) {
         let interim = '';
-        finalTranscript = '';
         for (let i = 0; i < e.results.length; i++) {
             if (e.results[i].isFinal) {
                 finalTranscript += e.results[i][0].transcript + ' ';
@@ -371,18 +390,21 @@ function buildRecognition() {
     };
 
     r.onerror = function(e) {
+        if (e.error === 'no-speech') return;
         console.error('Speech recognition error:', e.error);
-        stopRecording();
         if (e.error === 'not-allowed') {
-            document.getElementById('feedback').textContent = 'Microphone access denied. Please allow microphone and try again.';
+            isRecording = false;
+            document.getElementById('feedback').textContent = 'Microphone access denied.';
             document.getElementById('feedback').className = 'feedback wrong';
+            resetRecordButton();
         }
     };
 
     r.onend = function() {
         if (isRecording) {
-            // auto-restart while still in recording mode (browser cuts off after ~60s)
-            try { r.start(); } catch(err) {}
+            // session ended naturally (silence/timeout) — restart a fresh one
+            recognition = buildRecognition();
+            recognition.start();
         }
     };
 
@@ -403,17 +425,8 @@ function loadParagraph() {
     resetAttempt();
 }
 
-function toggleRecord() {
-    if (isScored) return;
-    if (isRecording) {
-        stopRecording();
-        scoreAttempt();
-    } else {
-        startRecording();
-    }
-}
-
 function startRecording() {
+    if (isScored || isRecording) return;
     isRecording = true;
     finalTranscript = '';
 
@@ -421,10 +434,12 @@ function startRecording() {
     recognition.start();
 
     document.getElementById('recordBtn').className    = 'btn-record recording';
-    document.getElementById('recordIcon').textContent  = '⏹️';
+    document.getElementById('recordBtn').disabled     = true;
+    document.getElementById('recordIcon').textContent  = '🎙️';
     document.getElementById('recordLabel').textContent = 'Recording...';
     document.getElementById('recordLabel').className   = 'record-label recording-lbl';
-    document.getElementById('recordHint').textContent  = 'Click to stop and check';
+    document.getElementById('recordHint').textContent  = 'Speak clearly into your microphone';
+    document.getElementById('stopBtn').disabled        = false;   // ← enable stop
 
     const box = document.getElementById('transcriptBox');
     box.textContent = 'Listening...';
@@ -436,21 +451,38 @@ function startRecording() {
     document.getElementById('nextBtn').disabled     = true;
 }
 
-function stopRecording() {
-    isRecording = false;
-    if (recognition) {
-        recognition.onend = null; // prevent auto-restart
-        recognition.stop();
-        recognition = null;
-    }
+function stopAndScore() {
+    if (!isRecording) return;
+    isRecording = false;                   // prevent onend auto-restart
 
+    if (recognition) {
+        recognition.onend = function() {   // score AFTER final result is delivered
+            recognition = null;
+            finishStopUI();
+            scoreAttempt();
+        };
+        recognition.stop();                // triggers onresult (final) → then onend
+    } else {
+        finishStopUI();
+        scoreAttempt();
+    }
+}
+
+function finishStopUI() {
+    document.getElementById('stopBtn').disabled        = true;
     document.getElementById('recordBtn').className    = 'btn-record done';
+    document.getElementById('recordBtn').disabled     = true;
     document.getElementById('recordIcon').textContent  = '✅';
     document.getElementById('recordLabel').textContent = 'Recording complete';
     document.getElementById('recordLabel').className   = 'record-label done-lbl';
     document.getElementById('recordHint').textContent  = 'See your result below';
 }
 
+function stopRecording() {               // kept for resetAttempt() usage
+    isRecording = false;
+    if (recognition) { recognition.onend = null; recognition.stop(); recognition = null; }
+    finishStopUI();
+}
 
 function tokenise(str) {
     return str.toLowerCase().replace(/[^a-z0-9\s']/g, '').trim().split(/\s+/).filter(Boolean);
@@ -461,13 +493,14 @@ function scoreAttempt() {
     const target = PARAGRAPHS[currentIdx].text;
     const spoken = finalTranscript.trim();
 
-    if (!spoken) {
-        document.getElementById('feedback').textContent = 'Nothing was recorded. Try again!';
-        document.getElementById('feedback').className   = 'feedback wrong';
-        document.getElementById('retryBtn').disabled    = false;
-        resetRecordButton();
-        return;
-    }
+if (!spoken) {
+    isScored = false;   // ← add this line
+    document.getElementById('feedback').textContent = 'Nothing was recorded. Try again!';
+    document.getElementById('feedback').className   = 'feedback wrong';
+    document.getElementById('retryBtn').disabled    = false;
+    resetRecordButton();
+    return;
+}
 
     const targetWords = tokenise(target);
     const spokenWords  = tokenise(spoken);
@@ -508,16 +541,16 @@ function scoreAttempt() {
     document.getElementById('accuracyPct').textContent = pct + '%';
 
     const fb = document.getElementById('feedback');
-    if (pct >= 85) {
-        fb.textContent = 'Excellent! Really clear pronunciation.';
-        fb.className   = 'feedback correct';
-    } else if (pct >= 60) {
-        fb.textContent = 'Good effort! A few words were off.';
-        fb.className   = 'feedback partial';
-    } else {
-        fb.textContent = 'Keep practising — try reading it again.';
-        fb.className   = 'feedback wrong';
-    }
+    if (pct >= 90) {
+    fb.textContent = 'whoa, are you secretly a voice actor?';
+    fb.className   = 'feedback correct';
+} else if (pct >= 60) {
+    fb.textContent = 'A few words decided to freestyle, but we respect the creativity';
+    fb.className   = 'feedback partial';
+} else {
+    fb.textContent = 'English.exe has stopped responding. Please try again';
+    fb.className   = 'feedback wrong';
+}
 
      document.getElementById('scoreDisplay').textContent = score;
 
@@ -563,11 +596,12 @@ function resetAttempt() {
 
 function resetRecordButton() {
     document.getElementById('recordBtn').className    = 'btn-record';
+    document.getElementById('recordBtn').disabled     = false;
     document.getElementById('recordIcon').textContent  = '🎙️';
     document.getElementById('recordLabel').textContent = 'Read the paragraph aloud';
     document.getElementById('recordLabel').className   = 'record-label';
     document.getElementById('recordHint').textContent  = 'Click to start recording';
-    document.getElementById('recordBtn').disabled      = false;
+    document.getElementById('stopBtn').disabled        = true;
 }
 
 function handleNext() {

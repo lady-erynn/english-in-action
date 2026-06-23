@@ -20,6 +20,30 @@ erynn<3
 
 Revision History
 17-June-2026  Phase-1 of Language Master Project. 
-              This phase contains a Spell Check activity
+              This phase contains Spell Check activity
 20-June-2026  Phase-2 of Language Master Project
-              This phase contains a Reading Comprehension activity 
+              This phase contains Reading Comprehension activity
+20-June-2026  Phase-3 of Language Master Project
+              This phase contains Listening Comprehension activity
+21-June-2026  Phase-4 of Language Master Project
+              This phase contains Typing skill test activity
+22-June-2026  Phase-5 of Language Master Project
+              This phase containt Speaking Comprehension activity
+
+Note : 
+
+1.This project code runs smoothly in Google Chrome. It uses 
+WebSpeech API which Google Chrome supports seamlessly.
+
+2. We have tested this code in Brave browser. Due to restrictions
+in accessing WebsSpeech API within Brave browser, some functionality
+would not work correctly
+
+Timeline tracking Visuals :
+
+Here we have given the visuals of my project work :
+
+Stage : Phase-1 
+Functionality : Spell Check module creation
+![App Screenshot](assets/phase-1.png)
+
