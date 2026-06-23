@@ -43,21 +43,27 @@ Timeline tracking Visuals :
 
 Here we have given the visuals of my project work :
 
+
 Stage : Phase-1 
+
 
 Functionality : Spell Check module creation
 
 ![App Screenshot](assets/phase-1.png)
 
 
+
 Stage : Phase-2
+
 
 Functionality : Spell Check , Reading Comprehension
 
 ![App Screenshot](assets/phase-2.png)
 
 
+
 Stage : Phase-3
+
 
 Functionality : Spell Check, Reading Comprehension, Listening Comprehension
 
@@ -66,9 +72,11 @@ Functionality : Spell Check, Reading Comprehension, Listening Comprehension
 
 Stage : Phase-4
 
+
 Functionality : Spell Check, Reading Comprehension, Listening Comprehension, Typing skill
 
 ![App Screenshot](assets/phase-4.png)
+
 
 
 Stage : Phase-5
@@ -76,4 +84,25 @@ Stage : Phase-5
 Functionality : Spell Check, Reading Comprehension, Listening Comprehension, Typing skill, 
 Speaking  Comprehension
 
+
 ![App Screenshot](assets/phase-5.png)
+
+
+Technologies used in this project:
+
+
+I have used the following technologies:
+HTML
+CSS
+Javascript
+Web Speech API
+
+
+How to Use:
+1. Open https://english-in-action.netlify.app/      in ***** GOOGLE CHROME ***** browser
+2. Choose an activity from the menu
+3. Follow the on-screen instructions
+
+
+
+
