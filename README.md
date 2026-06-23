@@ -12,11 +12,13 @@ They also get a final review at the end.
 
 The doodles are hand drawn by me. im not really good at drawing so i'm still working on it (wip).
 
-Usage: you can try it out with https://english-in-action.netlify.app/
+Usage: you can try it out with https://englishin-action.netlify.app/
 
-AI usage: Yes, AI was used during development. I had initially hosted the audio locally through my terminal and needed help debugging it TvT I also used AI when I got super confused with positioning the doodles and to resolve a few bugs along the way.
+AI usage: Yes, AI was used during development. I had initially hosted the audio locally through my terminal and needed help debugging it TvT
 
-However, the project itself was primarily assembled by me.
+I also used AI when I got super confused with positioning the doodles and to resolve a few bugs along the way.
+
+However, the project itself was primarily assembled by me .
 
 Revision History
  
@@ -38,7 +40,7 @@ Revision History
 
 22-June-2026  Phase-5 of Language Master Project
 
-              This phase containt Speaking Comprehension activity
+              This phase contains Speaking Comprehension activity
               
 
 Note : 
@@ -109,7 +111,7 @@ Technologies used in this project:
 
 How to Use:
 
-1. Open https://english-in-action.netlify.app/ in **google chrome**
+1. Open https://englishin-action.netlify.app/ in **google chrome**
 2. Choose an activity from the menu
 3. Follow the on-screen instructions
 4. enjoy yayaya
