@@ -7,19 +7,16 @@ I've developed this app for the participants of English In Action, after we foun
 They also get a final review at the end.
 <img width="1806" height="953" alt="image" src="https://github.com/user-attachments/assets/b09a28dd-144c-4bad-b054-53f34dcf7f86" />
 
-The doodles are hand drawn by me. i have had to struggle a lot to draw them, so they are still a WIP.
+The doodles are hand drawn by me. im not really good at drawing so i'm still working on it (wip).
 
 Usage: you can try it out with https://english-in-action.netlify.app/
 
-AI usage: Yes, AI was used during development. I initially hosted the audio locally through my terminal and needed help debugging it. I also used AI when I got extremely confused with positioning the doodles and to resolve a few bugs along the way.
+AI usage: Yes, AI was used during development. I had initially hosted the audio locally through my terminal and needed help debugging it TvT I also used AI when I got super confused with positioning the doodles and to resolve a few bugs along the way.
 
 However, the project itself was primarily typed and assembled by me.
 
-signing off,
-erynn<3
-
 Revision History
-
+ 
 17-June-2026  Phase-1 of Language Master Project. 
 
               This phase contains Spell Check activity
@@ -46,13 +43,11 @@ Note :
 1.This project code runs smoothly in Google Chrome. It uses 
 WebSpeech API which Google Chrome supports seamlessly.
 
-2. We have tested this code in Brave browser. Due to restrictions
+2. i have tested this code in Brave browser. Due to restrictions
 in accessing WebsSpeech API within Brave browser, some functionality
-would not work correctly
+did not work correctly
 
 Timeline tracking Visuals :
-
-Here we have given the visuals of my project work :
 
 
 Stage : Phase-1 
@@ -100,24 +95,24 @@ Speaking  Comprehension
 
 
 Technologies used in this project:
+1. HTML
 
+2. CSS
 
-I have used the following technologies:
+3. Javascript
 
-HTML
-
-CSS
-
-Javascript
-
-Web Speech API
+4. Web Speech API
 
 
 How to Use:
 
-1. Open https://english-in-action.netlify.app/      in ***** GOOGLE CHROME ***** browser
+1. Open https://english-in-action.netlify.app/ in **google chrome**
 2. Choose an activity from the menu
 3. Follow the on-screen instructions
+4. enjoy yayaya
+
+signing off,
+erynn<3
 
 
 
