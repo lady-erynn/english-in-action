@@ -47,3 +47,18 @@ Stage : Phase-1
 Functionality : Spell Check module creation
 ![App Screenshot](assets/phase-1.png)
 
+Stage : Phase-2
+Functionality : Spell Check , Reading Comprehension
+![App Screenshot](assets/phase-2.png)
+
+Stage : Phase-3
+Functionality : Spell Check, Reading Comprehension, Listening Comprehension
+![App Screenshot](assets/phase-3.png)
+
+Stage : Phase-4
+Functionality : Spell Check, Reading Comprehension, Listening Comprehension, Typing skill
+![App Screenshot](assets/phase-4.png)
+
+Stage : Phase-5
+Functionality : Spell Check, Reading Comprehension, Listening Comprehension, Typing skill, Speaking  Comprehension
+![App Screenshot](assets/phase-5.png)
