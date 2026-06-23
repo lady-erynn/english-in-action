@@ -19,16 +19,27 @@ signing off,
 erynn<3
 
 Revision History
+
 17-June-2026  Phase-1 of Language Master Project. 
+
               This phase contains Spell Check activity
+
 20-June-2026  Phase-2 of Language Master Project
+
               This phase contains Reading Comprehension activity
+
 20-June-2026  Phase-3 of Language Master Project
+
               This phase contains Listening Comprehension activity
+
 21-June-2026  Phase-4 of Language Master Project
+
               This phase contains Typing skill test activity
+
 22-June-2026  Phase-5 of Language Master Project
+
               This phase containt Speaking Comprehension activity
+              
 
 Note : 
 
@@ -103,6 +114,7 @@ Web Speech API
 
 
 How to Use:
+
 1. Open https://english-in-action.netlify.app/      in ***** GOOGLE CHROME ***** browser
 2. Choose an activity from the menu
 3. Follow the on-screen instructions
