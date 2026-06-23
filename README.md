@@ -2,7 +2,7 @@ A little web app I made for English In Action, a program run by teens from Afgha
 
 <img width="291" height="308" alt="image" src="https://github.com/user-attachments/assets/81fc8b23-953a-4340-ab01-d476f419d7f5" />
 
-It is led by my friend Mahdiya N. (15), who lives in Afghanisthan. Despite the struggles she faces in her community, she doesn't let it stop her from showing up for others. she's the og goat<3
+It is led by my friend Mahdiya N. (15), who lives in Afghanisthan. Despite the struggles she faces in her country, she still does her best to help others. she's the og goat<3
 
 I've developed this app for the participants of English In Action, after we found out that many of our participants struggled with understanding different accents and were insecure about theirs. To help with this, I started building the EIA platform.
 
