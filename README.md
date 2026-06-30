@@ -41,6 +41,10 @@ Revision History
 22-June-2026  Phase-5 of Language Master Project
 
               This phase contains Speaking Comprehension activity
+
+30-June-2026  Bugs identified by Reviewer has been fixed
+
+30-June-2026  Progress report has been added                         
               
 
 Note : 
