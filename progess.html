@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8 />
+        <meta name="viewport" content="device-width, inital-scale=1.0"/>
+        <title> Language Master - Progess Report</title>
+        <link rel="preconnect" href="https://fonts.googleapis">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <ling href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet";
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Kalam', cursive;
+            background: #eef4fb;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 2.5rem 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .doodle { position: fixed; z-index: -1; image-rendering: pixelated; opacity: 0.9; }
+        .stars { width: 130px; top: 70px; right: 100px; }
+        .worm { width: 100px; top: 80px; left: 90px; transform : rotate(180deg); }
+        .cat { width: 140px; right: 70px; bottom: 80px; }
+        .guy { width: 100px; left: 200px; bottom: 70px; }
+
+        .card{
+            width: 700px;
+            max-width: 100%;
+            background: white;
+            border: 2px solid #bcc8d7;
+            border-radius: 18px 14px 20px 12px;
+            padding: 2.7rem 3rem 2.3rem;
+            box-shadow: 0 5px 18px rgba{0,0,0,0.05};
+        }
+
+        .page-header { text:align: center; margin-bottom: 2rem;}
+        .page-title { font-size: 2 rem; color: #243447; margin-bottom: 0.3rem; }
+        .page-sub { font-size: 0.95 rem; color: #8b95a3; }
+
+        .summary-strip{
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            background: #f8fbff;
+            border: 2px solid #d9e4ef;
+            border-radius: 14px 18px 13px 17px;
+            padding: 1.1rem 1.4rem;
+            margin-bottom: 2rem;
+            transform: rotate(-0.5deg);
+        }
+
+        .stat-box { text-align: center; min-height: 80 px; }
+        .stat-num { font-size: 2rem; font-weight: bold; color: #243447;}
+        .stat-lbl { font-size: 0.78rem; color: #8b95a3; margin-top: 2px; }
+
+        .stat-divider {
+            width: 1px;
+            background: #d9e4ef;
+            align-self: stretch;
+        }
+
+        .section-label{
+            color: #8b95a3;
+            margin-bottom: 1 rem;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+            font-size: 0.85rem;
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 2rem;
+        }
+
+        .activity-row {
+            background: #f8fbff;
+            border: 1.5px solid #d9e4ef;
+            border-radius: 12px 10px 14px 10px;
+            padding: 1rem 1.2rem;
+        }
+
+        .activity-row.not-taken {
+            background: #fafafa;
+            border-color: #e5eaf0;
+            opacity: 0.75;
+        }
+
+        .row-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.55rem;
+        }
+
+        .activity-name {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #243447;
+        }
+
+        .badge {
+            font-size: 0.8rem;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .badge.done-high { background: #dcfce7; color: #15803d; }
+        .badge.done-mid { background: #fef9c3; color: #92400e; }
+        .badge.done-low { background: #fee2e2; color: #b91c1c; }
+        .badge.not-taken { background: #f1f5f9; color: #94a3b8; }
+
+        .bar-bg {
+            height: 7px;
+            background: #e3e8f0;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 0.4rem;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.6s ease;
+        }
+
+        .row-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.78rem;
+            color: #8b95a3;
+        }
+
+        .bar-fill.empty { background: #d1d5db; width: 0% !important; }
+
+        .not-taken-msg {
+            font-size: 0.82rem;
+            color: #94a3b8;
+            font-style: italic;
+            margin-top: 0.3rem;
+        }
+
+        .btn-row { display: flex; gap: 12px; margin-top: 0.5rem; }
+
+        .btn-home {
+            flex: 1;
+            background: #32465a;
+            color: white;
+            border: none;
+            border-radius: 13px 17px 11px 15px;
+            padding: 13px;
+            cursor: pointer;
+            font-family: 'Kalam', cursive;
+            font-size: 1rem;
+            font-weight: bold;
+            letter-spacing: 0.05em;
+            transition: opacity 0.15s;
+        
+
+        .btn-home:hover  { opacity: 0.88; }
+        .btn-home:active { transform: scale(0.98); }
+    </style>
+</head>
+
+
+<body>
+
+    <img src="pixiart-drawing.png" class="doodle stars">
+    <img src="worm.png"            class="doodle worm">
+    <img src="cat.png"             class="doodle cat">
+    <img src="guy.png"             class="doodle guy">
+
+    <div class="card">
+
+        <div class="page-header">
+            <div class="page-title">Progress Report</div>
+            <div class="page-sub" id="overallMsg">loading your scores...</div>
+        </div>
+
+        <div class="summary-strip">
+            <div class="stat-box">
+                <div class="stat-num" id="statTaken">0</div>
+                <div class="stat-lbl">Tests Taken</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-box">
+                <div class="stat-num" id="statPct">—</div>
+                <div class="stat-lbl">Avg Score %</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-box">
+                <div class="stat-num" id="statRemain">5</div>
+                <div class="stat-lbl">Tests Remaining</div>
+            </div>
+        </div>
+
+        <p class="section-label">Activity Breakdown</p>
+
+        <div class="activity-list" id="activityList"></div>
+
+        <div class="btn-row">
+            <button class="btn-home" onclick="window.location.href='index.html'">HOME</button>
+        </div>
+
+    </div>
+
+
+<script>
+    const ACTIVITIES = [
+        {
+            name:    'Spell Check',
+            key:     'spellScore',
+            total:   10,
+            type:    'score',          
+        },
+        {
+            name:    'Reading Comprehension',
+            key:     'rcScore',
+            total:   10,
+            type:    'score',
+        },
+        {
+            name:    'Listening Comprehension',
+            key:     'lcScore',
+            total:   10,
+            type:    'score',
+        },
+        {
+            name:    'Typing Skill Test',
+            key:     'typingScore',
+            totalKey:'typingAttempts',  
+            type:    'typing',
+        },
+        {
+            name:    'Speaking Comprehension',
+            key:     'scScore',
+            total:   3,
+            type:    'speaking',       
+        },
+    ];
+
+
+
+    function pct(score, total) {
+        if (!total) return 0;
+        return Math.round((score / total) * 100);
+    }
+
+    function barColor(p) {
+        if (p >= 80) return '#15803d';
+        if (p >= 50) return '#d97706';
+        return '#dc2626';
+    }
+
+    function badgeClass(p) {
+        if (p >= 80) return 'done-high';
+        if (p >= 50) return 'done-mid';
+        return 'done-low';
+    }
+
+    function badgeLabel(p) {
+        if (p >= 80) return '✓ Great';
+        if (p >= 50) return 'Getting there';
+        return 'Keep going';
+    }
+
+
+
+    const list = document.getElementById('activityList');
+    let takenCount  = 0;
+    let totalPctSum = 0;
+
+    ACTIVITIES.forEach(act => {
+        const raw = sessionStorage.getItem(act.key);
+        const row = document.createElement('div');
+
+        if (raw === null) {
+            // NOT TAKEN
+            row.className = 'activity-row not-taken';
+            row.innerHTML = `
+                <div class="row-top">
+                    <span class="activity-name">${act.name}</span>
+                    <span class="badge not-taken">TEST NOT TAKEN</span>
+                </div>
+                <div class="bar-bg"><div class="bar-fill empty"></div></div>
+                <div class="not-taken-msg">Complete this activity to see your score here.</div>
+            `;
+        } else {
+            // TAKEN
+            takenCount++;
+
+            let score, total, pctVal, metaLeft, metaRight;
+
+            if (act.type === 'typing') {
+                score  = parseInt(raw) || 0;
+                total  = parseInt(sessionStorage.getItem(act.totalKey)) || 10;
+                pctVal = pct(score, total);
+                metaLeft  = `${score} correct out of ${total} attempts`;
+                metaRight = `${pctVal}%`;
+            } else if (act.type === 'speaking') {
+                const passes = parseInt(raw) || 0;
+                score  = passes;
+                total  = act.total;
+                pctVal = pct(passes, total);
+                metaLeft  = `${passes} / ${total} paragraphs passed (≥ 85%)`;
+                metaRight = `${pctVal}%`;
+            } else {
+                score  = parseInt(raw) || 0;
+                total  = act.total;
+                pctVal = pct(score, total);
+                metaLeft  = `${score} / ${total} correct`;
+                metaRight = `${pctVal}%`;
+            }
+
+            totalPctSum += pctVal;
+
+            row.className = 'activity-row';
+            row.innerHTML = `
+                <div class="row-top">
+                    <span class="activity-name">${act.name}</span>
+                    <span class="badge ${badgeClass(pctVal)}">${badgeLabel(pctVal)}</span>
+                </div>
+                <div class="bar-bg">
+                    <div class="bar-fill" style="width:${pctVal}%; background:${barColor(pctVal)}"></div>
+                </div>
+                <div class="row-meta">
+                    <span>${metaLeft}</span>
+                    <span>${metaRight}</span>
+                </div>
+            `;
+        }
+
+        list.appendChild(row);
+    });
+
+    document.getElementById('statTaken').textContent   = takenCount;
+    document.getElementById('statRemain').textContent  = ACTIVITIES.length - takenCount;
+
+
+    if (takenCount > 0) {
+        const avg = Math.round(totalPctSum / takenCount);
+        document.getElementById('statPct').textContent = avg + '%';
+    } else {
+        document.getElementById('statPct').textContent = '—';
+    }
+
+
+
+    function getMsg(taken, avg) {
+        if (taken === 0)  return "no tests taken yet. let's get started!";
+        if (taken < 3)    return "good start! more activities to explore...";
+        if (avg >= 80)    return "you're absolutely crushing it !!!!";
+        if (avg >= 60)    return "solid progress!!! keep at it.";
+        if (avg >= 40)    return "getting there — practice makes perfect.";
+        return "every attempt counts. don't stop now!";
+    }
+
+    document.getElementById('overallMsg').textContent =
+        getMsg(takenCount, takenCount > 0 ? Math.round(totalPctSum / takenCount) : 0);
+
+
+</script>
+</body>
+</html>
