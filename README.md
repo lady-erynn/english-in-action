@@ -115,7 +115,7 @@ Technologies used in this project:
 
 How to Use:
 
-1. Open https://english.in.actionn.netlify.app/ in **google chrome**
+1. Open https://englishinactionc0.netlify.app/ in **google chrome**
 2. Choose an activity from the menu
 3. Follow the on-screen instructions
 4. enjoy yayaya
