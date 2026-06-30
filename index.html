@@ -219,6 +219,37 @@
             .btn-start:hover { opacity:0.82;}
             .btn-start:active { transform: scale(0.97);}
 
+            .score-badge {
+                margin-top: 6px;
+                font-size: 11px;
+                font-weight: bold;
+                color : #1d4ed8;
+                min-height: 16px;
+            }
+
+            .score-badge.done { color: #15803d; }
+            .score-badge.not-taken { color: #aaa; font-weight: normal; }
+
+            .btn-progess {
+                width: 100%;
+                margin-top: 4px;
+                padding: 11px;
+                border: 2px dashed #b0b8c8;
+                border-radius: 10px;
+                background: #f8fafc;
+                font-size: 14px;
+                font-weight: bold;
+                color: #1d4ed8;
+                cursor: pointer;
+                letter-spacing: 0.04em;
+                transition: border-color 0.15s, background 0.15s;
+            }
+
+            .btn-progess:hover {
+                border-color: #1d4ed8;
+                background: #eff6ff;
+            }
+
             .doodle {
                 position: fixed;
                 z-index: -1;
@@ -252,31 +283,37 @@
                     <div class="activity-icon"></div>
                     <div class="activity-name">Spell Check</div>
                     <div class="activity-desc">Listen, Spell 10 words</div>
+                    <div class="score-badge" id="badgeSpell"></div>
                 </div>
                 <div class="activity-card" id="cardRC" onclick="selectActivity('rc')">
                     <div class="activity-icon"></div>
                     <div class="activity-name">Reading Comprehension</div>
                     <div class="activity-desc">Read the paragraph. Answer the questions</div>
+                    <div class="score-badge" id="badgeRC"></div>
                 </div>
                 <div class="activity-card" id="cardLC" onclick="selectActivity('lc')">
                     <div class="activity-icon"></div>
                     <div class="activity-name">Listening Comprehension</div>
                     <div class="activity-desc">Listen to a speech. Answer the questions</div>
+                    <div class="score-badge" id="badgeLC"></div>
                 </div>
                 <div class="activity-card" id="cardTyping" onclick="selectActivity('typing')">
                     <div class="activity-icon"></div>
                     <div class="activity-name">Typing Skill Test</div>
                     <div class="activity-desc">Type the sentence 10 times in 30 seconds</div>
+                    <div class="score-badge" id="badgeTyping"></div>
                 </div>
                 <div class="activity-card" id="cardSC" onclick="selectActivity('sc')" style="grid-column: span 2;">
                     <div class="activity-icon"></div>
                     <div class="activity-name">Speaking Comprehension</div>
                     <div class="activity-desc">Read the paragraph aloud - your speech is checked word by word</div>
+                    <div class="score-badge" id="badgeSC"></div>    
                 </div>
             </div>
-
         </div>
-
+    <button class="btn-progess"  onclick="window.location.href='progess.html'">
+        View Progess Report
+    </button>   
 
         <div id="instructionScreen">
             <button class="back-btn" onclick="goBack()"> Back </button>
@@ -484,6 +521,37 @@
         document.getElementById('instructionScreen').style.display= 'none';
         document.getElementById('welcomeScreen').style.display= 'block';
     }
+
+    function loadBadges() {
+        const badges = [
+            { id: 'badgeSpell', key: 'spellScore', total:10, label: 'Spell Check'},
+            { id: 'badgeSC', key: 'rcScore', total: 10, label: 'Reading'},
+            { id: 'badgeLC', key: 'lcScore', total: 10, label: 'Listening'},
+            { id: 'badgeTyping', key: 'typingScore', total: null, label: 'Typing'},
+            { id: 'badgeSC', key: 'scScore', total:3, label: 'Speaking', isSC: true },
+        ];
+
+    badges.forEach(b => {
+        const el = document.getElementByID(b.id);
+        if (!el) return;
+        const raw = sessionStorage.getItem(b.key);
+        if (raw === null) {
+            el.textContent ='-';
+            el.className = 'score-badge not-taken';
+        } else if (b.isSC) {
+            const passes = parseInt(raw) || 0;
+            el.textContent = `Last: ${passes}/3 passed`;
+            el.className = 'score-badge done';
+        } else if (b.total === null) {
+            const attemps = parseInt(sessionStorage.getItem('typingAttempts')), || 10;
+            e1.textContent = `Last: ${raw}/${b.total}`;
+            el.className = 'score-badge none';
+        }
+    });
+}
+
+loadBadges();
+
 </script>
 </body>                
 </html>
