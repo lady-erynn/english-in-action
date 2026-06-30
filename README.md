@@ -12,7 +12,7 @@ They also get a final review at the end.
 
 The doodles are hand drawn by me. im not really good at drawing so i'm still working on it (wip).
 
-Usage: you can try it out with https://eng-in-action.netlify.app/
+Usage: you can try it out with https://englishinactionc0.netlify.app/
 
 AI usage: Yes, AI was used during development. I had initially hosted the audio locally through my terminal and needed help debugging it TvT
 
